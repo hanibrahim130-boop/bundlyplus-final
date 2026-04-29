@@ -49,7 +49,7 @@ export default function Wishlist() {
           >
             {products.map((product) => (
               <StaggerItem key={product.id}>
-                <ProductCard product={product} index={0} />
+                <ProductCard product={product} />
               </StaggerItem>
             ))}
           </StaggerContainer>

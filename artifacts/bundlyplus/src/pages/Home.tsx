@@ -61,7 +61,7 @@ export default function Home() {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch" staggerDelay={0.06}>
             {featuredProducts.map((product) => (
               <StaggerItem key={product.id}>
-                <ProductCard product={product} index={0} />
+                <ProductCard product={product} />
               </StaggerItem>
             ))}
           </StaggerContainer>

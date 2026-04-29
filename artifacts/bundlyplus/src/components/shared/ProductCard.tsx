@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { ShoppingCart, Check, Heart } from 'lucide-react';
 import { Product } from '@/types';
 import { getBrandGradient, getInitials } from '@/lib/brand-theme';
@@ -12,10 +11,9 @@ import { useCurrency } from '@/lib/currency';
 
 interface ProductCardProps {
   product: Product;
-  index?: number;
 }
 
-export const ProductCard = React.memo(function ProductCard({ product, index = 0 }: ProductCardProps) {
+export const ProductCard = React.memo(function ProductCard({ product }: ProductCardProps) {
   const { addToCart, isInCart } = useCart();
   const { isWishlisted, toggle: toggleWishlist } = useWishlist();
   const { t } = useI18n();
@@ -43,12 +41,7 @@ export const ProductCard = React.memo(function ProductCard({ product, index = 0 
   const accStyle = product.account_type ? accountTypeStyles[product.account_type] : null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className={`solid-card rounded-2xl overflow-hidden flex flex-col relative group h-full ${inCart ? 'ring-1 ring-pink-400' : ''}`}
-    >
+    <div className={`solid-card rounded-2xl overflow-hidden flex flex-col relative group h-full animate-[fadeIn_0.35s_ease-out] ${inCart ? 'ring-1 ring-pink-400' : ''}`}>
       <div className="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-700/60 relative overflow-hidden">
         {inCart && (
           <span className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
@@ -150,6 +143,6 @@ export const ProductCard = React.memo(function ProductCard({ product, index = 0 
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 });

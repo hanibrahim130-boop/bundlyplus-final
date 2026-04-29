@@ -85,7 +85,7 @@ export function MadeForMENA() {
         <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5" staggerDelay={0.08}>
           {aiProducts.map((product, i) => (
             <StaggerItem key={product.id}>
-              <ProductCard product={product} index={i} />
+              <ProductCard product={product} />
             </StaggerItem>
           ))}
         </StaggerContainer>
