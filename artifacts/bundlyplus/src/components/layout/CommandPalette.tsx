@@ -12,7 +12,6 @@ import {
 import {
   Home,
   ShoppingBag,
-  Package,
   ShoppingCart,
   Heart,
   Sun,
@@ -27,7 +26,6 @@ import type { Product } from "@/types";
 const NAV_ITEMS = [
   { label: "Home", href: "/", icon: Home },
   { label: "Products", href: "/products", icon: ShoppingBag },
-  { label: "Bundles", href: "/bundles", icon: Package },
   { label: "Cart", href: "/cart", icon: ShoppingCart },
   { label: "Wishlist", href: "/wishlist", icon: Heart },
 ];
@@ -65,7 +63,7 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Search pages, products…" />
+      <CommandInput placeholder="Search pages, products..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
 

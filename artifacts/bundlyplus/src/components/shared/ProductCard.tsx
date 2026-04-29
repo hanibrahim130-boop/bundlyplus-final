@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Check, Heart } from 'lucide-react';
+import { ShoppingCart, Check, Heart, Info } from 'lucide-react';
 import { Product } from '@/types';
 import { getBrandGradient, getInitials } from '@/lib/brand-theme';
 import { getLogoUrl } from '@/utils/logoUtils';
 import { useCart } from '@/hooks/use-cart';
 import { useWishlist } from '@/hooks/use-wishlist';
 import { CategoryBadge } from '@/components/shared/CategoryBadge';
+import { ProductDetailsDialog } from '@/components/shared/ProductDetailsDialog';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
 
@@ -64,7 +65,7 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product.id); }}
           aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           aria-pressed={wishlisted}
-          className={`absolute bottom-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 border shadow-sm hover:scale-110 active:scale-95 ${
+          className={`absolute bottom-3 right-3 z-10 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 border shadow-sm hover:scale-110 active:scale-95 ${
             wishlisted
               ? 'bg-pink-500 border-pink-400 text-white shadow-pink-500/30'
               : 'bg-white/80 dark:bg-slate-800/80 border-white/80 dark:border-white/10 text-slate-400 hover:text-pink-500 dark:text-slate-500 dark:hover:text-pink-400'
@@ -119,6 +120,20 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
           </div>
         )}
 
+        <ProductDetailsDialog
+          product={product}
+          trigger={
+            <button
+              type="button"
+              className="mb-4 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-700 transition-all duration-200 hover:border-pink-200 hover:bg-pink-50 hover:text-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-500/10 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200 dark:hover:border-pink-500/40 dark:hover:bg-pink-500/10 dark:hover:text-pink-300"
+              aria-label={t.productCard.viewDetails.replace('{name}', product.name)}
+            >
+              <Info size={16} />
+              {t.productCard.details}
+            </button>
+          }
+        />
+
         <div className="mt-auto pt-4 border-t border-slate-100/60 dark:border-slate-700/60 w-full flex items-center justify-between">
           <div>
             <div className="text-2xl text-slate-800 dark:text-slate-100 font-display font-bold tabular-nums-p">
@@ -131,7 +146,7 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
 
           <button
             onClick={() => addToCart(product, 'product')}
-            className={`flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+            className={`flex min-h-[44px] items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
               inCart
                 ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
                 : 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-pink-500 dark:hover:bg-pink-500 dark:hover:text-white hover:shadow-lg hover:shadow-pink-500/30 hover:-translate-y-0.5'

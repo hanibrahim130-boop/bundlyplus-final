@@ -243,7 +243,7 @@ export function Hero({ settings }: HeroProps) {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/90 dark:bg-slate-800/90 border border-white/80 dark:border-slate-700 text-slate-800 dark:text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/90 dark:bg-slate-800/90 border border-white/80 dark:border-slate-700 text-slate-800 dark:text-white font-semibold text-xs sm:text-base px-4 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
             >
               <MessageCircle size={16} className="text-green-500" />
               {t.hero.getOnWhatsApp}

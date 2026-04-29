@@ -8,8 +8,8 @@ import { useI18n } from '@/lib/i18n';
 const testimonialsData = [
   {
     quote: {
-      en: "I was paying $40/month for Netflix, Spotify and Anghami. With BundlyPlus I pay less than $7. The WhatsApp delivery was instant — no joke.",
-      ar: "كنت أدفع 40$ بالشهر لنتفليكس وسبوتيفاي وأنغامي. مع BundlyPlus صرت أدفع أقل من 7$. التسليم على واتساب كان فوري — بدون مبالغة.",
+      en: 'I was paying $40/month for Netflix, Spotify and Anghami. With BundlyPlus I pay less than $7. The WhatsApp delivery was instant - no joke.',
+      ar: 'كنت أدفع 40$ شهريا لنتفليكس وسبوتيفاي وأنغامي. مع BundlyPlus صرت أدفع أقل من 7$. التسليم على واتساب كان فوريا - بدون مبالغة.',
     },
     name: { en: 'Rami Haddad', ar: 'رامي حداد' },
     role: { en: 'Software Engineer · Beirut', ar: 'مهندس برمجيات · بيروت' },
@@ -18,8 +18,8 @@ const testimonialsData = [
   },
   {
     quote: {
-      en: "Paid via Whish in seconds. Got my ChatGPT Plus + Canva Pro accounts before I finished my coffee. This is exactly what Lebanon needed.",
-      ar: "دفعت عبر ويش بثواني. وصلني حساب ChatGPT Plus وكانفا برو قبل ما أخلّص قهوتي. هاد الشي يلي لبنان كان محتاجو.",
+      en: 'Paid via Whish in seconds. Got my ChatGPT Plus + Canva Pro accounts before I finished my coffee. This is exactly what Lebanon needed.',
+      ar: 'دفعت عبر Whish خلال ثوان. وصلني حساب ChatGPT Plus وCanva Pro قبل أن أنهي قهوتي. هذا بالضبط ما كان يحتاجه لبنان.',
     },
     name: { en: 'Layla Mansour', ar: 'ليلى منصور' },
     role: { en: 'Graphic Designer · Tripoli', ar: 'مصممة جرافيك · طرابلس' },
@@ -28,11 +28,11 @@ const testimonialsData = [
   },
   {
     quote: {
-      en: "As a startup in Beirut, the Ultimate bundle gave my team Adobe, Notion AI, and Figma for the price of one Netflix. Game changer.",
-      ar: "كستارت أب ببيروت، باقة Ultimate أعطت فريقي Adobe وNotion AI وFigma بسعر اشتراك نتفليكس واحد. تغيير جذري.",
+      en: 'As a startup in Beirut, the Ultimate bundle gave my team Adobe, Notion AI, and Figma for the price of one Netflix. Game changer.',
+      ar: 'كشركة ناشئة في بيروت، أعطت باقة Ultimate فريقي Adobe وNotion AI وFigma بسعر اشتراك نتفليكس واحد. فرق كبير.',
     },
     name: { en: 'Karim El-Khoury', ar: 'كريم الخوري' },
-    role: { en: 'Founder · Saida', ar: 'مؤسس شركة · صيدا' },
+    role: { en: 'Founder · Saida', ar: 'مؤسس · صيدا' },
     color: 'from-emerald-400 to-cyan-500',
     initials: 'KE',
   },
@@ -62,7 +62,7 @@ export function Testimonials() {
                 <div className="min-w-0">
                   <h4 className="text-slate-800 dark:text-slate-100 font-bold flex items-center gap-1.5">
                     {item.name[lang]}
-                    <span className="text-base leading-none">🇱🇧</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Lebanon</span>
                   </h4>
                   <p className="text-slate-500 dark:text-slate-400 text-xs flex items-center gap-1 mt-0.5">
                     <MapPin className="w-3 h-3" />

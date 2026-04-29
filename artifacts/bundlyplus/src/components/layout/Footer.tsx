@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'wouter';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { useSettings } from '@/lib/settings';
@@ -89,7 +89,7 @@ export function Footer() {
             </a>
             <span className="hidden md:inline text-slate-300 dark:text-slate-700">·</span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="text-base leading-none">🇱🇧</span>
+              <span className="text-xs font-bold uppercase tracking-wider">LB</span>
               <span>Beirut, Lebanon</span>
             </span>
           </div>

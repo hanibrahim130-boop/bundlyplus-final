@@ -14,7 +14,6 @@ import { useSettings } from '@/lib/settings';
 import { Product } from '@/types';
 import { useI18n } from '@/lib/i18n';
 
-const Pricing = lazy(() => import('@/components/home/Pricing').then((m) => ({ default: m.Pricing })));
 const Testimonials = lazy(() => import('@/components/home/Testimonials').then((m) => ({ default: m.Testimonials })));
 const FAQ = lazy(() => import('@/components/home/FAQ').then((m) => ({ default: m.FAQ })));
 
@@ -68,9 +67,6 @@ export default function Home() {
       <LocalTrust />
       <MadeForMENA />
       <WhyChooseUs />
-      <Suspense fallback={<SectionFallback />}>
-        <Pricing />
-      </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <Testimonials />
       </Suspense>

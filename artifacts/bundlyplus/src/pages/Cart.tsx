@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Layers, ShieldCheck, Zap, RefreshCw, Phone, Copy, Check, QrCode, Wallet } from 'lucide-react';
-import { Link } from 'wouter';
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap, RefreshCw, Phone, Copy, Check, QrCode, Wallet } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
 import { generateWhatsAppLink } from '@/utils/whatsapp';
 import { useSettings } from '@/lib/settings';
@@ -9,6 +8,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { getBrandGradient, getInitials } from '@/lib/brand-theme';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
+import type { SiteSettings } from '@/types';
 
 export default function Cart() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems } = useCart();
@@ -21,7 +21,7 @@ export default function Cart() {
       alert(t.cart.whatsappNotConfigured);
       return;
     }
-    const link = generateWhatsAppLink(siteSettings.whatsapp_number, items, totalPrice);
+    const link = generateWhatsAppLink(siteSettings.whatsapp_number, items, totalPrice, format);
     window.open(link, '_blank');
   };
 
@@ -35,12 +35,6 @@ export default function Cart() {
           actionLabel={t.cart.startBrowsing}
           actionHref="/products"
         />
-        <div className="-mt-6 mb-8">
-          <Link href="/bundles" className="px-8 py-4 rounded-full bg-white/90 dark:bg-white/10 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium hover:bg-white dark:hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300 shadow-sm min-h-[48px] inline-flex items-center justify-center gap-2">
-            <Layers size={18} />
-            {t.cart.viewBundles}
-          </Link>
-        </div>
       </PageLayout>
     );
   }
@@ -68,8 +62,8 @@ export default function Cart() {
                 <div className="flex-grow w-full sm:w-auto">
                   <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-1">{item.name}</h3>
                   <div className="text-sm text-slate-500 dark:text-slate-400">
-                    <span className="uppercase tracking-wider text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-semibold me-2">{item.type}</span>
-                    {item.duration && <span>{item.duration.replace('_', ' ')}</span>}
+                    <span className="uppercase tracking-wider text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-semibold">{item.type}</span>
+                    {item.duration && <span className="ms-2">{item.duration.replace('_', ' ')}</span>}
                   </div>
                 </div>
 
@@ -91,7 +85,7 @@ export default function Cart() {
                   </div>
 
                   <div className="text-xl font-bold font-display text-slate-800 dark:text-slate-100 min-w-[72px] text-center sm:text-end">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    {format(item.price * item.quantity)}
                   </div>
 
                   <button
@@ -134,27 +128,44 @@ export default function Cart() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <p className="text-xs text-center text-slate-500 dark:text-slate-400 mt-4">
-              {t.cart.checkoutNote}
+              {t.cart.checkoutPaymentInstruction}
             </p>
+
+            <div className="mt-6 pt-5 border-t border-slate-200/60 dark:border-white/10">
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-3">{t.cart.checkoutHowWorks}</h4>
+              <ol className="space-y-3">
+                {t.cart.checkoutFlow.map((step, index) => (
+                  <li key={step.title} className="grid grid-cols-[2rem_1fr] gap-3">
+                    <span className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-sm font-bold">
+                      {index + 1}
+                    </span>
+                    <span>
+                      <span className="block text-sm font-bold text-slate-800 dark:text-slate-100 leading-snug">{step.title}</span>
+                      <span className="block text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">{step.description}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
             <div className="mt-6 pt-5 border-t border-slate-200/60 dark:border-white/10 grid grid-cols-3 gap-2 text-center">
               <div className="flex flex-col items-center gap-1.5">
                 <div className="w-9 h-9 rounded-full bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                   <Zap className="w-4 h-4" />
                 </div>
-                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 leading-tight">Instant<br/>delivery</span>
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 leading-tight">{t.cart.instantDelivery}</span>
               </div>
               <div className="flex flex-col items-center gap-1.5">
                 <div className="w-9 h-9 rounded-full bg-pink-50 dark:bg-pink-500/10 flex items-center justify-center text-pink-600 dark:text-pink-400">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
-                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 leading-tight">Secure<br/>payment</span>
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 leading-tight">{t.cart.securePayment}</span>
               </div>
               <div className="flex flex-col items-center gap-1.5">
                 <div className="w-9 h-9 rounded-full bg-purple-50 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400">
                   <RefreshCw className="w-4 h-4" />
                 </div>
-                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 leading-tight">Money-back<br/>guarantee</span>
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 leading-tight">{t.cart.moneyBackGuarantee}</span>
               </div>
             </div>
 
@@ -167,72 +178,120 @@ export default function Cart() {
   );
 }
 
-function CopyBtn({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
+function CopyBtn({ text, label }: { text: string; label: string }) {
+  const [status, setStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+  const { t } = useI18n();
+  const copiedMessage = t.cart.copiedLabel.replace('{label}', label);
+  const copyErrorMessage = t.cart.copyErrorLabel.replace('{label}', label);
   const copy = async () => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.top = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        if (!copied) throw new Error('Copy command failed');
+      }
+      setStatus('copied');
+    } catch {
+      setStatus('error');
+    }
+    setTimeout(() => setStatus('idle'), 2500);
   };
   return (
     <button
+      type="button"
       onClick={copy}
-      className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-      aria-label="Copy"
+      className="min-w-[36px] min-h-[36px] rounded-lg flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
+      aria-label={`${t.cart.copy} ${label}`}
+      title={status === 'error' ? t.cart.copyFailed : `${t.cart.copy} ${label}`}
     >
-      {copied ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
+      {status === 'copied' ? <Check size={15} className="text-emerald-500" /> : <Copy size={15} />}
+      <span className="sr-only" aria-live="polite">
+        {status === 'copied' ? copiedMessage : status === 'error' ? copyErrorMessage : ''}
+      </span>
     </button>
   );
 }
 
-function CheckoutPaymentDetails({ siteSettings }: { siteSettings: any }) {
+function CheckoutPaymentDetails({ siteSettings }: { siteSettings: SiteSettings }) {
+  const { t } = useI18n();
+  const paymentPhone = (siteSettings.whatsapp_number || '96176171003').replace(/[^0-9]/g, '');
+  const displayPaymentPhone = paymentPhone ? `+${paymentPhone}` : '+96176171003';
+
   return (
     <div className="mt-6 space-y-4">
-      <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">Payment Methods</h4>
+      <div>
+        <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">{t.cart.paymentMethods}</h4>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+          {t.cart.paymentIntro}
+        </p>
+      </div>
 
       {/* Whish & OMT Phone */}
-      <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <Phone size={14} className="text-pink-500" />
-          <span className="text-xs font-bold text-slate-700 dark:text-slate-200">Whish Money & OMT</span>
+      <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-4 space-y-3">
+        <div className="flex items-start gap-3">
+          <div className="w-9 h-9 rounded-xl bg-pink-50 dark:bg-pink-500/10 flex items-center justify-center text-pink-600 dark:text-pink-400 shrink-0">
+            <Phone size={16} />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{t.cart.whishOmt}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">{t.cart.whishPhoneHelp}</div>
+          </div>
         </div>
-        <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 rounded-lg px-3 py-2">
-          <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-200" dir="ltr">{siteSettings.whatsapp_number ? `+${siteSettings.whatsapp_number}` : '+961 76 171 003'}</span>
-          <CopyBtn text={siteSettings.whatsapp_number || '96176171003'} />
+        <div className="flex items-center justify-between gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2">
+          <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-200 break-all" dir="ltr">{displayPaymentPhone}</span>
+          <CopyBtn text={paymentPhone} label={t.cart.whishOmtPhoneLabel} />
         </div>
       </div>
 
       {/* Whish QR */}
-      <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-4 flex flex-col items-center">
-        <div className="flex items-center gap-2 mb-2 self-start">
-          <QrCode size={14} className="text-rose-500" />
-          <span className="text-xs font-bold text-slate-700 dark:text-slate-200">Whish QR Code</span>
+      <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-4">
+        <div className="flex items-start gap-3 mb-3">
+          <div className="w-9 h-9 rounded-xl bg-rose-50 dark:bg-rose-500/10 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
+            <QrCode size={16} />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{t.cart.whishQrCode}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">{t.cart.whishQrHelp}</div>
+          </div>
         </div>
-        <div className="w-32 h-32 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-800/60 p-1.5">
-          <img src="/images/IMG_3601.JPG.jpeg" alt="Whish Money QR" className="w-full h-full object-contain" loading="lazy" />
+        <div className="mx-auto w-36 h-36 rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-800/60 p-1.5">
+          <img src="/images/IMG_3601.JPG.jpeg" alt={t.cart.whishQrAlt} className="w-full h-full object-contain" loading="lazy" />
         </div>
-        <p className="text-[10px] text-slate-400 mt-1.5">Scan in the Whish app</p>
       </div>
 
       {/* USDT Wallets */}
       <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <Wallet size={14} className="text-emerald-500" />
-          <span className="text-xs font-bold text-slate-700 dark:text-slate-200">USDT Wallet Addresses</span>
+        <div className="flex items-start gap-3 mb-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Wallet size={16} />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{t.cart.usdtWalletAddresses}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">{t.cart.usdtNetworkHelp}</div>
+          </div>
         </div>
         <div className="space-y-2.5">
           <div>
             <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">BEP20</div>
-            <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800/60 rounded-lg px-2.5 py-2">
-              <span className="text-[10px] font-mono text-slate-600 dark:text-slate-300 break-all flex-1" dir="ltr">0x43cf4bded47c1309df53131a358db503a73de560</span>
-              <CopyBtn text="0x43cf4bded47c1309df53131a358db503a73de560" />
+            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2">
+              <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 break-all flex-1" dir="ltr">0x43cf4bded47c1309df53131a358db503a73de560</span>
+              <CopyBtn text="0x43cf4bded47c1309df53131a358db503a73de560" label={t.cart.usdtBep20Label} />
             </div>
           </div>
           <div>
             <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">TRON (TRC20)</div>
-            <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800/60 rounded-lg px-2.5 py-2">
-              <span className="text-[10px] font-mono text-slate-600 dark:text-slate-300 break-all flex-1" dir="ltr">TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD</span>
-              <CopyBtn text="TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD" />
+            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2">
+              <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 break-all flex-1" dir="ltr">TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD</span>
+              <CopyBtn text="TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD" label={t.cart.usdtTrc20Label} />
             </div>
           </div>
         </div>

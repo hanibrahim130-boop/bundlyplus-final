@@ -21,7 +21,6 @@ import { CommandPalette } from "@/components/layout/CommandPalette";
 
 import Home from "@/pages/Home";
 const Products = lazy(() => import("@/pages/Products"));
-const Bundles = lazy(() => import("@/pages/Bundles"));
 const Cart = lazy(() => import("@/pages/Cart"));
 const Wishlist = lazy(() => import("@/pages/Wishlist"));
 const Admin = lazy(() => import("@/pages/Admin"));
@@ -48,7 +47,6 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/products" component={Products} />
-          <Route path="/bundles" component={Bundles} />
           <Route path="/cart" component={Cart} />
           <Route path="/wishlist" component={Wishlist} />
           <Route path="/admin" component={Admin} />
