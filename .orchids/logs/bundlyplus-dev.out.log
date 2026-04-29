@@ -1,0 +1,21 @@
+
+> workspace@0.0.0 dev C:\Users\hanib\Downloads\Compressed\Codebase-Auditor\Codebase-Auditor
+> pnpm --filter @workspace/bundlyplus run dev
+
+
+> @workspace/bundlyplus@0.0.0 predev C:\Users\hanib\Downloads\Compressed\Codebase-Auditor\Codebase-Auditor\artifacts\bundlyplus
+> node scripts/check-logos.mjs
+
+[2m[check-logos] scanning products and logo files...[0m
+[32m[check-logos] OK — all 59 products have logos.[0m
+[2m[check-logos] wrote C:\Users\hanib\Downloads\Compressed\Codebase-Auditor\Codebase-Auditor\artifacts\bundlyplus\src\utils\logoManifest.ts[0m
+
+> @workspace/bundlyplus@0.0.0 dev C:\Users\hanib\Downloads\Compressed\Codebase-Auditor\Codebase-Auditor\artifacts\bundlyplus
+> vite --config vite.config.ts --host 0.0.0.0
+
+
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m768[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.10.248:[1m3000[22m/[39m
+ ELIFECYCLE  Command failed with exit code 3221225786.

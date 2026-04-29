@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @workspace/bundlyplus run build",
+  "outputDirectory": "artifacts/bundlyplus/dist/public",
+  "installCommand": "pnpm install",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

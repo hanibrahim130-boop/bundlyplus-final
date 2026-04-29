@@ -1,0 +1,60 @@
+[
+  {
+    "id": "bundles",
+    "starter": {
+      "id": "starter",
+      "name": "Starter",
+      "price": 8.99,
+      "wasPrice": 10.5,
+      "savePct": 25,
+      "subs": 3,
+      "description": "Perfect for trying out Bundly+",
+      "perks": [
+        "3 of Streaming Subscription",
+        "Monthly refresh",
+        "WhatsApp support",
+        "Cancel anytime"
+      ],
+      "popular": false
+    },
+    "popular": {
+      "id": "popular",
+      "name": "Popular",
+      "price": 15.99,
+      "wasPrice": 21.2,
+      "savePct": 40,
+      "subs": 3,
+      "description": "Most popular — great value",
+      "perks": [
+        "3 of AI Subscriptions",
+        "Dedicated support",
+        "Free delivery"
+      ],
+      "popular": true
+    },
+    "ultimate": {
+      "id": "ultimate",
+      "name": "Ultimate",
+      "price": 25.99,
+      "wasPrice": 37.1,
+      "savePct": 50,
+      "subs": 3,
+      "description": "For power users & resellers",
+      "perks": [
+        "3 of Subscriptions by Your Choise ",
+        "Bulk pricing",
+        "Custom bundles"
+      ],
+      "popular": false
+    }
+  },
+  {
+    "id": "site",
+    "hero_title": "Stream More,\nPay Less.",
+    "hero_subtitle": "Premium subscriptions at unbeatable prices — delivered via WhatsApp.",
+    "hero_cta": "Browse All Plans",
+    "whatsapp_number": "96176171003",
+    "admin_password_hash": "$2b$10$IhyiEqtAeNGARYRDVQR2FOkVMf07r74R.YFwW6NmqT3np7JQ069AG",
+    "site_name": "Bundly plus"
+  }
+]

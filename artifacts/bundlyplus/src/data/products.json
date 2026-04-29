@@ -1,0 +1,2683 @@
+[
+  {
+    "id": "1password-individual",
+    "name": "1Password",
+    "price": 3.99,
+    "description": "Cross-platform password manager with secure sharing and Watchtower.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited vaults",
+      "Watchtower",
+      "Travel mode"
+    ],
+    "image_url": "",
+    "created_at": 1772930124474,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "adobe-cc",
+    "name": "Adobe Creative Cloud",
+    "price": 9.99,
+    "description": "All 20+ Adobe apps — Photoshop, Illustrator, Premiere, After Effects.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "20+ apps",
+      "100GB cloud",
+      "Adobe Fonts"
+    ],
+    "image_url": "",
+    "created_at": 1772930791488,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "adobe-photo",
+    "name": "Adobe Photography Plan",
+    "price": 7.99,
+    "description": "Photoshop + Lightroom + 20GB storage for photo workflows.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Photoshop + Lightroom",
+      "20GB cloud",
+      "Mobile apps"
+    ],
+    "image_url": "",
+    "created_at": 1772930205844,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "adobe-photoshop",
+    "name": "Adobe Photoshop",
+    "price": 11.99,
+    "description": "Industry-leading photo editor with generative AI tools.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Generative Fill",
+      "100GB cloud",
+      "Mobile + iPad"
+    ],
+    "image_url": "",
+    "created_at": 1772930070279,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "adobe-premiere",
+    "name": "Adobe Premiere Pro",
+    "price": 11.99,
+    "description": "Hollywood-grade video editing with AI-powered tools.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "AI Audio enhance",
+      "100GB cloud",
+      "Multicam edit"
+    ],
+    "image_url": "",
+    "created_at": 1772930735690,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "affinity-suite",
+    "name": "Affinity Universal",
+    "price": 6.99,
+    "description": "Affinity Photo, Designer and Publisher — across all platforms.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "3 apps included",
+      "Mac + Win + iPad",
+      "No subscription lock-in"
+    ],
+    "image_url": "",
+    "created_at": 1772930604503,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "airtable-plus",
+    "name": "Airtable Plus",
+    "price": 9.99,
+    "description": "Database-style spreadsheets with 5,000 records per base.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "5K records / base",
+      "Custom branding",
+      "Calendar + Gantt"
+    ],
+    "image_url": "",
+    "created_at": 1772930658287,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "amazon-music",
+    "name": "Amazon Music Unlimited",
+    "price": 4.49,
+    "description": "100M+ songs in HD and Spatial Audio.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "HD + Ultra HD",
+      "Spatial Audio",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930572977,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "prime-video",
+    "name": "Amazon Prime Video",
+    "price": 3.49,
+    "description": "Prime Originals, hit movies and live sports streaming.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "4K UHD",
+      "Prime Originals",
+      "Live sports"
+    ],
+    "image_url": "",
+    "created_at": 1772930008090,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "anghami-plus",
+    "name": "Anghami Plus",
+    "price": 2.49,
+    "description": "Largest Arabic music catalog + global hits, ad-free.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Arabic + global",
+      "Offline mode",
+      "Lyrics"
+    ],
+    "image_url": "",
+    "created_at": 1772930846895,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "apple-arcade",
+    "name": "Apple Arcade",
+    "price": 4.99,
+    "description": "200+ premium games across iPhone, iPad, Mac, Apple TV.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "200+ games",
+      "No ads",
+      "Family Sharing"
+    ],
+    "image_url": "",
+    "created_at": 1772930064084,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "apple-music",
+    "name": "Apple Music",
+    "price": 4.99,
+    "description": "100M+ songs, Spatial Audio with Dolby Atmos, lossless.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Spatial Audio",
+      "Lossless",
+      "100M+ songs"
+    ],
+    "image_url": "",
+    "created_at": 1772930533865,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "apple-music-family",
+    "name": "Apple Music Family",
+    "price": 7.99,
+    "description": "Apple Music for up to 6 people on Family Sharing.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "6 accounts",
+      "Spatial Audio",
+      "Family Sharing"
+    ],
+    "image_url": "",
+    "created_at": 1772930881280,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "apple-tv-plus",
+    "name": "Apple TV+",
+    "price": 4.49,
+    "description": "Award-winning Apple Originals in 4K Dolby Vision.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "4K Dolby Vision",
+      "Apple Originals",
+      "Family Sharing"
+    ],
+    "image_url": "",
+    "created_at": 1772930618689,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "asana-starter",
+    "name": "Asana Starter",
+    "price": 6.99,
+    "description": "Timelines, dashboards and project automation for teams.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Timeline view",
+      "Dashboards",
+      "Forms + rules"
+    ],
+    "image_url": "",
+    "created_at": 1772930500432,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "audible-premium-plus",
+    "name": "Audible Premium Plus",
+    "price": 7.99,
+    "description": "1 audiobook credit + Plus catalog of unlimited listens / month.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1 credit/mo",
+      "Plus catalog",
+      "Podcasts"
+    ],
+    "image_url": "",
+    "created_at": 1772930547169,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "audiomack-premium",
+    "name": "Audiomack Premium",
+    "price": 1.99,
+    "description": "Ad-free streaming of the latest hip-hop, R&B and Afrobeats.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Hip-hop catalog",
+      "Offline",
+      "No ads"
+    ],
+    "image_url": "",
+    "created_at": 1772930544054,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "babbel-language",
+    "name": "Babbel All Languages",
+    "price": 6.99,
+    "description": "14 languages with bite-sized lessons designed by linguists.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "14 languages",
+      "Speech recognition",
+      "Offline lessons"
+    ],
+    "image_url": "",
+    "created_at": 1772930824147,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "bitwarden-premium",
+    "name": "Bitwarden Premium",
+    "price": 0.83,
+    "description": "Open-source password manager with 2FA codes and emergency access.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "TOTP codes",
+      "Emergency access",
+      "1GB encrypted files"
+    ],
+    "image_url": "",
+    "created_at": 1772930393986,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "blinkist-premium",
+    "name": "Blinkist Premium",
+    "price": 5.99,
+    "description": "5,500+ non-fiction book summaries in 15-minute reads or listens.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "5,500+ titles",
+      "Audio + text",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930216020,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "brilliant-premium",
+    "name": "Brilliant Premium",
+    "price": 8.99,
+    "description": "Interactive STEM courses in math, data science and AI.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Interactive lessons",
+      "Daily challenges",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930656556,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "calendly-pro",
+    "name": "Calendly Standard",
+    "price": 5.99,
+    "description": "Unlimited event types, integrations and group events.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited events",
+      "Stripe / PayPal",
+      "Routing forms"
+    ],
+    "image_url": "",
+    "created_at": 1772930570730,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "canva-pro",
+    "name": "Canva Pro",
+    "price": 4.99,
+    "description": "Premium templates, brand kit, Magic Studio AI and 100GB storage.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Magic Studio AI",
+      "Brand Kit",
+      "100GB cloud"
+    ],
+    "image_url": "",
+    "created_at": 1772930416019,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "character-ai-plus",
+    "name": "Character.AI+",
+    "price": 3.49,
+    "description": "Skip the line and chat with AI characters faster.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "No queue",
+      "Faster replies",
+      "Early access"
+    ],
+    "image_url": "",
+    "created_at": 1772930285259,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "chatgpt-plus",
+    "name": "ChatGPT Plus",
+    "price": 6.99,
+    "description": "OpenAI's GPT-5.4, image gen, voice mode and advanced reasoning.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "GPT-5.4",
+      "DALL·E 3",
+      "Voice mode"
+    ],
+    "image_url": "",
+    "created_at": 1772930471505,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "chatgpt-team",
+    "name": "ChatGPT Team",
+    "price": 9.99,
+    "description": "Higher message caps, team workspace and SOC2-compliant data handling.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Higher limits",
+      "Workspace",
+      "Privacy"
+    ],
+    "image_url": "",
+    "created_at": 1772930559240,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "5KUoWlgNPN9RVkb3nyp4",
+    "name": "Claude Max",
+    "price": 69.99,
+    "description": "Anthropic Claude with 5x usage, priority access and Claude 4.7 Sonnet/Opus",
+    "category": "AI Tools",
+    "duration": "1 Mounth",
+    "account_type": "Private",
+    "features": [
+      "Claude 4.7 Opus",
+      "5x usage",
+      "Priority"
+    ],
+    "image_url": "https://commons.wikimedia.org/wiki/File:Claude_AI_logo.png",
+    "created_at": 1777287932625,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "rcaHSwfJj3PNe8zBnrHT",
+    "name": "Claude Max",
+    "price": 109.99,
+    "description": "Anthropic Claude with 20x usage, priority access and Claude 4.7 Sonnet/Opus",
+    "category": "AI Tools",
+    "duration": "1 Mounth",
+    "account_type": "Private",
+    "features": [
+      "Claude 4.7 Opus",
+      "20x usage",
+      "Priority"
+    ],
+    "image_url": "https://commons.wikimedia.org/wiki/File:Claude_AI_logo.png",
+    "created_at": 1777288076113,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "claude-pro",
+    "name": "Claude pro",
+    "price": 14.99,
+    "description": "Anthropic Claude Pro, priority access and Claude 4.7 Sonnet/Opus",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Claude 4.7 Opus",
+      "Priority"
+    ],
+    "image_url": "",
+    "created_at": 1772930642716,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "clickup-unlimited",
+    "name": "ClickUp Unlimited",
+    "price": 4.99,
+    "description": "Unlimited storage, integrations and dashboards for teams.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited storage",
+      "Integrations",
+      "Goals + agile"
+    ],
+    "image_url": "",
+    "created_at": 1772930484860,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "copyai",
+    "name": "Copy.ai Pro",
+    "price": 5.99,
+    "description": "AI workflows for marketing, sales prospecting and content.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Workflows",
+      "Unlimited words",
+      "200+ templates"
+    ],
+    "image_url": "",
+    "created_at": 1772930279173,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "coursera-plus",
+    "name": "Coursera Plus",
+    "price": 16.99,
+    "description": "Unlimited access to 7,000+ courses, certificates and Specializations.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "7,000+ courses",
+      "Certificates",
+      "Top universities"
+    ],
+    "image_url": "",
+    "created_at": 1772930824150,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "crunchyroll-mega",
+    "name": "Crunchyroll Mega Fan",
+    "price": 4.99,
+    "description": "Largest anime library, simulcasts and offline downloads.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Anime simulcasts",
+      "Offline viewing",
+      "4 devices"
+    ],
+    "image_url": "",
+    "created_at": 1772930648666,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "cursor-pro",
+    "name": "Cursor IDE Pro",
+    "price": 9.99,
+    "description": "AI-first code editor with 500 fast GPT-4 / Claude requests / month.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "GPT-4 + Claude",
+      "Codebase chat",
+      "Multi-file edit"
+    ],
+    "image_url": "",
+    "created_at": 1772930206048,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "cyberghost",
+    "name": "CyberGhost VPN",
+    "price": 2.99,
+    "description": "11,500+ servers, 7 devices and dedicated streaming profiles.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "11,500 servers",
+      "7 devices",
+      "Streaming presets"
+    ],
+    "image_url": "",
+    "created_at": 1772930383128,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "dashlane-premium",
+    "name": "Dashlane Premium",
+    "price": 3.49,
+    "description": "Password manager with built-in VPN and dark-web monitoring.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Built-in VPN",
+      "Dark-web alerts",
+      "Unlimited devices"
+    ],
+    "image_url": "",
+    "created_at": 1772930504921,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "dazn",
+    "name": "DAZN",
+    "price": 7.99,
+    "description": "Live boxing, MMA, NFL and major sports streaming worldwide.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Live boxing/MMA",
+      "Replays",
+      "Multi-device"
+    ],
+    "image_url": "",
+    "created_at": 1772930602361,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "deezer-premium",
+    "name": "Deezer Premium",
+    "price": 3.99,
+    "description": "90M+ tracks, HiFi audio, podcasts and personalised mixes.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "HiFi audio",
+      "Flow recommendations",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930883098,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "descript",
+    "name": "Descript",
+    "price": 7.99,
+    "description": "Edit audio and video by editing text — Studio Sound and Overdub.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Overdub voice",
+      "Studio Sound",
+      "10h transcription"
+    ],
+    "image_url": "",
+    "created_at": 1772930355301,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "disney-plus",
+    "name": "Disney+",
+    "price": 4.49,
+    "description": "Disney, Pixar, Marvel, Star Wars and National Geographic in 4K.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "4K HDR",
+      "Marvel + Star Wars",
+      "Family profiles"
+    ],
+    "image_url": "",
+    "created_at": 1772930606796,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "disney-bundle",
+    "name": "Disney+ Hulu Bundle",
+    "price": 6.99,
+    "description": "Disney+ together with Hulu — two libraries on one bill.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Disney + Hulu",
+      "Ad-free Hulu",
+      "4K Disney"
+    ],
+    "image_url": "",
+    "created_at": 1772930839711,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "dropbox-plus",
+    "name": "Dropbox Plus",
+    "price": 7.99,
+    "description": "2TB cloud storage with offline access and 30-day rewind.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "2TB",
+      "Smart Sync",
+      "30-day rewind"
+    ],
+    "image_url": "",
+    "created_at": 1772930870238,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "duolingo-super",
+    "name": "Duolingo Super",
+    "price": 2.99,
+    "description": "Ad-free language learning with unlimited hearts and tests.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "No ads",
+      "Unlimited hearts",
+      "Mistakes review"
+    ],
+    "image_url": "",
+    "created_at": 1772930816808,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "ea-play-pro",
+    "name": "EA Play Pro",
+    "price": 9.99,
+    "description": "EA's full library on PC including new releases day-one.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Day-one EA releases",
+      "Member rewards",
+      "10-hour trials"
+    ],
+    "image_url": "",
+    "created_at": 1772930982630,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs Starter",
+    "price": 4.49,
+    "description": "Realistic AI voices, voice cloning and 30K characters / month.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Voice cloning",
+      "30K chars",
+      "29 languages"
+    ],
+    "image_url": "",
+    "created_at": 1772930715343,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "scribd-everand",
+    "name": "Everand (Scribd)",
+    "price": 5.99,
+    "description": "Unlimited audiobooks, ebooks, magazines, sheet music.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited reads",
+      "Audiobooks",
+      "Magazines"
+    ],
+    "image_url": "",
+    "created_at": 1772930932466,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "evernote-personal",
+    "name": "Evernote Personal",
+    "price": 4.49,
+    "description": "Sync notes across 10+ devices, web clipper and offline access.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited sync",
+      "Web Clipper",
+      "Offline notes"
+    ],
+    "image_url": "",
+    "created_at": 1772930723464,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "expressvpn",
+    "name": "ExpressVPN",
+    "price": 7.99,
+    "description": "Lightning-fast VPN with Lightway protocol and TrustedServer tech.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Lightway protocol",
+      "RAM-only servers",
+      "8 devices"
+    ],
+    "image_url": "",
+    "created_at": 1772930899359,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "figma-pro",
+    "name": "Figma Professional",
+    "price": 4.99,
+    "description": "Unlimited Figma files, dev mode and version history.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited files",
+      "Dev Mode",
+      "Branching"
+    ],
+    "image_url": "",
+    "created_at": 1772930738111,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "framer-pro",
+    "name": "Framer Pro",
+    "price": 7.99,
+    "description": "Design and publish premium websites with built-in CMS.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Custom domain",
+      "CMS",
+      "Animations"
+    ],
+    "image_url": "",
+    "created_at": 1772930353907,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "freefire-1080",
+    "name": "Free Fire 1,080 Diamonds",
+    "price": 9.99,
+    "description": "Top up Free Fire account by player ID — fast and safe.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "By player ID",
+      "Instant",
+      "All regions"
+    ],
+    "image_url": "",
+    "created_at": 1772930083991,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "funimation",
+    "name": "Funimation Premium",
+    "price": 3.99,
+    "description": "English-dubbed anime with new episodes weekly.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "English dubs",
+      "HD streaming",
+      "Ad-free"
+    ],
+    "image_url": "",
+    "created_at": 1772930876249,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "geforce-now-priority",
+    "name": "GeForce NOW Priority",
+    "price": 8.99,
+    "description": "Cloud gaming up to 1080p 60fps with priority server access.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1080p 60fps",
+      "Priority queue",
+      "RTX ready"
+    ],
+    "image_url": "",
+    "created_at": 1772930716248,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "geforce-now-ultimate",
+    "name": "GeForce NOW Ultimate",
+    "price": 17.99,
+    "description": "RTX 4080-class cloud gaming up to 4K 120fps with HDR.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "4K 120fps",
+      "RTX 4080",
+      "8-hour sessions"
+    ],
+    "image_url": "",
+    "created_at": 1772930102327,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "github-copilot",
+    "name": "GitHub Copilot Pro",
+    "price": 5.99,
+    "description": "AI pair-programmer in your IDE with chat and code completions.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Code completions",
+      "Copilot Chat",
+      "All IDEs"
+    ],
+    "image_url": "",
+    "created_at": 1772930567510,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "github-pro",
+    "name": "GitHub Pro",
+    "price": 3.49,
+    "description": "Pro features for personal repos: advanced tools and Codespaces credits.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "3K Action min",
+      "Pro badge",
+      "180h Codespaces"
+    ],
+    "image_url": "",
+    "created_at": 1772930900196,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "gemini-advanced",
+    "name": "Google Gemini Advanced",
+    "price": 4.99,
+    "description": "Gemini 3.1 Pro with 1M token context and Workspace integration.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Gemini 1.5 Pro",
+      "1M tokens",
+      "2TB storage"
+    ],
+    "image_url": "",
+    "created_at": 1772930539056,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "google-one-2tb",
+    "name": "Google One 2TB",
+    "price": 4.99,
+    "description": "5TB shared with Drive, Gmail and Photos + Gemini Advanced perks.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "2TB across Google",
+      "Family sharing",
+      "VPN included"
+    ],
+    "image_url": "",
+    "created_at": 1772930311151,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "google-play-pass",
+    "name": "Google Play Pass",
+    "price": 4.99,
+    "description": "1,000+ Android games and apps without ads or in-app purchases.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "1,000+ titles",
+      "No ads",
+      "Family library"
+    ],
+    "image_url": "",
+    "created_at": 1772930495573,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "google-workspace",
+    "name": "Google Workspace Business Starter",
+    "price": 6.99,
+    "description": "Custom email, 30GB Drive, Meet, Calendar and Docs for business.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Custom email",
+      "30GB Drive",
+      "Meet 100 participants"
+    ],
+    "image_url": "",
+    "created_at": 1772930902070,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "grammarly-premium",
+    "name": "Grammarly Premium",
+    "price": 4.99,
+    "description": "Advanced grammar, tone, clarity and plagiarism detection.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Tone detection",
+      "Plagiarism check",
+      "Generative AI"
+    ],
+    "image_url": "",
+    "created_at": 1772930120718,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "heygen-creator",
+    "name": "HeyGen Creator",
+    "price": 11.99,
+    "description": "AI avatars and instant video translation in 175+ languages.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "AI avatars",
+      "Video translation",
+      "175+ languages"
+    ],
+    "image_url": "",
+    "created_at": 1772930165775,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "hubspot-starter",
+    "name": "HubSpot Marketing Starter",
+    "price": 14.99,
+    "description": "CRM + email marketing + landing pages for growing teams.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "CRM included",
+      "Landing pages",
+      "Forms + automation"
+    ],
+    "image_url": "",
+    "created_at": 1772930552209,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "hulu",
+    "name": "Hulu",
+    "price": 3.99,
+    "description": "Stream current TV shows, originals, and movies — ad-supported plan.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Next-day TV",
+      "Hulu Originals",
+      "Movies + series"
+    ],
+    "image_url": "",
+    "created_at": 1772930309561,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "hulu-no-ads",
+    "name": "Hulu (No Ads)",
+    "price": 6.49,
+    "description": "Hulu's full library without ad interruptions.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "No commercials",
+      "Next-day TV",
+      "Hulu Originals"
+    ],
+    "image_url": "",
+    "created_at": 1772930186754,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "icloud-plus-200gb",
+    "name": "iCloud+ 200GB",
+    "price": 2.49,
+    "description": "200GB iCloud storage with Private Relay and Hide My Email.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "200GB",
+      "Private Relay",
+      "Hide My Email"
+    ],
+    "image_url": "",
+    "created_at": 1772930504550,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "icloud-plus-2tb",
+    "name": "iCloud+ 2TB",
+    "price": 8.99,
+    "description": "2TB iCloud + Private Relay + Custom Email Domain.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "2TB",
+      "Custom domain",
+      "HomeKit Secure Video"
+    ],
+    "image_url": "",
+    "created_at": 1772930172880,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "iptv-premium",
+    "name": "IPTV Premium – 4K",
+    "price": 5.99,
+    "description": "20,000+ live channels and VOD library in up to 4K.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "20K+ channels",
+      "4K UHD",
+      "VOD library"
+    ],
+    "image_url": "",
+    "created_at": 1772930611699,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "itunes-25",
+    "name": "iTunes / App Store $25",
+    "price": 27.99,
+    "description": "$25 Apple iTunes / App Store gift code (US).",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "Apps + games",
+      "Instant code",
+      "US store"
+    ],
+    "image_url": "",
+    "created_at": 1772930909643,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "jasper-creator",
+    "name": "Jasper AI",
+    "price": 14.99,
+    "description": "AI marketing copy with brand voice training and 50+ templates.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Brand voice",
+      "50+ templates",
+      "SEO mode"
+    ],
+    "image_url": "",
+    "created_at": 1772930520937,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "jawwy-tv",
+    "name": "Jawwy TV",
+    "price": 3.99,
+    "description": "Live TV, on-demand movies and family entertainment.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "100+ live channels",
+      "Kids zone",
+      "Multi-device"
+    ],
+    "image_url": "",
+    "created_at": 1772930440638,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "kindle-unlimited",
+    "name": "Kindle Unlimited",
+    "price": 4.49,
+    "description": "Unlimited reading from 4M+ Kindle ebooks and audiobooks.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "4M+ ebooks",
+      "Magazines",
+      "Read on any device"
+    ],
+    "image_url": "",
+    "created_at": 1772930990887,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "linear-business",
+    "name": "Linear Business",
+    "price": 7.99,
+    "description": "Modern issue tracking with cycles, projects, triage and SOC2.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Cycles + roadmap",
+      "Triage",
+      "SOC2 + SAML"
+    ],
+    "image_url": "",
+    "created_at": 1772930909736,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "linkedin-learning",
+    "name": "LinkedIn Learning",
+    "price": 12.99,
+    "description": "21,000+ expert-led courses with LinkedIn skills certificates.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "21K courses",
+      "Skill paths",
+      "LinkedIn cert"
+    ],
+    "image_url": "",
+    "created_at": 1772930707497,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "loom-business",
+    "name": "Loom Business",
+    "price": 5.99,
+    "description": "Unlimited video length, custom branding and engagement insights.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited videos",
+      "Custom branding",
+      "Engagement"
+    ],
+    "image_url": "",
+    "created_at": 1772930898555,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "luma-dream",
+    "name": "Luma Dream Machine",
+    "price": 6.99,
+    "description": "Generate cinematic 5s AI video clips from text and images.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Cinematic video",
+      "Image-to-video",
+      "Commercial use"
+    ],
+    "image_url": "",
+    "created_at": 1772930873556,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "mailchimp-essentials",
+    "name": "Mailchimp Essentials",
+    "price": 6.49,
+    "description": "Email marketing for up to 50K contacts with A/B testing.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "A/B testing",
+      "Custom branding",
+      "24/7 support"
+    ],
+    "image_url": "",
+    "created_at": 1772930438923,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "malwarebytes-premium",
+    "name": "Malwarebytes Premium",
+    "price": 3.99,
+    "description": "Real-time malware, ransomware and exploit protection.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Real-time scan",
+      "Ransomware shield",
+      "Web protection"
+    ],
+    "image_url": "",
+    "created_at": 1772930723712,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "masterclass-plus",
+    "name": "MasterClass Plus",
+    "price": 9.99,
+    "description": "Learn from 200+ world-class instructors on 2 devices.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "200+ instructors",
+      "Offline mode",
+      "2 devices"
+    ],
+    "image_url": "",
+    "created_at": 1772930096916,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "hbo-max",
+    "name": "Max (HBO Max)",
+    "price": 5.49,
+    "description": "HBO Originals, Warner Bros movies, and exclusive series in 4K.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "HBO Originals",
+      "4K UHD",
+      "Same-day premieres"
+    ],
+    "image_url": "",
+    "created_at": 1772930027968,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "mega-pro-i",
+    "name": "MEGA Pro I (2TB)",
+    "price": 8.99,
+    "description": "2TB end-to-end encrypted storage with 24TB transfer.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "2TB encrypted",
+      "24TB transfer",
+      "Zero-knowledge"
+    ],
+    "image_url": "",
+    "created_at": 1772930882540,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "microsoft-365-family",
+    "name": "Microsoft 365 Family",
+    "price": 9.99,
+    "description": "Office apps + 1TB OneDrive for up to 6 people.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "6 accounts",
+      "6 TB total",
+      "Outlook Premium"
+    ],
+    "image_url": "",
+    "created_at": 1772930257269,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "microsoft-365",
+    "name": "Microsoft 365 Personal",
+    "price": 6.99,
+    "description": "Word, Excel, PowerPoint, Outlook and 1TB OneDrive for one person.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "All Office apps",
+      "1TB OneDrive",
+      "Copilot ready"
+    ],
+    "image_url": "",
+    "created_at": 1772930438501,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "microsoft-copilot",
+    "name": "Microsoft Copilot Pro",
+    "price": 7.99,
+    "description": "GPT-5.4 Turbo in Word, Excel, Outlook and PowerPoint.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "GPT-4 Turbo",
+      "Office integration",
+      "Designer access"
+    ],
+    "image_url": "",
+    "created_at": 1772930822172,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "teams-essentials",
+    "name": "Microsoft Teams Essentials",
+    "price": 2.99,
+    "description": "Unlimited group meetings up to 30 hours and 10GB cloud storage.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "30-hour meetings",
+      "10GB storage",
+      "Web Office"
+    ],
+    "image_url": "",
+    "created_at": 1772930875208,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "midjourney",
+    "name": "Midjourney",
+    "price": 7.99,
+    "description": "Industry-leading AI image generation, fast hours, private mode.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "3.5 fast hours",
+      "Stealth mode",
+      "v6 model"
+    ],
+    "image_url": "",
+    "created_at": 1772930330000,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "monday-basic",
+    "name": "Monday.com Basic",
+    "price": 6.99,
+    "description": "Project boards with unlimited free viewers and dashboards.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited boards",
+      "iOS + Android",
+      "Self-serve KB"
+    ],
+    "image_url": "",
+    "created_at": 1772930647656,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "mubi",
+    "name": "MUBI",
+    "price": 4.99,
+    "description": "Hand-picked cult, classic and award-winning indie cinema, daily.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Curated daily",
+      "4K films",
+      "Festival picks"
+    ],
+    "image_url": "",
+    "created_at": 1772930904336,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "mullvad-vpn",
+    "name": "Mullvad VPN",
+    "price": 4.99,
+    "description": "Anonymous flat-rate VPN with WireGuard and 100% audit transparency.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "No accounts",
+      "WireGuard",
+      "5 devices"
+    ],
+    "image_url": "",
+    "created_at": 1772930840851,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "netflix-premium",
+    "name": "Netflix Premium",
+    "price": 4.99,
+    "description": "Ultra HD 4K + HDR. Watch on 4 screens at the same time.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "4K Ultra HD",
+      "1 screen",
+      "Download offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930785276,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "nintendo-online",
+    "name": "Nintendo Switch Online",
+    "price": 1.99,
+    "description": "Online multiplayer, NES/SNES library and cloud saves on Switch.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Online play",
+      "Retro library",
+      "Cloud saves"
+    ],
+    "image_url": "",
+    "created_at": 1772930354279,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "nintendo-online-expansion",
+    "name": "Nintendo Switch Online + Expansion",
+    "price": 4.49,
+    "description": "Adds N64, Sega Genesis and DLC packs to Nintendo Online.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "N64 + Genesis",
+      "DLC included",
+      "Cloud saves"
+    ],
+    "image_url": "",
+    "created_at": 1772930119072,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "nordvpn",
+    "name": "NordVPN Standard",
+    "price": 4.99,
+    "description": "Fast WireGuard VPN, threat protection and strict no-logs policy.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "NordLynx",
+      "Threat Protection",
+      "10 devices"
+    ],
+    "image_url": "",
+    "created_at": 1772930490978,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "notion-ai",
+    "name": "Notion AI",
+    "price": 3.49,
+    "description": "AI writing, summarising and Q&A inside your Notion workspace.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "AI write/edit",
+      "Q&A on docs",
+      "Auto-fill databases"
+    ],
+    "image_url": "",
+    "created_at": 1772930533625,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "notion-plus",
+    "name": "Notion Plus",
+    "price": 4.99,
+    "description": "Unlimited blocks, file uploads, version history and 30-day trash.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited blocks",
+      "Unlimited uploads",
+      "Version history"
+    ],
+    "image_url": "",
+    "created_at": 1772930045631,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "onedrive-100gb",
+    "name": "OneDrive 100GB",
+    "price": 1.49,
+    "description": "100GB Microsoft OneDrive standalone storage.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "100GB",
+      "All devices",
+      "Personal Vault"
+    ],
+    "image_url": "",
+    "created_at": 1772930901840,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "osn-plus",
+    "name": "OSN+",
+    "price": 5.49,
+    "description": "Hollywood blockbusters, HBO content and Arabic premieres.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "HBO catalog",
+      "Arabic premieres",
+      "4K"
+    ],
+    "image_url": "",
+    "created_at": 1772930697124,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "paramount-plus",
+    "name": "Paramount+",
+    "price": 3.49,
+    "description": "CBS, MTV, Nickelodeon and Paramount blockbusters.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Live CBS",
+      "Sports + news",
+      "Originals"
+    ],
+    "image_url": "",
+    "created_at": 1772930852609,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "xbox-gamepass-pc",
+    "name": "PC Game Pass",
+    "price": 8.99,
+    "description": "100+ PC games on Windows with day-one releases.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "100+ PC games",
+      "Day-one releases",
+      "EA Play"
+    ],
+    "image_url": "",
+    "created_at": 1772930714669,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "pcloud-premium",
+    "name": "pCloud Premium 500GB",
+    "price": 3.99,
+    "description": "500GB lifetime-style cloud with crypto-grade security add-on.",
+    "category": "Cloud Storage",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "500GB",
+      "Client-side crypto",
+      "30-day rewind"
+    ],
+    "image_url": "",
+    "created_at": 1772930122894,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "peacock-premium",
+    "name": "Peacock Premium",
+    "price": 2.99,
+    "description": "NBC, Bravo, hit movies and live sports from Peacock.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "NBC Live",
+      "Movies",
+      "Premier League"
+    ],
+    "image_url": "",
+    "created_at": 1772930743608,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "perplexity-pro",
+    "name": "Perplexity Pro",
+    "price": 7.99,
+    "description": "AI search with sources, GPT-4 / Claude / Sonar and unlimited Pro searches.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "GPT-4 + Claude",
+      "Source citations",
+      "Pro searches"
+    ],
+    "image_url": "",
+    "created_at": 1772930367298,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "pixlr-premium",
+    "name": "Pixlr Premium",
+    "price": 1.99,
+    "description": "Browser photo editor with AI tools and unlimited exports.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "AI tools",
+      "Unlimited saves",
+      "Stock library"
+    ],
+    "image_url": "",
+    "created_at": 1772930822564,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "playstation-essential",
+    "name": "PlayStation Plus Essential",
+    "price": 6.99,
+    "description": "2 monthly games, online multiplayer and exclusive discounts.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Online multiplayer",
+      "Monthly games",
+      "Cloud saves"
+    ],
+    "image_url": "",
+    "created_at": 1772930565647,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "playstation-extra",
+    "name": "PlayStation Plus Extra",
+    "price": 11.99,
+    "description": "400+ PS4 / PS5 games on demand plus Essential perks.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "400+ games",
+      "Online multiplayer",
+      "Cloud saves"
+    ],
+    "image_url": "",
+    "created_at": 1772930192043,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "playstation-deluxe",
+    "name": "PlayStation Plus Premium",
+    "price": 14.99,
+    "description": "Extra catalog + classic PS1/PS2/PS3/PSP games and cloud streaming.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Classic library",
+      "Cloud streaming",
+      "Game trials"
+    ],
+    "image_url": "",
+    "created_at": 1772930667415,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "psn-25",
+    "name": "PlayStation Wallet $25",
+    "price": 27.99,
+    "description": "$25 PlayStation Network credit for PS5/PS4 store.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "PS5 + PS4",
+      "Instant code",
+      "All regions*"
+    ],
+    "image_url": "",
+    "created_at": 1772930894873,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "procreate-pocket",
+    "name": "Procreate Plus Pack",
+    "price": 1.99,
+    "description": "Bonus brush packs and templates for Procreate iPad artists.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Premium brushes",
+      "Color palettes",
+      "Templates"
+    ],
+    "image_url": "",
+    "created_at": 1772930448142,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "protonvpn-plus",
+    "name": "Proton VPN Plus",
+    "price": 4.99,
+    "description": "Secure-core servers, 10 devices, Tor and P2P optimised.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Secure Core",
+      "10 devices",
+      "Tor + P2P"
+    ],
+    "image_url": "",
+    "created_at": 1772930345061,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "pubg-mobile-660",
+    "name": "PUBG Mobile 660 UC",
+    "price": 9.99,
+    "description": "660 UC for PUBG Mobile — UC delivered by player ID.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "By player ID",
+      "Instant",
+      "Global"
+    ],
+    "image_url": "",
+    "created_at": 1772930095157,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "quillbot-premium",
+    "name": "QuillBot Premium",
+    "price": 3.99,
+    "description": "Paraphrase, summarize, grammar-check and citation generator.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited paraphrasing",
+      "Summarizer",
+      "Plagiarism check"
+    ],
+    "image_url": "",
+    "created_at": 1772930441555,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "retool-team",
+    "name": "Retool Team",
+    "price": 9.99,
+    "description": "Build internal tools fast with components, queries and workflows.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Internal apps",
+      "DB integrations",
+      "Custom auth"
+    ],
+    "image_url": "",
+    "created_at": 1772930215878,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "roblox-1000",
+    "name": "Roblox – 1,000 Robux",
+    "price": 11.99,
+    "description": "Top up your Roblox account with 1,000 Robux instantly.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "Instant top-up",
+      "Worldwide",
+      "Email delivery"
+    ],
+    "image_url": "",
+    "created_at": 1772930564001,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "roblox-2200",
+    "name": "Roblox – 2,200 Robux",
+    "price": 24.99,
+    "description": "Top up your Roblox account with 2,200 Robux instantly.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "Instant top-up",
+      "Worldwide",
+      "Email delivery"
+    ],
+    "image_url": "",
+    "created_at": 1772930696747,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "rosetta-unlimited",
+    "name": "Rosetta Stone Unlimited",
+    "price": 8.99,
+    "description": "Immersive learning across 25 languages with TruAccent.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "25 languages",
+      "TruAccent feedback",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930700462,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "runway-pro",
+    "name": "Runway AI",
+    "price": 9.99,
+    "description": "Gen-3 Alpha video generation, Magic Tools and 4K upscaling.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Gen-3 video",
+      "4K upscale",
+      "Magic Tools"
+    ],
+    "image_url": "",
+    "created_at": 1772930895609,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "shahid-vip",
+    "name": "Shahid VIP",
+    "price": 4.49,
+    "description": "Premium Arabic series, exclusive Shahid Originals and live channels.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Arabic Originals",
+      "Live TV",
+      "4 profiles"
+    ],
+    "image_url": "",
+    "created_at": 1772930138139,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "sketch",
+    "name": "Sketch Standard",
+    "price": 7.99,
+    "description": "Mac-native vector design tool for product designers.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Real-time collab",
+      "Cloud workspace",
+      "Plugins"
+    ],
+    "image_url": "",
+    "created_at": 1772930498284,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "skillshare-premium",
+    "name": "Skillshare Premium",
+    "price": 5.99,
+    "description": "Unlimited classes in design, business, photography and writing.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited classes",
+      "Offline",
+      "Workshops"
+    ],
+    "image_url": "",
+    "created_at": 1772930347392,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "slack-pro",
+    "name": "Slack Pro",
+    "price": 4.99,
+    "description": "Unlimited message history, voice/video huddles and Slack apps.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited history",
+      "Huddles",
+      "App integrations"
+    ],
+    "image_url": "",
+    "created_at": 1772930428802,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "soundcloud-go",
+    "name": "SoundCloud Go+",
+    "price": 3.49,
+    "description": "Full SoundCloud catalog, offline listening and high-quality audio.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "320kbps",
+      "Offline",
+      "No ads"
+    ],
+    "image_url": "",
+    "created_at": 1772930832937,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "spotify-family",
+    "name": "Spotify Family",
+    "price": 7.99,
+    "description": "Spotify Premium for up to 6 family members on one plan.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "6 accounts",
+      "Kids profile",
+      "Family Mix"
+    ],
+    "image_url": "",
+    "created_at": 1772930935471,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "spotify-premium",
+    "name": "Spotify Premium",
+    "price": 4.99,
+    "description": "Ad-free music, podcasts and offline downloads.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Ad-free music",
+      "Offline mode",
+      "320kbps"
+    ],
+    "image_url": "",
+    "created_at": 1772930186905,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "starzplay",
+    "name": "StarzPlay Arabia",
+    "price": 3.49,
+    "description": "Premium movies and exclusive series across the Arab world.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Hollywood + Arabic",
+      "Live sports",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930380570,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "steam-20",
+    "name": "Steam Wallet $20",
+    "price": 22.99,
+    "description": "$20 Steam Wallet code — playable on PC and Steam Deck.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "Instant code",
+      "Worldwide",
+      "PC + Steam Deck"
+    ],
+    "image_url": "",
+    "created_at": 1772930207491,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "steam-50",
+    "name": "Steam Wallet $50",
+    "price": 56.99,
+    "description": "$50 Steam Wallet code redeemable globally.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "Instant code",
+      "Worldwide",
+      "PC + Steam Deck"
+    ],
+    "image_url": "",
+    "created_at": 1772930007741,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "suno-pro",
+    "name": "Suno Pro",
+    "price": 8.99,
+    "description": "AI song generation — 2,500 songs / month with commercial rights.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Commercial use",
+      "2,500 songs",
+      "Priority queue"
+    ],
+    "image_url": "",
+    "created_at": 1772930856536,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "surfshark-one",
+    "name": "Surfshark One",
+    "price": 3.49,
+    "description": "VPN + antivirus + alert + search — unlimited devices.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited devices",
+      "Antivirus",
+      "Alert + search"
+    ],
+    "image_url": "",
+    "created_at": 1772930131904,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "synthesia",
+    "name": "Synthesia",
+    "price": 18.99,
+    "description": "AI video creation with 160+ avatars and 130+ languages.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "AI avatars",
+      "130+ languages",
+      "Custom voices"
+    ],
+    "image_url": "",
+    "created_at": 1772930337023,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "tidal-hifi",
+    "name": "Tidal HiFi",
+    "price": 4.99,
+    "description": "Hi-Fi lossless audio + Master Quality for audiophiles.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "MQA Lossless",
+      "Dolby Atmos",
+      "Direct artist payouts"
+    ],
+    "image_url": "",
+    "created_at": 1772930521444,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "tod-bein",
+    "name": "TOD / beIN Sports",
+    "price": 8.99,
+    "description": "Live football: Premier League, Champions League, La Liga and more.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Live football",
+      "Multi-camera",
+      "Replays"
+    ],
+    "image_url": "",
+    "created_at": 1772930826158,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "todoist-pro",
+    "name": "Todoist Pro",
+    "price": 2.49,
+    "description": "Reminders, themes, 300 projects and AI Assistant.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Reminders",
+      "300 projects",
+      "AI Assistant"
+    ],
+    "image_url": "",
+    "created_at": 1772930711187,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "trello-premium",
+    "name": "Trello Premium",
+    "price": 4.99,
+    "description": "Unlimited boards with Calendar, Timeline, Map and Dashboard views.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Multiple views",
+      "Unlimited boards",
+      "Workspace cmd"
+    ],
+    "image_url": "",
+    "created_at": 1772930335209,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "typeform-basic",
+    "name": "Typeform Basic",
+    "price": 9.99,
+    "description": "Conversational forms and surveys with 100 responses / month.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "100 responses",
+      "Logic jumps",
+      "Custom themes"
+    ],
+    "image_url": "",
+    "created_at": 1772930156450,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "ubisoft-plus",
+    "name": "Ubisoft+ Premium",
+    "price": 12.99,
+    "description": "Ubisoft's catalog with day-one access and Premium editions.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Day-one releases",
+      "Premium editions",
+      "Classic catalog"
+    ],
+    "image_url": "",
+    "created_at": 1772930975829,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "udemy-personal",
+    "name": "Udemy Personal Plan",
+    "price": 8.99,
+    "description": "11,000+ top-rated courses on a personal subscription.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "11K courses",
+      "Practice tests",
+      "Certificates"
+    ],
+    "image_url": "",
+    "created_at": 1772930200401,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "upwork-freelancer-plus",
+    "name": "Upwork Freelancer Plus",
+    "price": 11.99,
+    "description": "More Connects, profile customization and Upwork insights.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "80 Connects/mo",
+      "Custom URL",
+      "Earnings insights"
+    ],
+    "image_url": "",
+    "created_at": 1772930063902,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "vercel-pro",
+    "name": "Vercel Pro",
+    "price": 19.99,
+    "description": "Frontend cloud — unlimited deployments, edge functions, analytics.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Edge functions",
+      "Analytics",
+      "Preview comments"
+    ],
+    "image_url": "",
+    "created_at": 1772930365602,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "vix-plus",
+    "name": "ViX+",
+    "price": 2.99,
+    "description": "Largest Spanish-language streaming with Mexican originals.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Spanish originals",
+      "Live sports",
+      "TelevisaUnivision"
+    ],
+    "image_url": "",
+    "created_at": 1772930029270,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "watchit",
+    "name": "Watchit",
+    "price": 1.99,
+    "description": "Egyptian movies, classic dramas and Arabic cinema collection.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Egyptian classics",
+      "Arabic dramas",
+      "HD"
+    ],
+    "image_url": "",
+    "created_at": 1772930498330,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "weyyak",
+    "name": "Weyyak",
+    "price": 1.99,
+    "description": "Free and premium Arabic content from MBC and partners.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Turkish + Arabic",
+      "Premium dubs",
+      "Ad-free"
+    ],
+    "image_url": "",
+    "created_at": 1772930283719,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "writesonic",
+    "name": "Writesonic",
+    "price": 6.99,
+    "description": "AI writing across SEO, ads and long-form articles.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "GPT-4 access",
+      "AI Article Writer",
+      "Brand voice"
+    ],
+    "image_url": "",
+    "created_at": 1772930999802,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "xbox-gamepass-ultimate",
+    "name": "Xbox Game Pass Ultimate",
+    "price": 12.99,
+    "description": "Hundreds of games on console, PC and cloud — including day-one releases.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "100+ games",
+      "Cloud Gaming",
+      "EA Play included"
+    ],
+    "image_url": "",
+    "created_at": 1772930416039,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "xbox-25",
+    "name": "Xbox Gift Card $25",
+    "price": 27.99,
+    "description": "$25 Xbox / Microsoft store credit for games and DLC.",
+    "category": "Gaming",
+    "duration": "One-time",
+    "account_type": "Private",
+    "features": [
+      "Xbox + PC",
+      "Instant code",
+      "Region-bound"
+    ],
+    "image_url": "",
+    "created_at": 1772930633637,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "youtube-music",
+    "name": "YouTube Music Premium",
+    "price": 3.99,
+    "description": "Ad-free music streaming from YouTube's catalog.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Ad-free music",
+      "Background play",
+      "Offline"
+    ],
+    "image_url": "",
+    "created_at": 1772930305152,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "youtube-premium",
+    "name": "YouTube Premium",
+    "price": 4.99,
+    "description": "Ad-free YouTube + background play + YouTube Music Premium.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "No ads",
+      "Background play",
+      "YouTube Music"
+    ],
+    "image_url": "",
+    "created_at": 1772930529699,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "zapier-starter",
+    "name": "Zapier Starter",
+    "price": 18.99,
+    "description": "Connect 6,000+ apps with multi-step Zaps and AI helpers.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "750 tasks/mo",
+      "Multi-step Zaps",
+      "Premium apps"
+    ],
+    "image_url": "",
+    "created_at": 1772930713418,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "zee5",
+    "name": "ZEE5 Global",
+    "price": 2.49,
+    "description": "Bollywood movies, Indian originals and 12+ language content.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Bollywood",
+      "12+ languages",
+      "Originals"
+    ],
+    "image_url": "",
+    "created_at": 1772930755156,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "zoom-pro",
+    "name": "Zoom Pro",
+    "price": 6.99,
+    "description": "30-hour meetings, cloud recording and AI Companion.",
+    "category": "Business Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "30-hour meetings",
+      "5GB cloud",
+      "AI Companion"
+    ],
+    "image_url": "",
+    "created_at": 1772930016265,
+    "hot": false,
+    "featured": true
+  }
+]
