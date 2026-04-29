@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { Hero } from '@/components/home/Hero';
 import { LocalTrust } from '@/components/home/LocalTrust';
@@ -9,7 +8,7 @@ import { ProductCard } from '@/components/shared/ProductCard';
 import { ProductGridSkeleton } from '@/components/shared/ProductGridSkeleton';
 import { Section } from '@/components/shared/Section';
 import { ArrowRight } from 'lucide-react';
-import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/motion/ScrollReveal';
+import { ScrollReveal } from '@/components/motion/ScrollReveal';
 import { useProducts } from '@/lib/firestore-hooks';
 import { useSettings } from '@/lib/settings';
 import { Product } from '@/types';
@@ -33,13 +32,7 @@ export default function Home() {
   const featuredProducts = (productsData as Product[]).slice(0, 8);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="pb-20"
-    >
+    <div className="pb-20">
       <Hero settings={siteSettings} />
 
       <Section>
@@ -58,13 +51,11 @@ export default function Home() {
         {productsLoading ? (
           <ProductGridSkeleton count={8} />
         ) : (
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch" staggerDelay={0.06}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
             {featuredProducts.map((product) => (
-              <StaggerItem key={product.id}>
-                <ProductCard product={product} />
-              </StaggerItem>
+              <ProductCard key={product.id} product={product} />
             ))}
-          </StaggerContainer>
+          </div>
         )}
 
         <ScrollReveal className="mt-10 text-center sm:hidden" delay={0.3}>
@@ -86,6 +77,6 @@ export default function Home() {
       <Suspense fallback={<SectionFallback />}>
         <FAQ />
       </Suspense>
-    </motion.div>
+    </div>
   );
 }

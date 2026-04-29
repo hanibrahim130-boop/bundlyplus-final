@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Layers, ShieldCheck, Zap, RefreshCw, Phone, Copy, Check, QrCode, Wallet } from 'lucide-react';
 import { Link } from 'wouter';
 import { useCart } from '@/hooks/use-cart';
@@ -8,7 +7,6 @@ import { useSettings } from '@/lib/settings';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { getBrandGradient, getInitials } from '@/lib/brand-theme';
-import { fadeUp, staggerContainerFast, DURATION, EASE } from '@/lib/motion';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
 
@@ -37,48 +35,31 @@ export default function Cart() {
           actionLabel={t.cart.startBrowsing}
           actionHref="/products"
         />
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DURATION.normal, delay: 0.35 }}
-          className="-mt-6 mb-8"
-        >
-          <Link href="/bundles" className="px-8 py-4 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium hover:bg-white/80 dark:hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300 shadow-sm min-h-[48px] inline-flex items-center justify-center gap-2">
+        <div className="-mt-6 mb-8">
+          <Link href="/bundles" className="px-8 py-4 rounded-full bg-white/90 dark:bg-white/10 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium hover:bg-white dark:hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300 shadow-sm min-h-[48px] inline-flex items-center justify-center gap-2">
             <Layers size={18} />
             {t.cart.viewBundles}
           </Link>
-        </motion.div>
+        </div>
       </PageLayout>
     );
   }
 
   return (
     <PageLayout maxWidth="lg">
-      <motion.h1
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: DURATION.hero, ease: EASE.decel }}
-        className="text-4xl md:text-5xl font-display font-bold text-slate-800 dark:text-slate-100 mb-10"
-      >
+      <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-800 dark:text-slate-100 mb-10 animate-[fadeIn_0.3s_ease-out]">
         {t.cart.title}
-      </motion.h1>
+      </h1>
 
       <div className="flex flex-col lg:flex-row gap-10">
-        <motion.div
-          variants={staggerContainerFast}
-          initial="hidden"
-          animate="visible"
-          className="lg:w-2/3 space-y-4"
-        >
+        <div className="lg:w-2/3 space-y-4">
           {items.map((item) => {
             const gradient = getBrandGradient(item.name);
             const initials = getInitials(item.name);
             return (
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: DURATION.normal, ease: EASE.smooth }}
+              <div
                 key={item.id}
-                className="glass-card rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6"
+                className="glass-card rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 animate-[fadeIn_0.3s_ease-out]"
               >
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} flex-shrink-0 flex items-center justify-center text-white font-bold text-lg shadow-md`}>
                   {initials}
@@ -121,17 +102,12 @@ export default function Cart() {
                     <Trash2 size={18} />
                   </button>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DURATION.normal, delay: 0.2, ease: EASE.smooth }}
-          className="lg:w-1/3"
-        >
+        <div className="lg:w-1/3">
           <div className="glass-panel rounded-3xl p-8 sticky top-32">
             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6">{t.cart.orderSummary}</h3>
 
@@ -183,9 +159,9 @@ export default function Cart() {
             </div>
 
             {/* Payment Details */}
-            <CheckoutPaymentDetails />
+            <CheckoutPaymentDetails siteSettings={siteSettings} />
           </div>
-        </motion.div>
+        </div>
       </div>
     </PageLayout>
   );
@@ -209,7 +185,7 @@ function CopyBtn({ text }: { text: string }) {
   );
 }
 
-function CheckoutPaymentDetails() {
+function CheckoutPaymentDetails({ siteSettings }: { siteSettings: any }) {
   return (
     <div className="mt-6 space-y-4">
       <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">Payment Methods</h4>
@@ -221,8 +197,8 @@ function CheckoutPaymentDetails() {
           <span className="text-xs font-bold text-slate-700 dark:text-slate-200">Whish Money & OMT</span>
         </div>
         <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 rounded-lg px-3 py-2">
-          <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-200" dir="ltr">+961 76 171 003</span>
-          <CopyBtn text="+96176171003" />
+          <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-200" dir="ltr">{siteSettings.whatsapp_number ? `+${siteSettings.whatsapp_number}` : '+961 76 171 003'}</span>
+          <CopyBtn text={siteSettings.whatsapp_number || '96176171003'} />
         </div>
       </div>
 

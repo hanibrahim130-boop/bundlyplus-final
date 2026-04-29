@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { motion } from 'framer-motion';
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -15,13 +14,8 @@ const maxWidthMap = {
 
 export function PageLayout({ children, maxWidth = 'xl', className = '' }: PageLayoutProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className={`pt-28 md:pt-36 pb-32 px-6 ${maxWidthMap[maxWidth]} mx-auto min-h-screen ${className}`}
-    >
+    <div className={`pt-28 md:pt-36 pb-32 px-6 ${maxWidthMap[maxWidth]} mx-auto min-h-screen animate-[fadeIn_0.3s_ease-out] ${className}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }

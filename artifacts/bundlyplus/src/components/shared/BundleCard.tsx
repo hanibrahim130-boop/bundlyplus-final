@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ShoppingBag, Check, ShoppingCart } from 'lucide-react';
 import { Bundle } from '@/types';
 import { useCart } from '@/hooks/use-cart';
@@ -17,12 +16,7 @@ export function BundleCard({ bundle, index = 0 }: { bundle: Bundle, index?: numb
   const gradient = indexedGradients[index % indexedGradients.length];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className={`glass-card rounded-2xl overflow-hidden flex flex-col relative h-full ${inCart ? 'ring-2 ring-pink-400/50' : ''}`}
-    >
+    <div className={`glass-card rounded-2xl overflow-hidden flex flex-col relative h-full animate-[fadeIn_0.35s_ease-out] ${inCart ? 'ring-2 ring-pink-400/50' : ''}`}>
       <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-orange-300/20 to-pink-300/20 rounded-full pointer-events-none" />
 
       <div className={`h-20 bg-gradient-to-br ${gradient} flex items-center justify-center relative`} dir="ltr">
@@ -88,6 +82,6 @@ export function BundleCard({ bundle, index = 0 }: { bundle: Bundle, index?: numb
           )}
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }

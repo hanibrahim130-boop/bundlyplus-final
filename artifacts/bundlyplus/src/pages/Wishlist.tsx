@@ -1,12 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import { ProductGridSkeleton } from '@/components/shared/ProductGridSkeleton';
 import { Section } from '@/components/shared/Section';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { EmptyState } from '@/components/shared/EmptyState';
-import { StaggerContainer, StaggerItem } from '@/components/motion/ScrollReveal';
 import { useWishlist } from '@/hooks/use-wishlist';
 import { useProducts } from '@/lib/firestore-hooks';
 import type { Product } from '@/types';
@@ -18,13 +16,7 @@ export default function Wishlist() {
   const products = (productsData as Product[]).filter((p) => ids.includes(p.id));
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="pt-28 pb-20"
-    >
+    <div className="pt-28 pb-20 animate-[fadeIn_0.3s_ease-out]">
       <Section>
         <PageHeader
           title="Your"
@@ -43,18 +35,13 @@ export default function Wishlist() {
             actionHref="/products"
           />
         ) : (
-          <StaggerContainer
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch"
-            staggerDelay={0.06}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
             {products.map((product) => (
-              <StaggerItem key={product.id}>
-                <ProductCard product={product} />
-              </StaggerItem>
+              <ProductCard key={product.id} product={product} />
             ))}
-          </StaggerContainer>
+          </div>
         )}
       </Section>
-    </motion.div>
+    </div>
   );
 }
