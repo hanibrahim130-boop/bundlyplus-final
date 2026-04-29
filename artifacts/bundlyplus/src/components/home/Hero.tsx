@@ -6,6 +6,7 @@ import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
 import { getLogoUrl } from '@/utils/logoUtils';
 import { getBrandGradient, getInitials } from '@/lib/brand-theme';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { SiteSettings } from '@/types';
 
 interface HeroProps {
@@ -63,42 +64,58 @@ function BrandLogo({ name }: { name: string }) {
   );
 }
 
-function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false }: { items: MarqueeItem[]; reverse?: boolean; speed?: number; isRTL?: boolean }) {
+function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false, isMobile = false }: { items: MarqueeItem[]; reverse?: boolean; speed?: number; isRTL?: boolean; isMobile?: boolean }) {
   const { format } = useCurrency();
   // Duplicate items for seamless loop. In RTL, flip the natural direction.
   const loop = [...items, ...items];
   const goLeft = isRTL ? !reverse : reverse;
+
+  // On mobile: use CSS animation (GPU-composited) instead of Framer Motion (JS main thread)
+  const marqueeStyle = isMobile
+    ? {
+        animation: `${goLeft ? 'marquee-reverse' : 'marquee'} ${speed}s linear infinite`,
+      }
+    : undefined;
+
+  const content = loop.map((item, idx) => (
+    <div
+      key={`${item.name}-${idx}`}
+      className={`group flex items-center gap-2.5 sm:gap-3 bg-white/80 dark:bg-slate-800/70 ${isMobile ? '' : 'backdrop-blur-md'} border border-white/60 dark:border-slate-700/60 rounded-2xl pl-2.5 pr-4 sm:pl-3 sm:pr-5 py-2.5 sm:py-3 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-default whitespace-nowrap`}
+    >
+      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1.5 shadow-sm shrink-0 flex items-center justify-center">
+        <BrandLogo name={item.name} />
+      </div>
+      <div className="flex flex-col items-start">
+        <span className="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 leading-tight">
+          {item.name.replace(' – Private Account', '').replace(' Premium', '').replace(' Pro', '').replace(' Professional', '').replace(' Plus', '').replace(' Creative Cloud', ' CC').replace(' (HBO Max)', '')}
+        </span>
+        <span className="text-[10px] sm:text-[11px] font-bold text-pink-600 dark:text-pink-400">
+          {format(parseFloat(item.price))}<span className="text-slate-400 dark:text-slate-500 font-medium">/mo</span>
+        </span>
+      </div>
+      {item.tag && (
+        <span className="hidden sm:inline-flex text-[9px] font-bold uppercase tracking-wider bg-gradient-to-r from-pink-500 to-orange-500 text-white px-1.5 py-0.5 rounded-full">
+          {item.tag}
+        </span>
+      )}
+    </div>
+  ));
+
   return (
     <div dir="ltr" className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)' }}>
-      <motion.div
-        className="flex gap-3 sm:gap-4 w-max"
-        animate={{ x: goLeft ? ['-50%', '0%'] : ['0%', '-50%'] }}
-        transition={{ duration: speed, ease: 'linear', repeat: Infinity }}
-      >
-        {loop.map((item, idx) => (
-          <div
-            key={`${item.name}-${idx}`}
-            className="group flex items-center gap-2.5 sm:gap-3 bg-white/80 dark:bg-slate-800/70 backdrop-blur-md border border-white/60 dark:border-slate-700/60 rounded-2xl pl-2.5 pr-4 sm:pl-3 sm:pr-5 py-2.5 sm:py-3 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-default whitespace-nowrap"
-          >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1.5 shadow-sm shrink-0 flex items-center justify-center">
-              <BrandLogo name={item.name} />
-            </div>
-            <div className="flex flex-col items-start">
-              <span className="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 leading-tight">
-                {item.name.replace(' – Private Account', '').replace(' Premium', '').replace(' Pro', '').replace(' Professional', '').replace(' Plus', '').replace(' Creative Cloud', ' CC').replace(' (HBO Max)', '')}
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-pink-600 dark:text-pink-400">
-                {format(parseFloat(item.price))}<span className="text-slate-400 dark:text-slate-500 font-medium">/mo</span>
-              </span>
-            </div>
-            {item.tag && (
-              <span className="hidden sm:inline-flex text-[9px] font-bold uppercase tracking-wider bg-gradient-to-r from-pink-500 to-orange-500 text-white px-1.5 py-0.5 rounded-full">
-                {item.tag}
-              </span>
-            )}
-          </div>
-        ))}
-      </motion.div>
+      {isMobile ? (
+        <div className="flex gap-3 w-max" style={marqueeStyle}>
+          {content}
+        </div>
+      ) : (
+        <motion.div
+          className="flex gap-3 sm:gap-4 w-max"
+          animate={{ x: goLeft ? ['-50%', '0%'] : ['0%', '-50%'] }}
+          transition={{ duration: speed, ease: 'linear', repeat: Infinity }}
+        >
+          {content}
+        </motion.div>
+      )}
     </div>
   );
 }
@@ -106,6 +123,7 @@ function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false }: { ite
 export function Hero({ settings }: HeroProps) {
   const { t, lang } = useI18n();
   const isRTL = lang === 'ar';
+  const isMobile = useIsMobile();
   const rotatingWords = t.hero.rotating as readonly string[];
   const [wordIdx, setWordIdx] = useState(0);
   const [liveCount, setLiveCount] = useState(247);
@@ -135,36 +153,38 @@ export function Hero({ settings }: HeroProps) {
 
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-36 pb-12 sm:pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Aurora animated background */}
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <motion.div
-          className="absolute top-[-15%] left-[-10%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full opacity-60 dark:opacity-40 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #fbcfe8 0%, transparent 70%)' }}
-          animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute top-[20%] right-[-15%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full opacity-60 dark:opacity-40 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #c7d2fe 0%, transparent 70%)' }}
-          animate={{ x: [0, -25, 0], y: [0, 30, 0], scale: [1, 1.15, 1] }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        />
-        <motion.div
-          className="absolute bottom-[-20%] left-[20%] w-[65vw] h-[65vw] max-w-[750px] max-h-[750px] rounded-full opacity-50 dark:opacity-30 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #fde68a 0%, transparent 70%)' }}
-          animate={{ x: [0, 40, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-        />
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
-          style={{
-            backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-            color: '#0f172a',
-          }}
-        />
-      </div>
+      {/* Aurora animated background — disabled on mobile (Background.tsx already provides blobs) */}
+      {!isMobile && (
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+          <motion.div
+            className="absolute top-[-15%] left-[-10%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full opacity-60 dark:opacity-40 blur-3xl"
+            style={{ background: 'radial-gradient(circle, #fbcfe8 0%, transparent 70%)' }}
+            animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute top-[20%] right-[-15%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full opacity-60 dark:opacity-40 blur-3xl"
+            style={{ background: 'radial-gradient(circle, #c7d2fe 0%, transparent 70%)' }}
+            animate={{ x: [0, -25, 0], y: [0, 30, 0], scale: [1, 1.15, 1] }}
+            transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          />
+          <motion.div
+            className="absolute bottom-[-20%] left-[20%] w-[65vw] h-[65vw] max-w-[750px] max-h-[750px] rounded-full opacity-50 dark:opacity-30 blur-3xl"
+            style={{ background: 'radial-gradient(circle, #fde68a 0%, transparent 70%)' }}
+            animate={{ x: [0, 40, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+          />
+          {/* Subtle grid */}
+          <div
+            className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
+            style={{
+              backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+              color: '#0f172a',
+            }}
+          />
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Live trending pill */}
@@ -305,8 +325,8 @@ export function Hero({ settings }: HeroProps) {
             <span className="h-px w-8 bg-slate-300 dark:bg-slate-600" />
           </div>
           <div className="space-y-3 sm:space-y-4">
-            <MarqueeRow items={MARQUEE_TOP} speed={45} isRTL={isRTL} />
-            <MarqueeRow items={MARQUEE_BOTTOM} reverse speed={50} isRTL={isRTL} />
+            <MarqueeRow items={MARQUEE_TOP} speed={45} isRTL={isRTL} isMobile={isMobile} />
+            <MarqueeRow items={MARQUEE_BOTTOM} reverse speed={50} isRTL={isRTL} isMobile={isMobile} />
           </div>
         </motion.div>
       </div>

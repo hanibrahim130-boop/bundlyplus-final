@@ -35,7 +35,8 @@ const NAV_ITEMS = [
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [, navigate] = useLocation();
-  const { data: products = [] } = useProducts();
+  // Only fetch products when palette is opened to avoid unnecessary Firestore reads on every page load
+  const { data: products = [] } = useProducts({ enabled: open });
   const { theme, toggleTheme } = useTheme();
   const { format } = useCurrency();
 

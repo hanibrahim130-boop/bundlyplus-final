@@ -18,12 +18,18 @@ interface UseQueryResult<T> {
 export function useProducts(filters?: {
   category?: string;
   featured?: boolean;
+  enabled?: boolean;
 }): UseQueryResult<any[]> {
+  const enabled = filters?.enabled !== false;
   const [data, setData] = useState<any[] | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(enabled);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      setIsLoading(false);
+      return;
+    }
     async function fetch() {
       try {
         setIsLoading(true);
@@ -55,7 +61,7 @@ export function useProducts(filters?: {
       }
     }
     fetch();
-  }, [filters?.category, filters?.featured]);
+  }, [filters?.category, filters?.featured, enabled]);
 
   return { data, isLoading, error };
 }

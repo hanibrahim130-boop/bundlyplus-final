@@ -63,13 +63,15 @@ export function SocialProofToasts() {
   const isAr = lang === 'ar';
 
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
+    let alive = true;
+    let scheduleTimer: ReturnType<typeof setTimeout>;
+    let hideTimer: ReturnType<typeof setTimeout>;
     let nextId = 1;
 
     const scheduleNext = (initial = false) => {
-      // Show first toast 8s after load, then every 25-45s
       const delay = initial ? 8000 : 25000 + Math.random() * 20000;
-      timeoutId = setTimeout(() => {
+      scheduleTimer = setTimeout(() => {
+        if (!alive) return;
         const person = isAr ? pick(NAMES_AR) : pick(NAMES_EN);
         setToast({
           id: nextId++,
@@ -78,15 +80,20 @@ export function SocialProofToasts() {
           product: pick(PRODUCTS),
           ago: Math.floor(Math.random() * 8) + 1,
         });
-        // Auto-hide after 6 seconds
-        setTimeout(() => setToast(null), 6000);
+        hideTimer = setTimeout(() => {
+          if (alive) setToast(null);
+        }, 6000);
         scheduleNext(false);
       }, delay);
     };
 
     scheduleNext(true);
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      alive = false;
+      clearTimeout(scheduleTimer);
+      clearTimeout(hideTimer);
+    };
   }, [isAr]);
 
   const minAgo = (n: number) => (isAr ? `قبل ${n} د` : `${n}m ago`);

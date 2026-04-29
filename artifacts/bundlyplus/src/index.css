@@ -233,6 +233,11 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 .marquee-track {
   animation: marquee 28s linear infinite;
   will-change: transform;
@@ -309,8 +314,28 @@
   .float-logo,
   .float-card,
   .float-card-alt,
-  .marquee-track {
-    animation: none;
+  .marquee-track,
+  .shimmer-bg::after {
+    animation: none !important;
+  }
+  .bg-blob {
+    will-change: auto;
+  }
+}
+
+/* Mobile performance: reduce backdrop-blur on small screens */
+@media (max-width: 767px) {
+  .glass-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .glass-button {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 }
 

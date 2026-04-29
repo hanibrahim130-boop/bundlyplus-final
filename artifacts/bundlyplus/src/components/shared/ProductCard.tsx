@@ -15,7 +15,7 @@ interface ProductCardProps {
   index?: number;
 }
 
-export function ProductCard({ product, index = 0 }: ProductCardProps) {
+export const ProductCard = React.memo(function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addToCart, isInCart } = useCart();
   const { isWishlisted, toggle: toggleWishlist } = useWishlist();
   const { t } = useI18n();
@@ -152,4 +152,4 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       </div>
     </motion.div>
   );
-}
+});

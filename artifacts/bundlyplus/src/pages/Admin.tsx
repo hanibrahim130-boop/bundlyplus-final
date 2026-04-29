@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
-import { auth, firestore } from "@/lib/firebase";
+import { firestore } from "@/lib/firebase";
+import { auth } from "@/lib/firebase-auth";
 import {
   Plus,
   Pencil,
