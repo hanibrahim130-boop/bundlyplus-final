@@ -45,8 +45,8 @@ export function Navbar() {
   return (
     <nav style={{ top: 'max(env(safe-area-inset-top, 0px), 12px)' }} className={`fixed sm:!top-6 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-50 rounded-full px-3 sm:px-6 py-2.5 sm:py-3 flex justify-between items-center gap-2 transition-[background-color,box-shadow] duration-300 ${
       scrolled
-        ? 'md:bg-white/80 md:dark:bg-slate-900/80 md:backdrop-blur-xl bg-white/[0.97] dark:bg-slate-900/[0.97] border border-white/80 dark:border-white/10 shadow-xl shadow-purple-900/10 dark:shadow-black/30'
-        : 'md:glass-panel bg-white/[0.92] dark:bg-slate-900/[0.92] md:bg-transparent md:dark:bg-transparent border border-white/60 dark:border-white/10 shadow-lg md:shadow-xl'
+        ? 'bg-white/[0.92] dark:bg-slate-900/[0.92] md:backdrop-blur-sm border border-white/80 dark:border-white/10 shadow-xl shadow-purple-900/10 dark:shadow-black/30'
+        : 'bg-white/[0.85] dark:bg-slate-900/[0.85] md:backdrop-blur-sm border border-white/60 dark:border-white/10 shadow-lg'
     }`}>
       <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-950 shadow-sm ring-1 ring-slate-950/10 dark:bg-white/10 dark:ring-white/15">

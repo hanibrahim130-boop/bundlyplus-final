@@ -113,7 +113,7 @@ export function SocialProofToasts() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.92 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto max-w-[88vw] sm:max-w-sm bg-white dark:bg-slate-900 sm:bg-white/95 sm:dark:bg-slate-900/95 sm:backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-2xl shadow-2xl shadow-slate-900/10 dark:shadow-black/40 px-4 py-3 flex items-center gap-3"
+            className="pointer-events-auto max-w-[88vw] sm:max-w-sm bg-white/95 dark:bg-slate-900/95 border border-white/80 dark:border-white/10 rounded-2xl shadow-2xl shadow-slate-900/10 dark:shadow-black/40 px-4 py-3 flex items-center gap-3"
             dir={isRTL ? 'rtl' : 'ltr'}
           >
             <div className="relative shrink-0">

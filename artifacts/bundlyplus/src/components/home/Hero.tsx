@@ -64,23 +64,16 @@ function BrandLogo({ name }: { name: string }) {
   );
 }
 
-function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false, isMobile = false }: { items: MarqueeItem[]; reverse?: boolean; speed?: number; isRTL?: boolean; isMobile?: boolean }) {
+function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false }: { items: MarqueeItem[]; reverse?: boolean; speed?: number; isRTL?: boolean }) {
   const { format } = useCurrency();
-  // Duplicate items for seamless loop. In RTL, flip the natural direction.
+  const isMobile = useIsMobile();
   const loop = [...items, ...items];
   const goLeft = isRTL ? !reverse : reverse;
-
-  // On mobile: use CSS animation (GPU-composited) instead of Framer Motion (JS main thread)
-  const marqueeStyle = isMobile
-    ? {
-        animation: `${goLeft ? 'marquee-reverse' : 'marquee'} ${speed}s linear infinite`,
-      }
-    : undefined;
 
   const content = loop.map((item, idx) => (
     <div
       key={`${item.name}-${idx}`}
-      className={`group flex items-center gap-2.5 sm:gap-3 ${isMobile ? 'bg-white/90 dark:bg-slate-800/80 shadow-sm' : 'bg-white/80 dark:bg-slate-800/70 backdrop-blur-md shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300'} border border-white/60 dark:border-slate-700/60 rounded-2xl pl-2.5 pr-4 sm:pl-3 sm:pr-5 py-2.5 sm:py-3 cursor-default whitespace-nowrap`}
+      className={`group flex items-center gap-2.5 sm:gap-3 bg-white/90 dark:bg-slate-800/80 border border-white/60 dark:border-slate-700/60 rounded-2xl pl-2.5 pr-4 sm:pl-3 sm:pr-5 py-2.5 sm:py-3 cursor-default whitespace-nowrap shadow-sm ${!isMobile ? 'hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300' : ''}`}
     >
       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1.5 shadow-sm shrink-0 flex items-center justify-center">
         <BrandLogo name={item.name} />
@@ -103,19 +96,14 @@ function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false, isMobil
 
   return (
     <div dir="ltr" className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)' }}>
-      {isMobile ? (
-        <div className="flex gap-3 w-max" style={marqueeStyle}>
-          {content}
-        </div>
-      ) : (
-        <motion.div
-          className="flex gap-3 sm:gap-4 w-max"
-          animate={{ x: goLeft ? ['-50%', '0%'] : ['0%', '-50%'] }}
-          transition={{ duration: speed, ease: 'linear', repeat: Infinity }}
-        >
-          {content}
-        </motion.div>
-      )}
+      <div
+        className="flex gap-3 sm:gap-4 w-max"
+        style={{
+          animation: `${goLeft ? 'marquee-reverse' : 'marquee'} ${speed}s linear infinite`,
+        }}
+      >
+        {content}
+      </div>
     </div>
   );
 }
@@ -153,35 +141,20 @@ export function Hero({ settings }: HeroProps) {
 
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-36 pb-12 sm:pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Aurora animated background — disabled on mobile (Background.tsx already provides blobs) */}
+      {/* Aurora background — CSS animations only (no Framer Motion JS overhead) */}
       {!isMobile && (
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-          <motion.div
-            className="absolute top-[-15%] left-[-10%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full opacity-60 dark:opacity-40 blur-3xl"
-            style={{ background: 'radial-gradient(circle, #fbcfe8 0%, transparent 70%)' }}
-            animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute top-[20%] right-[-15%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full opacity-60 dark:opacity-40 blur-3xl"
-            style={{ background: 'radial-gradient(circle, #c7d2fe 0%, transparent 70%)' }}
-            animate={{ x: [0, -25, 0], y: [0, 30, 0], scale: [1, 1.15, 1] }}
-            transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-          <motion.div
-            className="absolute bottom-[-20%] left-[20%] w-[65vw] h-[65vw] max-w-[750px] max-h-[750px] rounded-full opacity-50 dark:opacity-30 blur-3xl"
-            style={{ background: 'radial-gradient(circle, #fde68a 0%, transparent 70%)' }}
-            animate={{ x: [0, 40, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-          />
-          {/* Subtle grid */}
           <div
-            className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
-            style={{
-              backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
-              backgroundSize: '50px 50px',
-              color: '#0f172a',
-            }}
+            className="hero-aurora hero-aurora-1 absolute top-[-15%] left-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full opacity-60 dark:opacity-40 blur-2xl"
+            style={{ background: 'radial-gradient(circle, #fbcfe8 0%, transparent 70%)' }}
+          />
+          <div
+            className="hero-aurora hero-aurora-2 absolute top-[20%] right-[-15%] w-[45vw] h-[45vw] max-w-[550px] max-h-[550px] rounded-full opacity-60 dark:opacity-40 blur-2xl"
+            style={{ background: 'radial-gradient(circle, #c7d2fe 0%, transparent 70%)' }}
+          />
+          <div
+            className="hero-aurora hero-aurora-3 absolute bottom-[-20%] left-[20%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full opacity-50 dark:opacity-30 blur-2xl"
+            style={{ background: 'radial-gradient(circle, #fde68a 0%, transparent 70%)' }}
           />
         </div>
       )}
@@ -192,7 +165,7 @@ export function Hero({ settings }: HeroProps) {
           className={`flex justify-center mb-5 sm:mb-7 ${isMobile ? 'animate-[fadeIn_0.4s_ease-out]' : ''}`}
           {...(!isMobile ? {} : {})}
         >
-          <div className={`inline-flex items-center gap-2 sm:gap-2.5 border rounded-full pl-2 pr-3 sm:pr-4 py-1.5 ${isMobile ? 'bg-white/95 dark:bg-slate-800/95 border-white/80 dark:border-slate-700/60 shadow-sm' : 'bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border-white/80 dark:border-slate-700/60 shadow-md'}`}>
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 bg-white/90 dark:bg-slate-800/90 border border-white/80 dark:border-slate-700/60 rounded-full pl-2 pr-3 sm:pr-4 py-1.5 shadow-sm">
             <span className="relative flex w-2 h-2 shrink-0">
               <span className="animate-ping absolute inline-flex w-full h-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex w-2 h-2 rounded-full bg-green-500"></span>
@@ -270,7 +243,7 @@ export function Hero({ settings }: HeroProps) {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group w-full sm:w-auto inline-flex items-center justify-center gap-2 border text-slate-800 dark:text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-full ${isMobile ? 'bg-white/95 dark:bg-slate-800/95 border-white/80 dark:border-slate-700 shadow-sm' : 'bg-white/80 dark:bg-slate-800/70 backdrop-blur-md border-white/80 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300'}`}
+              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/90 dark:bg-slate-800/90 border border-white/80 dark:border-slate-700 text-slate-800 dark:text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
             >
               <MessageCircle size={16} className="text-green-500" />
               {t.hero.getOnWhatsApp}
@@ -308,8 +281,8 @@ export function Hero({ settings }: HeroProps) {
             <span className="h-px w-8 bg-slate-300 dark:bg-slate-600" />
           </div>
           <div className="space-y-3 sm:space-y-4">
-            <MarqueeRow items={MARQUEE_TOP} speed={45} isRTL={isRTL} isMobile={isMobile} />
-            <MarqueeRow items={MARQUEE_BOTTOM} reverse speed={50} isRTL={isRTL} isMobile={isMobile} />
+            <MarqueeRow items={MARQUEE_TOP} speed={45} isRTL={isRTL} />
+            <MarqueeRow items={MARQUEE_BOTTOM} reverse speed={50} isRTL={isRTL} />
           </div>
         </div>
       </div>

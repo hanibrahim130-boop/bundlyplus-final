@@ -127,13 +127,13 @@
 
 @layer utilities {
   .glass-panel {
-    @apply bg-white/40 dark:bg-white/5 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-xl shadow-purple-900/5 dark:shadow-purple-900/30;
+    @apply bg-white/70 dark:bg-white/10 backdrop-blur-sm border border-white/60 dark:border-white/10 shadow-xl shadow-purple-900/5 dark:shadow-purple-900/30;
   }
   .glass-card {
-    @apply bg-white/60 dark:bg-white/5 backdrop-blur-lg border border-white/80 dark:border-white/10 shadow-lg shadow-pink-900/5 dark:shadow-pink-900/10 hover:shadow-xl hover:shadow-purple-900/10 hover:-translate-y-1 transition-all duration-300;
+    @apply bg-white/80 dark:bg-white/10 backdrop-blur-sm border border-white/80 dark:border-white/10 shadow-lg shadow-pink-900/5 dark:shadow-pink-900/10 hover:shadow-xl hover:shadow-purple-900/10 hover:-translate-y-1 transition-all duration-300;
   }
   .glass-button {
-    @apply bg-white/50 dark:bg-white/10 backdrop-blur-md border border-white/80 dark:border-white/20 text-slate-700 dark:text-slate-200 hover:bg-white/80 dark:hover:bg-white/20 shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-white/70 dark:bg-white/15 border border-white/80 dark:border-white/20 text-slate-700 dark:text-slate-200 hover:bg-white/90 dark:hover:bg-white/20 shadow-sm hover:shadow-md transition-all duration-300;
   }
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400;
@@ -167,20 +167,30 @@
 
 @keyframes blob-drift-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(40px, 40px) scale(1.08); }
-  66% { transform: translate(-20px, 20px) scale(0.96); }
+  50% { transform: translate(25px, 25px) scale(1.04); }
 }
 
 @keyframes blob-drift-2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-50px, 30px) scale(1.1); }
-  66% { transform: translate(20px, -20px) scale(0.95); }
+  50% { transform: translate(-30px, 20px) scale(1.05); }
 }
 
 @keyframes blob-drift-3 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -40px) scale(1.06); }
-  66% { transform: translate(-30px, 20px) scale(0.97); }
+  50% { transform: translate(20px, -25px) scale(1.03); }
+}
+
+@keyframes hero-aurora-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 15px) scale(1.06); }
+}
+@keyframes hero-aurora-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-18px, 20px) scale(1.08); }
+}
+@keyframes hero-aurora-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, -15px) scale(1.05); }
 }
 
 @keyframes float-up-down {
@@ -203,17 +213,32 @@
 }
 
 .bg-blob-1 {
-  animation: blob-drift-1 20s ease-in-out infinite;
+  animation: blob-drift-1 35s ease-in-out infinite;
 }
 
 .bg-blob-2 {
-  animation: blob-drift-2 25s ease-in-out infinite;
-  animation-delay: -8s;
+  animation: blob-drift-2 40s ease-in-out infinite;
+  animation-delay: -12s;
 }
 
 .bg-blob-3 {
-  animation: blob-drift-3 22s ease-in-out infinite;
-  animation-delay: -5s;
+  animation: blob-drift-3 38s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+.hero-aurora {
+  will-change: transform;
+}
+.hero-aurora-1 {
+  animation: hero-aurora-1 18s ease-in-out infinite;
+}
+.hero-aurora-2 {
+  animation: hero-aurora-2 22s ease-in-out infinite;
+  animation-delay: -6s;
+}
+.hero-aurora-3 {
+  animation: hero-aurora-3 20s ease-in-out infinite;
+  animation-delay: -10s;
 }
 
 .float-logo {
@@ -316,6 +341,7 @@
   .animate-float-slow,
   .hero-shimmer,
   .bg-blob,
+  .hero-aurora,
   .float-logo,
   .float-card,
   .float-card-alt,
@@ -323,7 +349,8 @@
   .shimmer-bg::after {
     animation: none !important;
   }
-  .bg-blob {
+  .bg-blob,
+  .hero-aurora {
     will-change: auto;
   }
 }
