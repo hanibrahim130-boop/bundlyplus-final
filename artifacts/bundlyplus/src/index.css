@@ -238,6 +238,11 @@
   100% { transform: translateX(0); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .marquee-track {
   animation: marquee 28s linear infinite;
   will-change: transform;
@@ -323,19 +328,48 @@
   }
 }
 
-/* Mobile performance: reduce backdrop-blur on small screens */
+/* ── Mobile high-refresh rate policy ────────────────────────────── */
+/* Target: 60fps minimum, 90fps on 90Hz, 120fps on 120Hz devices. */
+/* Strategy: eliminate ALL backdrop-blur, promote only transform/opacity. */
 @media (max-width: 767px) {
+  /* Zero backdrop-blur on mobile — the #1 frame-budget killer */
+  .glass-panel,
+  .glass-card,
+  .glass-button {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
   .glass-panel {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255,255,255,0.92);
+  }
+  .dark .glass-panel {
+    background-color: rgba(15,23,42,0.92);
   }
   .glass-card {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(255,255,255,0.95);
+  }
+  .dark .glass-card {
+    background-color: rgba(15,23,42,0.90);
   }
   .glass-button {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background-color: rgba(255,255,255,0.90);
+  }
+  .dark .glass-button {
+    background-color: rgba(255,255,255,0.15);
+  }
+  /* Disable hover-translate on touch devices (no hover) */
+  .glass-card:hover,
+  .solid-card:hover {
+    transform: none !important;
+  }
+  /* Prevent unnecessary layer promotion */
+  .bg-blob {
+    will-change: auto;
+  }
+  /* Content-visibility for below-fold sections */
+  section + section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
   }
 }
 

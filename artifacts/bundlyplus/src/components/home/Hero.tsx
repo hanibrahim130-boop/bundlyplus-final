@@ -80,7 +80,7 @@ function MarqueeRow({ items, reverse = false, speed = 40, isRTL = false, isMobil
   const content = loop.map((item, idx) => (
     <div
       key={`${item.name}-${idx}`}
-      className={`group flex items-center gap-2.5 sm:gap-3 bg-white/80 dark:bg-slate-800/70 ${isMobile ? '' : 'backdrop-blur-md'} border border-white/60 dark:border-slate-700/60 rounded-2xl pl-2.5 pr-4 sm:pl-3 sm:pr-5 py-2.5 sm:py-3 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-default whitespace-nowrap`}
+      className={`group flex items-center gap-2.5 sm:gap-3 ${isMobile ? 'bg-white/90 dark:bg-slate-800/80 shadow-sm' : 'bg-white/80 dark:bg-slate-800/70 backdrop-blur-md shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300'} border border-white/60 dark:border-slate-700/60 rounded-2xl pl-2.5 pr-4 sm:pl-3 sm:pr-5 py-2.5 sm:py-3 cursor-default whitespace-nowrap`}
     >
       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1.5 shadow-sm shrink-0 flex items-center justify-center">
         <BrandLogo name={item.name} />
@@ -188,13 +188,11 @@ export function Hero({ settings }: HeroProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Live trending pill */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-center mb-5 sm:mb-7"
+        <div
+          className={`flex justify-center mb-5 sm:mb-7 ${isMobile ? 'animate-[fadeIn_0.4s_ease-out]' : ''}`}
+          {...(!isMobile ? {} : {})}
         >
-          <div className="inline-flex items-center gap-2 sm:gap-2.5 bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-white/80 dark:border-slate-700/60 rounded-full pl-2 pr-3 sm:pr-4 py-1.5 shadow-md">
+          <div className={`inline-flex items-center gap-2 sm:gap-2.5 border rounded-full pl-2 pr-3 sm:pr-4 py-1.5 ${isMobile ? 'bg-white/95 dark:bg-slate-800/95 border-white/80 dark:border-slate-700/60 shadow-sm' : 'bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border-white/80 dark:border-slate-700/60 shadow-md'}`}>
             <span className="relative flex w-2 h-2 shrink-0">
               <span className="animate-ping absolute inline-flex w-full h-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex w-2 h-2 rounded-full bg-green-500"></span>
@@ -210,15 +208,12 @@ export function Hero({ settings }: HeroProps) {
               {t.hero.badge}
             </span>
           </div>
-        </motion.div>
+        </div>
 
         {/* Headline with rotating word */}
         <div className="text-center max-w-4xl mx-auto">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display font-black text-slate-900 dark:text-white leading-[0.95] tracking-tight"
+          <h1
+            className={`font-display font-black text-slate-900 dark:text-white leading-[0.95] tracking-tight ${isMobile ? 'animate-[fadeIn_0.5s_ease-out]' : ''}`}
             style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)' }}
           >
             <span className="block">{t.hero.line1}</span>
@@ -251,24 +246,18 @@ export function Hero({ settings }: HeroProps) {
               </span>
             </span>
             {t.hero.line3 && <span className="block mt-1 sm:mt-2">{t.hero.line3}</span>}
-          </motion.h1>
+          </h1>
 
           {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="mt-5 sm:mt-7 text-base sm:text-lg md:text-xl text-slate-500 dark:text-slate-400 leading-snug max-w-2xl mx-auto px-2"
+          <p
+            className={`mt-5 sm:mt-7 text-base sm:text-lg md:text-xl text-slate-500 dark:text-slate-400 leading-snug max-w-2xl mx-auto px-2 ${isMobile ? 'animate-[fadeIn_0.5s_ease-out_0.1s_both]' : ''}`}
           >
             {t.hero.subtitle}
-          </motion.p>
+          </p>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2"
+          <div
+            className={`mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 ${isMobile ? 'animate-[fadeIn_0.5s_ease-out_0.15s_both]' : ''}`}
           >
             <Link
               href="/products"
@@ -281,19 +270,16 @@ export function Hero({ settings }: HeroProps) {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/80 dark:bg-slate-800/70 backdrop-blur-md border border-white/80 dark:border-slate-700 text-slate-800 dark:text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+              className={`group w-full sm:w-auto inline-flex items-center justify-center gap-2 border text-slate-800 dark:text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-full ${isMobile ? 'bg-white/95 dark:bg-slate-800/95 border-white/80 dark:border-slate-700 shadow-sm' : 'bg-white/80 dark:bg-slate-800/70 backdrop-blur-md border-white/80 dark:border-slate-700 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300'}`}
             >
               <MessageCircle size={16} className="text-green-500" />
               {t.hero.getOnWhatsApp}
             </a>
-          </motion.div>
+          </div>
 
           {/* Trust stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-7 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium px-2"
+          <div
+            className={`mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-7 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium px-2 ${isMobile ? 'animate-[fadeIn_0.5s_ease-out_0.2s_both]' : ''}`}
           >
             <span className="inline-flex items-center gap-1.5">
               <Users size={14} className="text-pink-500" />
@@ -307,15 +293,12 @@ export function Hero({ settings }: HeroProps) {
               <Zap size={14} className="text-amber-500" />
               {t.hero.setup}
             </span>
-          </motion.div>
+          </div>
         </div>
 
         {/* Marquee section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55 }}
-          className="mt-10 sm:mt-14"
+        <div
+          className={`mt-10 sm:mt-14 ${isMobile ? 'animate-[fadeIn_0.6s_ease-out_0.25s_both]' : ''}`}
         >
           <div className="flex items-center justify-center gap-2 mb-4 sm:mb-5">
             <span className="h-px w-8 bg-slate-300 dark:bg-slate-600" />
@@ -328,7 +311,7 @@ export function Hero({ settings }: HeroProps) {
             <MarqueeRow items={MARQUEE_TOP} speed={45} isRTL={isRTL} isMobile={isMobile} />
             <MarqueeRow items={MARQUEE_BOTTOM} reverse speed={50} isRTL={isRTL} isMobile={isMobile} />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

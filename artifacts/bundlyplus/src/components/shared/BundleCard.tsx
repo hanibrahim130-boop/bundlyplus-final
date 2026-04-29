@@ -23,11 +23,11 @@ export function BundleCard({ bundle, index = 0 }: { bundle: Bundle, index?: numb
       transition={{ duration: 0.4, delay: index * 0.1 }}
       className={`glass-card rounded-2xl overflow-hidden flex flex-col relative h-full ${inCart ? 'ring-2 ring-pink-400/50' : ''}`}
     >
-      <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-orange-300/30 to-pink-300/30 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-orange-300/20 to-pink-300/20 rounded-full pointer-events-none" />
 
       <div className={`h-20 bg-gradient-to-br ${gradient} flex items-center justify-center relative`} dir="ltr">
         <div className="absolute inset-0 bg-black/10" />
-        <div className="relative z-10 w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center shadow-lg border border-white/30">
+        <div className="relative z-10 w-12 h-12 rounded-xl bg-white/30 text-white flex items-center justify-center shadow-lg border border-white/30">
           <ShoppingBag size={22} />
         </div>
         <div className="absolute top-3 right-3 flex items-center gap-2 z-10">
@@ -37,7 +37,7 @@ export function BundleCard({ bundle, index = 0 }: { bundle: Bundle, index?: numb
               {t.bundleCard.inCart}
             </span>
           )}
-          <div className="bg-white/90 backdrop-blur-sm text-orange-600 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
+          <div className="bg-white/95 text-orange-600 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
             {t.bundleCard.save} {savePercent}%
           </div>
         </div>

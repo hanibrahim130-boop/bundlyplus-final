@@ -71,7 +71,7 @@ export const ProductCard = React.memo(function ProductCard({ product, index = 0 
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product.id); }}
           aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           aria-pressed={wishlisted}
-          className={`absolute bottom-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 backdrop-blur-md border shadow-sm hover:scale-110 active:scale-95 ${
+          className={`absolute bottom-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 border shadow-sm hover:scale-110 active:scale-95 ${
             wishlisted
               ? 'bg-pink-500 border-pink-400 text-white shadow-pink-500/30'
               : 'bg-white/80 dark:bg-slate-800/80 border-white/80 dark:border-white/10 text-slate-400 hover:text-pink-500 dark:text-slate-500 dark:hover:text-pink-400'
@@ -80,7 +80,7 @@ export const ProductCard = React.memo(function ProductCard({ product, index = 0 
           <Heart size={15} fill={wishlisted ? 'currentColor' : 'none'} strokeWidth={2.2} />
         </button>
         <div className="relative">
-          <div className={`absolute -inset-2 rounded-3xl bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500`} />
+          <div className={`absolute -inset-2 rounded-3xl bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
           <div className="relative w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 bg-white dark:bg-white shadow-[0_4px_20px_-4px_rgba(15,23,42,0.15)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] ring-1 ring-slate-200/60 dark:ring-white/5 p-3">
             {logoUrl && !imgFailed ? (
               <img
