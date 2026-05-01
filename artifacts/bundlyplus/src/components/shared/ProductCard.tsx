@@ -22,6 +22,7 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
   const wishlisted = isWishlisted(product.id);
   const [imgFailed, setImgFailed] = useState(false);
   const inCart = isInCart(product.id);
+  const isOutOfStock = !!product.out_of_stock;
 
   const logoUrl = product.image_url || getLogoUrl(product.name);
   const initials = getInitials(product.name);
@@ -44,18 +45,22 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
   return (
     <div className={`solid-card rounded-2xl overflow-hidden flex flex-col relative group h-full animate-[fadeIn_0.35s_ease-out] ${inCart ? 'ring-1 ring-pink-400' : ''}`}>
       <div className="h-32 flex items-center justify-center bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-700/60 relative overflow-hidden">
-        {inCart && (
+        {isOutOfStock ? (
+          <span className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-rose-500" />
+            <span className="text-[10px] font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider">{t.productCard.outOfStock}</span>
+          </span>
+        ) : inCart ? (
           <span className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-pink-500" />
             <span className="text-[10px] font-semibold text-pink-600 dark:text-pink-400 uppercase tracking-wider">{t.productCard.inCart}</span>
           </span>
-        )}
-        {product.hot && !inCart && (
+        ) : product.hot ? (
           <span className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
             <span className="text-[10px] font-semibold text-orange-600 dark:text-orange-400 uppercase tracking-wider">{t.productCard.hot}</span>
           </span>
-        )}
+        ) : null}
         {product.category && (
           <div className="absolute top-3 right-3 z-10">
             <CategoryBadge label={product.category} />
@@ -145,16 +150,21 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
           </div>
 
           <button
-            onClick={() => addToCart(product, 'product')}
+            onClick={() => {
+              if (!isOutOfStock) addToCart(product, 'product');
+            }}
+            disabled={isOutOfStock}
             className={`flex min-h-[44px] items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-              inCart
+              isOutOfStock
+                ? 'cursor-not-allowed bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+                : inCart
                 ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
                 : 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-pink-500 dark:hover:bg-pink-500 dark:hover:text-white hover:shadow-lg hover:shadow-pink-500/30 hover:-translate-y-0.5'
             }`}
-            aria-label={inCart ? `Add another ${product.name}` : `Add ${product.name} to cart`}
+            aria-label={isOutOfStock ? `${product.name} is out of stock` : inCart ? `Add another ${product.name}` : `Add ${product.name} to cart`}
           >
-            {inCart ? <Check size={14} /> : <ShoppingCart size={14} />}
-            {inCart ? t.productCard.added : t.productCard.add}
+            {isOutOfStock ? null : inCart ? <Check size={14} /> : <ShoppingCart size={14} />}
+            {isOutOfStock ? t.productCard.outOfStock : inCart ? t.productCard.added : t.productCard.add}
           </button>
         </div>
       </div>

@@ -11,6 +11,7 @@ export interface Product {
   account_type?: string;
   price: number;
   featured?: boolean;
+  out_of_stock?: boolean;
 }
 
 export interface Bundle {

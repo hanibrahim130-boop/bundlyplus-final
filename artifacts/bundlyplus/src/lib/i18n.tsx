@@ -176,6 +176,7 @@ export const translations = {
       viewDetails: 'View details for {name}',
       add: 'Add',
       added: 'Added',
+      outOfStock: 'Out of stock',
       perMonth: '/month',
     },
     productDetails: {
@@ -378,6 +379,7 @@ export const translations = {
       viewDetails: 'عرض تفاصيل {name}',
       add: 'أضف',
       added: 'أضيف',
+      outOfStock: 'غير متوفر',
       perMonth: '/شهر',
     },
     productDetails: {

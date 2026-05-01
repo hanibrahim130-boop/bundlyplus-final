@@ -44,6 +44,7 @@ const emptyForm: FormState = {
   account_type: "Shared",
   price: 0,
   featured: false,
+  out_of_stock: false,
 };
 
 export default function Admin() {
@@ -173,6 +174,7 @@ export default function Admin() {
         image_url: editing.image_url?.trim() || "",
         hot: !!editing.hot,
         featured: !!editing.featured,
+        out_of_stock: !!editing.out_of_stock,
         account_type: editing.account_type,
         price: Number(editing.price),
       };
@@ -374,6 +376,11 @@ export default function Admin() {
                         FEATURED
                       </span>
                     )}
+                    {p.out_of_stock && (
+                      <span className="text-[10px] font-bold text-rose-600 bg-rose-100 dark:bg-rose-900/30 px-1.5 py-0.5 rounded">
+                        OUT OF STOCK
+                      </span>
+                    )}
                     {!p.image_url && !hasLogo(p.name) && (
                       <span
                         title="No logo file in public/logos/ matches this product. Add the SVG or set a custom image URL."
@@ -573,6 +580,11 @@ export default function Admin() {
                     label="Featured"
                     value={!!editing.featured}
                     onChange={(v) => setEditing({ ...editing, featured: v })}
+                  />
+                  <Toggle
+                    label="Out of stock"
+                    value={!!editing.out_of_stock}
+                    onChange={(v) => setEditing({ ...editing, out_of_stock: v })}
                   />
                 </div>
               </div>
