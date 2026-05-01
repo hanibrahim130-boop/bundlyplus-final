@@ -18,6 +18,7 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { Background } from "@/components/layout/Background";
 import { Footer } from "@/components/layout/Footer";
 import { CommandPalette } from "@/components/layout/CommandPalette";
+import { DiscountPopup } from "@/components/layout/DiscountPopup";
 
 import Home from "@/pages/Home";
 const Products = lazy(() => import("@/pages/Products"));
@@ -78,6 +79,7 @@ function App() {
                   <Footer />
                   <BottomNav />
                   <SocialProofToasts />
+                  <DiscountPopup />
                   <CommandPalette />
                 </div>
               </WouterRouter>

@@ -34,6 +34,15 @@ export const translations = {
       viewAll: 'View All',
       viewAllProducts: 'View All Products',
     },
+    discountPopup: {
+      badge: 'May 1-2 only',
+      title: '20% OFF',
+      description: 'Celebrate the first days of May with 20% off your next digital subscription order.',
+      window: 'Valid on May 1 and May 2. Ask for the May discount when you checkout on WhatsApp.',
+      cta: 'Shop the deal',
+      later: 'Maybe later',
+      dismiss: 'Close discount popup',
+    },
     whyUs: {
       label: 'Why Choose',
       brand: 'BundlyPlus',
@@ -226,6 +235,15 @@ export const translations = {
       topToolsTitle: 'الأفضل من Bundly',
       viewAll: 'عرض الكل',
       viewAllProducts: 'عرض كل المنتجات',
+    },
+    discountPopup: {
+      badge: 'May 1-2 only',
+      title: '20% OFF',
+      description: 'Celebrate the first days of May with 20% off your next digital subscription order.',
+      window: 'Valid on May 1 and May 2. Ask for the May discount when you checkout on WhatsApp.',
+      cta: 'Shop the deal',
+      later: 'Maybe later',
+      dismiss: 'Close discount popup',
     },
     whyUs: {
       label: 'لماذا تختار',
