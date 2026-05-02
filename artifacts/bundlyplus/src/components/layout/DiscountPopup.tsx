@@ -5,6 +5,7 @@ import { ArrowRight, Gift, Sparkles, X } from 'lucide-react';
 
 import { useI18n } from '@/lib/i18n';
 import { useActivePromotion, type Promotion } from '@/lib/firestore-hooks';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 
 const DISMISS_KEY_PREFIX = 'bundlyplus_promo_dismissed_';
 const DISMISS_TTL = 24 * 60 * 60 * 1000;
@@ -49,7 +50,14 @@ export function DiscountPopup() {
     if (!promotion) return;
     if (isDismissed(promotion.id)) return;
 
-    const showTimer = window.setTimeout(() => setIsVisible(true), 650);
+    const showTimer = window.setTimeout(() => {
+      setIsVisible(true);
+      trackEvent(ANALYTICS_EVENTS.DISCOUNT_POPUP_SHOWN, {
+        promotion_id: promotion.id,
+        promotion_title: promotion.title,
+        language: lang,
+      });
+    }, 650);
     return () => window.clearTimeout(showTimer);
   }, [promotion?.id]);
 
@@ -65,7 +73,27 @@ export function DiscountPopup() {
   }, [isVisible]);
 
   function closePopup() {
-    if (promotion) markDismissed(promotion.id);
+    if (promotion) {
+      markDismissed(promotion.id);
+      trackEvent(ANALYTICS_EVENTS.DISCOUNT_POPUP_DISMISSED, {
+        promotion_id: promotion.id,
+        promotion_title: promotion.title,
+        language: lang,
+      });
+    }
+    setIsVisible(false);
+  }
+
+  function handleCtaClick() {
+    if (promotion) {
+      trackEvent(ANALYTICS_EVENTS.DISCOUNT_POPUP_CTA_CLICKED, {
+        promotion_id: promotion.id,
+        promotion_title: promotion.title,
+        cta_path: promotion.ctaPath || '/products',
+        language: lang,
+      });
+      markDismissed(promotion.id);
+    }
     setIsVisible(false);
   }
 
@@ -158,7 +186,7 @@ export function DiscountPopup() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={promotion.ctaPath || '/products'}
-                  onClick={closePopup}
+                  onClick={handleCtaClick}
                   className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/15 transition-transform hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-pink-400 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
                 >
                   {ctaText}

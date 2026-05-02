@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap, RefreshCw, Phone, Copy, Check, QrCode, Wallet, Loader2 } from 'lucide-react';
 import { useUser } from '@clerk/react';
 import { useCart } from '@/hooks/use-cart';
@@ -11,20 +11,42 @@ import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
 import { createOrder, markOrderWhatsappOpened, getUserDoc } from '@/lib/users-store';
 import type { SiteSettings } from '@/types';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 
 export default function Cart() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalItems } = useCart();
   const { siteSettings } = useSettings();
-  const { t } = useI18n();
-  const { format } = useCurrency();
-  const { user } = useUser();
+  const { t, lang } = useI18n();
+  const { format, currency } = useCurrency();
+  const { user, isSignedIn } = useUser();
   const [submitting, setSubmitting] = useState(false);
+
+  const cartViewedRef = useRef(false);
+  useEffect(() => {
+    if (cartViewedRef.current) return;
+    cartViewedRef.current = true;
+    trackEvent(ANALYTICS_EVENTS.CART_VIEWED, {
+      total_items: totalItems,
+      total_price_usd: totalPrice,
+      currency,
+      language: lang,
+      signed_in: !!isSignedIn,
+    });
+  }, []);
 
   const handleCheckout = async () => {
     if (!siteSettings.whatsapp_number) {
       alert(t.cart.whatsappNotConfigured);
       return;
     }
+
+    trackEvent(ANALYTICS_EVENTS.WHATSAPP_CHECKOUT_CLICKED, {
+      total_items: totalItems,
+      total_price_usd: totalPrice,
+      currency,
+      language: lang,
+      signed_in: !!isSignedIn,
+    });
 
     let orderRef: string | undefined;
     if (user) {

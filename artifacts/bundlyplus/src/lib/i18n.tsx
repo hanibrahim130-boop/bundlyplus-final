@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { ANALYTICS_EVENTS, trackEvent } from './analytics';
 
 export type Lang = 'en' | 'ar';
 
@@ -81,6 +82,7 @@ export const translations = {
       refund: 'Refund Policy',
       contact: 'Contact Us',
       rights: 'All rights reserved.',
+      analytics: 'We use privacy-friendly analytics with anonymized IPs and no session recording.',
     },
     bottomNav: {
       home: 'Home',
@@ -134,6 +136,7 @@ export const translations = {
         customers: 'Customers',
         reminders: 'Reminders',
         promotions: 'Promotions',
+        analytics: 'Analytics',
       },
       orders: {
         title: 'Orders',
@@ -355,6 +358,7 @@ export const translations = {
       refund: 'سياسة الاسترداد',
       contact: 'تواصل معنا',
       rights: 'جميع الحقوق محفوظة.',
+      analytics: 'نستخدم تحليلات تحترم الخصوصية مع إخفاء عناوين IP وبدون تسجيل للجلسات.',
     },
     bottomNav: {
       home: 'الرئيسية',
@@ -408,6 +412,7 @@ export const translations = {
         customers: 'العملاء',
         reminders: 'التذكيرات',
         promotions: 'العروض',
+        analytics: 'التحليلات',
       },
       orders: {
         title: 'الطلبات',
@@ -588,7 +593,12 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('bundlyplus-lang', lang);
   }, [lang]);
 
-  const toggleLang = () => setLang(prev => prev === 'en' ? 'ar' : 'en');
+  const toggleLang = () =>
+    setLang(prev => {
+      const next = prev === 'en' ? 'ar' : 'en';
+      trackEvent(ANALYTICS_EVENTS.LANGUAGE_TOGGLED, { from: prev, to: next });
+      return next;
+    });
 
   return (
     <I18nContext.Provider value={{ lang, t: translations[lang] as T, toggleLang, isRTL: lang === 'ar' }}>

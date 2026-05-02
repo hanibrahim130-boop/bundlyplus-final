@@ -3,6 +3,8 @@ import { CheckCircle2, Clock3, KeyRound, RefreshCw, ShieldCheck } from 'lucide-r
 import { Product } from '@/types';
 import { useCurrency } from '@/lib/currency';
 import { useI18n } from '@/lib/i18n';
+import { useUser } from '@clerk/react';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 import {
   Dialog,
   DialogContent,
@@ -22,9 +24,24 @@ function formatDuration(duration?: string) {
 }
 
 export function ProductDetailsDialog({ product, trigger }: ProductDetailsDialogProps) {
-  const { format } = useCurrency();
-  const { t } = useI18n();
+  const { format, currency } = useCurrency();
+  const { t, lang } = useI18n();
+  const { isSignedIn } = useUser();
   const accountType = product.account_type || t.productDetails.subscription;
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) return;
+    trackEvent(ANALYTICS_EVENTS.PRODUCT_VIEWED, {
+      product_id: product.id,
+      product_name: product.name,
+      price_usd: product.price,
+      currency,
+      language: lang,
+      category: product.category,
+      account_type: product.account_type,
+      signed_in: !!isSignedIn,
+    });
+  };
   const accountTypeHelp = product.account_type === 'Private'
     ? t.productDetails.privateAccess
     : product.account_type === 'Shared'
@@ -33,7 +50,7 @@ export function ProductDetailsDialog({ product, trigger }: ProductDetailsDialogP
   const features = product.features || [];
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="max-h-[88vh] overflow-y-auto rounded-2xl border-slate-200 bg-white p-0 text-slate-900 shadow-2xl dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 sm:max-w-xl">
         <div className="p-6 sm:p-7">

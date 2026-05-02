@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { ANALYTICS_EVENTS, trackEvent } from './analytics';
 
 export type Currency = 'USD' | 'LBP';
 
@@ -37,7 +38,12 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('bundlyplus-currency', currency);
   }, [currency]);
 
-  const toggleCurrency = () => setCurrency(prev => (prev === 'USD' ? 'LBP' : 'USD'));
+  const toggleCurrency = () =>
+    setCurrency(prev => {
+      const next = prev === 'USD' ? 'LBP' : 'USD';
+      trackEvent(ANALYTICS_EVENTS.CURRENCY_TOGGLED, { from: prev, to: next });
+      return next;
+    });
 
   const format = (usd: number): string => {
     if (currency === 'LBP') return formatLBP(usd);

@@ -4,6 +4,7 @@ import productsRouter from "./products";
 import bundlesRouter from "./bundles";
 import settingsRouter from "./settings";
 import ordersRouter from "./orders";
+import analyticsRouter from "./analytics";
 
 const router: IRouter = Router();
 
@@ -12,5 +13,6 @@ router.use(productsRouter);
 router.use(bundlesRouter);
 router.use(settingsRouter);
 router.use(ordersRouter);
+router.use(analyticsRouter);
 
 export default router;

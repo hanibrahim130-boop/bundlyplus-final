@@ -9,6 +9,8 @@ import { CategoryBadge } from '@/components/shared/CategoryBadge';
 import { ProductDetailsDialog } from '@/components/shared/ProductDetailsDialog';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
+import { useUser } from '@clerk/react';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 
 interface ProductCardProps {
   product: Product;
@@ -17,8 +19,9 @@ interface ProductCardProps {
 export const ProductCard = React.memo(function ProductCard({ product }: ProductCardProps) {
   const { addToCart, isInCart } = useCart();
   const { isWishlisted, toggle: toggleWishlist } = useWishlist();
-  const { t } = useI18n();
-  const { format } = useCurrency();
+  const { t, lang } = useI18n();
+  const { format, currency } = useCurrency();
+  const { isSignedIn } = useUser();
   const wishlisted = isWishlisted(product.id);
   const [imgFailed, setImgFailed] = useState(false);
   const inCart = isInCart(product.id);
@@ -151,7 +154,21 @@ export const ProductCard = React.memo(function ProductCard({ product }: ProductC
 
           <button
             onClick={() => {
-              if (!isOutOfStock) addToCart(product, 'product');
+              if (!isOutOfStock) {
+                addToCart(product, 'product');
+                trackEvent(ANALYTICS_EVENTS.ADD_TO_CART, {
+                  product_id: product.id,
+                  product_name: product.name,
+                  price_usd: product.price,
+                  currency,
+                  language: lang,
+                  category: product.category,
+                  account_type: product.account_type,
+                  quantity: 1,
+                  item_type: 'product',
+                  signed_in: !!isSignedIn,
+                });
+              }
             }}
             disabled={isOutOfStock}
             className={`flex min-h-[44px] items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${

@@ -14,6 +14,7 @@ import {
   Users as UsersIcon,
   Bell,
   Megaphone,
+  BarChart3,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useI18n } from "@/lib/i18n";
@@ -22,10 +23,11 @@ import { OrdersTab } from "@/components/admin/OrdersTab";
 import { CustomersTab } from "@/components/admin/CustomersTab";
 import { RemindersTab } from "@/components/admin/RemindersTab";
 import PromotionsTab from "@/components/admin/PromotionsTab";
+import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
 
 const ADMIN_EMAIL = (import.meta.env.VITE_ADMIN_EMAIL as string) || "";
 
-type TabKey = "products" | "orders" | "customers" | "reminders" | "promotions";
+type TabKey = "products" | "orders" | "customers" | "reminders" | "promotions" | "analytics";
 
 export default function Admin() {
   const { toast } = useToast();
@@ -202,6 +204,7 @@ export default function Admin() {
     { key: "customers", label: t.admin.tabs.customers, icon: UsersIcon },
     { key: "reminders", label: t.admin.tabs.reminders, icon: Bell },
     { key: "promotions", label: t.admin.tabs.promotions, icon: Megaphone },
+    { key: "analytics", label: t.admin.tabs.analytics, icon: BarChart3 },
   ];
 
   return (
@@ -247,6 +250,7 @@ export default function Admin() {
       {tab === "customers" && <CustomersTab />}
       {tab === "reminders" && <RemindersTab />}
       {tab === "promotions" && <PromotionsTab />}
+      {tab === "analytics" && <AnalyticsTab />}
     </div>
   );
 }

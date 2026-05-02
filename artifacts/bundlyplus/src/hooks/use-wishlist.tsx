@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
 import { useUser } from '@clerk/react';
 import { getOrCreateUser, setUserWishlist } from '@/lib/users-store';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 
 interface WishlistContextValue {
   ids: string[];
@@ -97,8 +98,18 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
   const isWishlisted = useCallback((id: string) => ids.includes(id), [ids]);
 
   const toggle = useCallback((id: string) => {
-    setIds(prev => (prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]));
-  }, []);
+    setIds(prev => {
+      const isAdding = !prev.includes(id);
+      if (isAdding) {
+        trackEvent(ANALYTICS_EVENTS.WISHLIST_ADDED, {
+          product_id: id,
+          language: typeof document !== 'undefined' ? document.documentElement.lang || 'en' : 'en',
+          signed_in: !!user,
+        });
+      }
+      return isAdding ? [...prev, id] : prev.filter(x => x !== id);
+    });
+  }, [user]);
 
   const clear = useCallback(() => setIds([]), []);
 

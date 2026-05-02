@@ -73,7 +73,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p className="mt-10 text-center md:text-start text-xs text-slate-400 dark:text-slate-500 leading-relaxed max-w-2xl">
+          {t.footer.analytics}
+        </p>
+
+        <div className="mt-6 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-400 dark:text-slate-500 text-sm text-center md:text-start">
             &copy; {new Date().getFullYear()} {siteName}. {t.footer.rights}
           </p>

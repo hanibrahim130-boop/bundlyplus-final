@@ -1,5 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { useUser } from "@clerk/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,9 +13,12 @@ import { I18nProvider, useI18n } from "@/lib/i18n";
 import { CurrencyProvider } from "@/lib/currency";
 import { CartProvider } from "@/hooks/use-cart";
 import { WishlistProvider } from "@/hooks/use-wishlist";
+import { initAnalytics, identifyUser, resetAnalyticsUser } from "@/lib/analytics";
 import { SocialProofToasts } from "@/components/layout/SocialProofToasts";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { buildClerkAppearance, basePath, getClerkLocalization } from "@/lib/clerk-appearance";
+
+initAnalytics();
 
 import { Navbar } from "@/components/layout/Navbar";
 import { BottomNav } from "@/components/layout/BottomNav";
@@ -84,6 +88,24 @@ function Router() {
   );
 }
 
+function AnalyticsIdentityBridge() {
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (isSignedIn && user) {
+      identifyUser(user.id, {
+        email: user.primaryEmailAddress?.emailAddress,
+        name: user.fullName || undefined,
+      });
+    } else {
+      resetAnalyticsUser();
+    }
+  }, [isLoaded, isSignedIn, user?.id]);
+
+  return null;
+}
+
 function ClerkAppShell() {
   const [, setLocation] = useLocation();
   const { lang } = useI18n();
@@ -115,6 +137,7 @@ function ClerkAppShell() {
     >
       <CartProvider>
         <WishlistProvider>
+          <AnalyticsIdentityBridge />
           <div className="relative min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-pink-200 dark:selection:bg-pink-900/50">
             <Background />
             <Navbar />

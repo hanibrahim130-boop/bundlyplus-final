@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ShoppingBag, Check, ShoppingCart } from 'lucide-react';
 import { Bundle } from '@/types';
 import { useCart } from '@/hooks/use-cart';
 import { indexedGradients } from '@/lib/brand-theme';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
+import { useUser } from '@clerk/react';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 
 export function BundleCard({ bundle, index = 0 }: { bundle: Bundle, index?: number }) {
   const { addToCart, isInCart } = useCart();
-  const { t } = useI18n();
-  const { format } = useCurrency();
+  const { t, lang } = useI18n();
+  const { format, currency } = useCurrency();
+  const { isSignedIn } = useUser();
   const inCart = isInCart(bundle.id);
   const saveAmount = bundle.originalPrice - bundle.price;
   const savePercent = Math.round((saveAmount / bundle.originalPrice) * 100);
   const gradient = indexedGradients[index % indexedGradients.length];
+
+  const trackedRef = useRef(false);
+  useEffect(() => {
+    if (trackedRef.current) return;
+    trackedRef.current = true;
+    trackEvent(ANALYTICS_EVENTS.BUNDLE_VIEWED, {
+      bundle_id: bundle.id,
+      bundle_name: bundle.name,
+      price_usd: bundle.price,
+      original_price_usd: bundle.originalPrice,
+      currency,
+      language: lang,
+      signed_in: !!isSignedIn,
+    });
+  }, [bundle.id]);
 
   return (
     <div className={`glass-card rounded-2xl overflow-hidden flex flex-col relative h-full animate-[fadeIn_0.35s_ease-out] ${inCart ? 'ring-2 ring-pink-400/50' : ''}`}>
@@ -62,7 +80,19 @@ export function BundleCard({ bundle, index = 0 }: { bundle: Bundle, index?: numb
         </ul>
 
         <button
-          onClick={() => addToCart(bundle, 'bundle')}
+          onClick={() => {
+            addToCart(bundle, 'bundle');
+            trackEvent(ANALYTICS_EVENTS.ADD_TO_CART, {
+              product_id: bundle.id,
+              product_name: bundle.name,
+              price_usd: bundle.price,
+              currency,
+              language: lang,
+              quantity: 1,
+              item_type: 'bundle',
+              signed_in: !!isSignedIn,
+            });
+          }}
           className={`w-full py-3.5 rounded-xl font-semibold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 min-h-[48px] ${
             inCart
               ? 'bg-pink-500 text-white shadow-pink-500/25'
