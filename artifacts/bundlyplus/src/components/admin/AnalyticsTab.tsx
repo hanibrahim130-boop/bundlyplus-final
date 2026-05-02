@@ -14,10 +14,10 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { ANALYTICS_EVENTS } from '@/lib/analytics';
+import { apiUrl } from '@/lib/api-base';
 
 const POSTHOG_PROJECT_URL = (import.meta.env.VITE_POSTHOG_PROJECT_URL as string) || '';
 const POSTHOG_KEY = (import.meta.env.VITE_POSTHOG_KEY as string) || '';
-const API_BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
 const FUNNEL_EVENTS: Array<{
   event: string;
@@ -82,7 +82,7 @@ export function AnalyticsTab() {
     let cancelled = false;
     setLoading(true);
     setFetchError(null);
-    fetch(`${API_BASE}/api/analytics/kpis?days=7`)
+    fetch(apiUrl('/api/analytics/kpis?days=7'))
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return (await r.json()) as KpiResponse;
@@ -192,7 +192,8 @@ export function AnalyticsTab() {
             <div className="font-semibold mb-1">Server-side KPIs not configured</div>
             <div className="text-xs opacity-90">
               Set <code>POSTHOG_PERSONAL_API_KEY</code>, <code>POSTHOG_PROJECT_ID</code>, and (optionally)
-              <code> POSTHOG_HOST</code> on the API server to enable live numbers here.
+              <code> POSTHOG_HOST</code> as Secrets on the deployed API server, then republish.
+              See <code>docs/api-server-deployment.md</code> for the full walkthrough.
             </div>
           </div>
         ) : (

@@ -84,6 +84,17 @@ The `bundlyplus` web app uses PostHog for product analytics and conversion funne
 
 If browser env vars are unset, analytics silently no-op. If server env vars are unset, the Admin → Analytics tab shows a "Server-side KPIs not configured" hint instead of numbers.
 
+**Hosting the API server (production):** the Express api-server is deployed via
+**Replit Deployments** (autoscale). Publishing the workspace puts both
+`bundlyplus` (frontend at `/`) and `api-server` (at `/api/*`) behind one
+`*.replit.app` URL. The Vercel-hosted `bundlyplus.com` points at it via the
+`VITE_API_BASE_URL` env var (set in Vercel Project Settings → Environment
+Variables → Production). When set, `apiUrl()` in `artifacts/bundlyplus/src/lib/api-base.ts`
+prefixes every `/api/*` call with that URL; when unset (Replit dev preview),
+calls go to the same origin. See
+[`docs/api-server-deployment.md`](./docs/api-server-deployment.md) for the
+end-to-end walkthrough (Replit Secrets, publish, Vercel env, verification).
+
 **Where to view dashboards:** Admin Panel → **Analytics** tab. It shows last-7-day counts, three conversion ratios (View → Cart, Cart → WhatsApp, View → WhatsApp), the full event list, and an **Open dashboard** link to PostHog itself for deeper exploration.
 
 **Event taxonomy** (stable names — exported as `ANALYTICS_EVENTS` from `src/lib/analytics.ts`; build PostHog funnels against these):
@@ -104,6 +115,23 @@ If browser env vars are unset, analytics silently no-op. If server env vars are 
 
 **Recommended PostHog funnel:** `product_viewed` → `add_to_cart` → `cart_viewed` → `whatsapp_checkout_clicked`. Break down by `language`, `currency`, or `utm_source` for segmentation.
 
-## Deployment
+## Auth (Clerk)
 
-Production deploys: GitHub repo `hanibrahim130-boop/bundlyplus-final` → Vercel project `bundlyplus-final` (team `hanis-projects-31258ef2`) → custom domain `bundlyplus.com`. Commits must be authored as a recognized GitHub user — Replit-noreply commits are rejected by Vercel Hobby plan with `COMMIT_AUTHOR_REQUIRED`.
+Customer auth runs through Clerk. The publishable key is sourced from
+`VITE_CLERK_PUBLISHABLE_KEY` in `artifacts/bundlyplus/src/App.tsx`, routed
+through Clerk's `publishableKeyFromHost(hostname, envKey)` helper before being
+passed to `<ClerkProvider>`. No code change is needed to swap dev↔prod — only
+the env var changes.
+
+**Environments:**
+
+| Environment | Where the env var lives | Expected key prefix |
+| --- | --- | --- |
+| Replit dev preview | Replit Secrets (`VITE_CLERK_PUBLISHABLE_KEY`) | `pk_test_*` (intentional — keeps dev users out of the prod user table) |
+| Vercel Preview deployments | Vercel env (Preview) | `pk_test_*` |
+| Vercel Production (`bundlyplus.com`) | Vercel env (Production) | `pk_live_*` |
+
+**Switching the live site to production keys:** see
+[`docs/clerk-production-setup.md`](./docs/clerk-production-setup.md) for the
+end-to-end walkthrough (Clerk prod instance, DNS, Google/Apple OAuth, Vercel
+env, verification, rollback).
