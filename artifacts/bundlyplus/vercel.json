@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @workspace/bundlyplus run build",
-  "outputDirectory": "dist/public",
-  "installCommand": "cd ../.. && pnpm install",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-}
