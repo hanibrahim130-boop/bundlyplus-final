@@ -1,0 +1,82 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567801",
+    "position": 1,
+    "filepath": "src/pages/slides/Slide01Title.tsx",
+    "title": "BundlyPlus",
+    "description": "Title slide — premium subscriptions, bundled and delivered",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567802",
+    "position": 2,
+    "filepath": "src/pages/slides/Slide02Problem.tsx",
+    "title": "The Problem",
+    "description": "Digital subscriptions are expensive and fragmented in MENA",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567803",
+    "position": 3,
+    "filepath": "src/pages/slides/Slide03Solution.tsx",
+    "title": "The Solution",
+    "description": "One platform for every subscription — delivered via WhatsApp",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567804",
+    "position": 4,
+    "filepath": "src/pages/slides/Slide04Catalog.tsx",
+    "title": "Product Catalog",
+    "description": "50+ services across streaming, music, AI, and gaming",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567805",
+    "position": 5,
+    "filepath": "src/pages/slides/Slide05Stats.tsx",
+    "title": "Traction",
+    "description": "10K+ users, 50+ services, 30% average savings",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567806",
+    "position": 6,
+    "filepath": "src/pages/slides/Slide06HowItWorks.tsx",
+    "title": "How It Works",
+    "description": "Three steps: browse, build bundle, order via WhatsApp",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567807",
+    "position": 7,
+    "filepath": "src/pages/slides/Slide07WhatsApp.tsx",
+    "title": "The WhatsApp Difference",
+    "description": "WhatsApp has 98%+ penetration in MENA — delivery in minutes",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567808",
+    "position": 8,
+    "filepath": "src/pages/slides/Slide08Bundles.tsx",
+    "title": "Bundle Pricing",
+    "description": "Three pre-built bundles — Entertainment, Sports & Movies, Family Annual",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567809",
+    "position": 9,
+    "filepath": "src/pages/slides/Slide09Testimonial.tsx",
+    "title": "Customer Voice",
+    "description": "Real customer testimonial — 25% savings, 3 minutes to set up",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567810",
+    "position": 10,
+    "filepath": "src/pages/slides/Slide10Closing.tsx",
+    "title": "Join Us",
+    "description": "Closing slide with contact info and call to connect",
+    "speakerNotes": ""
+  }
+]

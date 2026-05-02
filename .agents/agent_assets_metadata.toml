@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "p6jL2VEKuP2nnaubnaOOy"
+uri = "file://artifacts/bundlyplus-pitch/public/hero-bg.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "sUUHtc300g2-VKApbcdBv"
+uri = "file://artifacts/bundlyplus-pitch/public/problem-bg.png"
+type = "image"
+title = "generated_image"

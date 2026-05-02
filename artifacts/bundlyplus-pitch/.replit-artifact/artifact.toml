@@ -1,0 +1,31 @@
+kind = "slides"
+previewPath = "/bundlyplus-pitch/"
+title = "BundlyPlus Pitch Deck"
+version = "1.0.0"
+id = "artifacts/bundlyplus-pitch"
+router = "path"
+
+[[integratedSkills]]
+name = "slides"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/bundlyplus-pitch/" ]
+localPort = 18433
+
+[services.development]
+run = "pnpm --filter @workspace/bundlyplus-pitch run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bundlyplus-pitch", "run", "build" ]
+publicDir = "artifacts/bundlyplus-pitch/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18433"
+BASE_PATH = "/bundlyplus-pitch/"
