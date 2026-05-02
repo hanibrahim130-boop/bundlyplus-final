@@ -38,6 +38,7 @@ const SignUpPage = lazy(() => import("@/pages/SignUp"));
 const AccountPage = lazy(() => import("@/pages/Account"));
 const AccountSubscriptionsPage = lazy(() => import("@/pages/AccountSubscriptions"));
 const AccountOrdersPage = lazy(() => import("@/pages/AccountOrders"));
+const ComingSoon = lazy(() => import("@/pages/ComingSoon"));
 
 function PageLoader() {
   return (
@@ -73,6 +74,7 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/products" component={Products} />
+          <Route path="/coming-soon" component={ComingSoon} />
           <Route path="/cart" component={Cart} />
           <Route path="/wishlist" component={Wishlist} />
           <Route path="/sign-in/*?" component={SignInPage} />

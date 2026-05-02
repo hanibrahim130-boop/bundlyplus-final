@@ -8,6 +8,7 @@ export const translations = {
     nav: {
       home: 'Home',
       products: 'Products',
+      comingSoon: 'Coming Soon',
       bundles: 'Bundles',
       contactUs: 'Contact Us',
       switchLang: 'العربية',
@@ -284,6 +285,7 @@ export const translations = {
     nav: {
       home: 'الرئيسية',
       products: 'المنتجات',
+      comingSoon: 'قريباً',
       bundles: 'الباقات',
       contactUs: 'تواصل معنا',
       switchLang: 'English',

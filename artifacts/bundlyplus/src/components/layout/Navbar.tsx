@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ShoppingCart, Sun, Moon, Languages, Heart } from 'lucide-react';
+import { ShoppingCart, Sun, Moon, Languages, Heart, Sparkles } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
 import { useWishlist } from '@/hooks/use-wishlist';
 import { useSettings } from '@/lib/settings';
@@ -57,7 +57,7 @@ export function Navbar() {
         </span>
       </Link>
 
-      <div className="hidden md:flex items-center gap-8">
+      <div className="hidden md:flex items-center gap-6 lg:gap-7">
         {navLinks.map(link => (
           <Link
             key={link.path}
@@ -69,6 +69,20 @@ export function Navbar() {
             {link.name}
           </Link>
         ))}
+        <Link
+          href="/coming-soon"
+          aria-label={t.nav.comingSoon}
+          className="group min-h-[44px] flex items-center"
+        >
+          <span
+            className={`coming-soon-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-bold tracking-wide whitespace-nowrap transition-transform duration-300 group-hover:scale-105 ${
+              location === '/coming-soon' ? 'ring-2 ring-white/80 dark:ring-white/40' : ''
+            }`}
+          >
+            <Sparkles size={12} className="drop-shadow" />
+            {t.nav.comingSoon}
+          </span>
+        </Link>
       </div>
 
       <div className="flex items-center gap-2.5">
