@@ -1,5 +1,3 @@
-const base = import.meta.env.BASE_URL;
-
 export default function Slide01Title() {
   return (
     <div className="relative w-screen h-screen overflow-hidden" style={{ background: "linear-gradient(135deg, #FAF5F0 0%, #FCE7F3 40%, #EDE9FE 100%)" }}>
