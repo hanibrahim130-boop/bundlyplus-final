@@ -103,3 +103,7 @@ If browser env vars are unset, analytics silently no-op. If server env vars are 
 **Super-properties** (auto-attached to every event after first visit): `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, `fbclid`. Captured once on first visit via `posthog.register()` from the URL.
 
 **Recommended PostHog funnel:** `product_viewed` → `add_to_cart` → `cart_viewed` → `whatsapp_checkout_clicked`. Break down by `language`, `currency`, or `utm_source` for segmentation.
+
+## Deployment
+
+Production deploys: GitHub repo `hanibrahim130-boop/bundlyplus-final` → Vercel project `bundlyplus-final` (team `hanis-projects-31258ef2`) → custom domain `bundlyplus.com`. Commits must be authored as a recognized GitHub user — Replit-noreply commits are rejected by Vercel Hobby plan with `COMMIT_AUTHOR_REQUIRED`.
