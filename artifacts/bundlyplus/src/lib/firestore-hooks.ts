@@ -103,6 +103,65 @@ export function useBundles(): UseQueryResult<any[]> {
   return { data, isLoading, error };
 }
 
+export interface Promotion {
+  id: string;
+  title: string;
+  bodyEn: string;
+  bodyAr: string;
+  startDate: number;
+  endDate: number;
+  discountLabel: string;
+  ctaTextEn: string;
+  ctaTextAr: string;
+  ctaPath: string;
+  bgGradient: string;
+  enabled: boolean;
+  created_at?: number;
+}
+
+export function useActivePromotion(): UseQueryResult<Promotion | null> {
+  const cacheKey = 'promotion:active';
+  const cachedEntry = cache.get(cacheKey);
+  const isFresh = !!cachedEntry && Date.now() - cachedEntry.ts <= TTL;
+  const initial: Promotion | null | undefined = isFresh ? cachedEntry!.data : undefined;
+
+  const [data, setData] = useState<Promotion | null | undefined>(initial);
+  const [isLoading, setIsLoading] = useState(!isFresh);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    if (isFresh) return;
+    let cancelled = false;
+    async function fetchPromo() {
+      try {
+        setIsLoading(true);
+        const q = query(collection(firestore, "promotions"), where("enabled", "==", true));
+        const snapshot = await getDocs(q);
+        const now = Date.now();
+        const active = snapshot.docs
+          .map((d) => ({ id: d.id, ...(d.data() as Omit<Promotion, "id">) }))
+          .filter((p) => Number(p.startDate) <= now && now <= Number(p.endDate))
+          .sort((a, b) => Number(b.startDate) - Number(a.startDate));
+        const result = (active[0] as Promotion | undefined) ?? null;
+        if (!cancelled) {
+          setCached(cacheKey, result);
+          setData(result);
+        }
+      } catch (e) {
+        if (!cancelled) setError(e as Error);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    }
+    fetchPromo();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return { data: data ?? undefined, isLoading, error };
+}
+
 export function useSettings(): {
   siteSettings: any;
   pricingTiers: any[];

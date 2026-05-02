@@ -3,21 +3,37 @@ import { Link } from 'wouter';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Gift, Sparkles, X } from 'lucide-react';
 
-import { translations } from '@/lib/i18n';
+import { useI18n } from '@/lib/i18n';
+import { useActivePromotion, type Promotion } from '@/lib/firestore-hooks';
 
-const DISCOUNT_POPUP_STORAGE_KEY = 'bundlyplus_may_1_2_discount_seen';
+const DISMISS_KEY_PREFIX = 'bundlyplus_promo_dismissed_';
+const DISMISS_TTL = 24 * 60 * 60 * 1000;
 
-function isMayDiscountActive(date = new Date()) {
-  const month = date.getMonth();
-  const day = date.getDate();
+function isDismissed(promotionId: string) {
+  try {
+    const raw = localStorage.getItem(`${DISMISS_KEY_PREFIX}${promotionId}`);
+    if (!raw) return false;
+    const ts = Number(raw);
+    if (!Number.isFinite(ts)) return false;
+    return Date.now() - ts < DISMISS_TTL;
+  } catch {
+    return false;
+  }
+}
 
-  return month === 4 && (day === 1 || day === 2);
+function markDismissed(promotionId: string) {
+  try {
+    localStorage.setItem(`${DISMISS_KEY_PREFIX}${promotionId}`, String(Date.now()));
+  } catch {
+    // Ignore storage errors; popup just won't be remembered.
+  }
 }
 
 export function DiscountPopup() {
   const shouldReduceMotion = useReducedMotion();
+  const { lang, t, isRTL } = useI18n();
+  const { data: promotion } = useActivePromotion();
   const [isVisible, setIsVisible] = useState(false);
-  const discount = translations.en.discountPopup;
 
   const sparklePositions = useMemo(
     () => [
@@ -30,29 +46,34 @@ export function DiscountPopup() {
   );
 
   useEffect(() => {
-    if (!isMayDiscountActive()) return;
-
-    try {
-      if (localStorage.getItem(DISCOUNT_POPUP_STORAGE_KEY) === 'true') return;
-      localStorage.setItem(DISCOUNT_POPUP_STORAGE_KEY, 'true');
-    } catch {
-      // If storage is unavailable, still show the offer for the current visit.
-    }
+    if (!promotion) return;
+    if (isDismissed(promotion.id)) return;
 
     const showTimer = window.setTimeout(() => setIsVisible(true), 650);
     return () => window.clearTimeout(showTimer);
-  }, []);
+  }, [promotion?.id]);
 
   useEffect(() => {
     if (!isVisible) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsVisible(false);
+      if (event.key === 'Escape') closePopup();
     };
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isVisible]);
+
+  function closePopup() {
+    if (promotion) markDismissed(promotion.id);
+    setIsVisible(false);
+  }
+
+  if (!promotion) return null;
+
+  const body = lang === 'ar' ? promotion.bodyAr : promotion.bodyEn;
+  const ctaText = lang === 'ar' ? promotion.ctaTextAr : promotion.ctaTextEn;
+  const gradient = promotion.bgGradient || 'from-pink-500 via-rose-500 to-orange-400';
 
   return (
     <AnimatePresence>
@@ -62,7 +83,7 @@ export function DiscountPopup() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="discount-popup-title"
-          dir="ltr"
+          dir={isRTL ? 'rtl' : 'ltr'}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -71,8 +92,8 @@ export function DiscountPopup() {
           <button
             type="button"
             className="absolute inset-0 bg-slate-950/45 dark:bg-slate-950/65"
-            aria-label={discount.dismiss}
-            onClick={() => setIsVisible(false)}
+            aria-label={t.discountPopup.dismiss}
+            onClick={closePopup}
           />
 
           <motion.div
@@ -82,7 +103,7 @@ export function DiscountPopup() {
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.96 }}
             transition={{ type: 'spring', damping: 22, stiffness: 260 }}
           >
-            <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400" />
+            <div className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-br ${gradient}`} />
             <div className="absolute inset-x-0 top-0 h-28 opacity-30 hero-shimmer" />
 
             {!shouldReduceMotion &&
@@ -100,9 +121,9 @@ export function DiscountPopup() {
 
             <button
               type="button"
-              onClick={() => setIsVisible(false)}
-              className="absolute right-4 top-4 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white transition-colors hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/80"
-              aria-label={discount.dismiss}
+              onClick={closePopup}
+              className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-4 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white transition-colors hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/80`}
+              aria-label={t.discountPopup.dismiss}
             >
               <X className="h-4 w-4" />
             </button>
@@ -118,37 +139,37 @@ export function DiscountPopup() {
                 <Gift className="h-9 w-9" />
               </motion.div>
 
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-pink-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-pink-600 dark:bg-pink-500/10 dark:text-pink-300">
-                <Sparkles className="h-3.5 w-3.5" />
-                {discount.badge}
-              </div>
+              {promotion.title && (
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-pink-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-pink-600 dark:bg-pink-500/10 dark:text-pink-300">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {promotion.title}
+                </div>
+              )}
 
               <h2 id="discount-popup-title" className="text-4xl font-display font-bold text-slate-950 dark:text-white">
-                {discount.title}
+                {promotion.discountLabel}
               </h2>
-              <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-300">
-                {discount.description}
-              </p>
-
-              <div className="mt-5 rounded-2xl border border-pink-100 bg-pink-50/70 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-pink-500/20 dark:bg-pink-500/10 dark:text-slate-200">
-                {discount.window}
-              </div>
+              {body && (
+                <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-300 whitespace-pre-line">
+                  {body}
+                </p>
+              )}
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/products"
-                  onClick={() => setIsVisible(false)}
+                  href={promotion.ctaPath || '/products'}
+                  onClick={closePopup}
                   className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/15 transition-transform hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-pink-400 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
                 >
-                  {discount.cta}
-                  <ArrowRight className="h-4 w-4" />
+                  {ctaText}
+                  <ArrowRight className={`h-4 w-4 ${isRTL ? 'rotate-180' : ''}`} />
                 </Link>
                 <button
                   type="button"
-                  onClick={() => setIsVisible(false)}
+                  onClick={closePopup}
                   className="min-h-12 rounded-2xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-pink-400 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/10"
                 >
-                  {discount.later}
+                  {t.discountPopup.later}
                 </button>
               </div>
             </div>

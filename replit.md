@@ -176,4 +176,16 @@ Generated Zod schemas from the OpenAPI spec. Used by `api-server` for validation
 ### `scripts` (`@workspace/scripts`)
 
 - `src/seed.ts` — Seeds database from JSON files in bundlyplus/src/data/ (products, bundles, settings)
+- `src/firestore-seed.ts` — Seeds Firestore (products, bundles, settings, promotions)
 - Run: `pnpm --filter @workspace/scripts run seed`
+
+## Admin: scheduling a discount popup
+
+The homepage discount popup is driven by a `promotions` collection in Firestore. To schedule a new offer:
+
+1. Sign in at `/admin` with a Firebase user that has the `admin` custom claim.
+2. Click the **Promotions** tab, then **New Promotion**.
+3. Fill in the badge title, discount label (e.g. `15% OFF`), bilingual body text, start/end dates, CTA copy/link, and pick a background gradient. Use **Auto-fill** to start from a 15% OFF template that runs for two weeks.
+4. Make sure **Enabled** is toggled on, then **Create promotion**.
+
+The popup automatically reads the latest enabled promotion whose date range covers `now`. Status badges in the admin list show whether each entry is **Scheduled**, **Live**, **Expired**, or **Disabled**. Visitors who dismiss the popup won't see it again for 24 hours, scoped per promotion ID — editing a live promotion's text will not re-spam dismissed visitors, but creating a brand-new promotion will.

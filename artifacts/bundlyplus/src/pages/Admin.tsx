@@ -13,6 +13,7 @@ import {
   ClipboardList,
   Users as UsersIcon,
   Bell,
+  Megaphone,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useI18n } from "@/lib/i18n";
@@ -20,10 +21,11 @@ import { ProductsTab } from "@/components/admin/ProductsTab";
 import { OrdersTab } from "@/components/admin/OrdersTab";
 import { CustomersTab } from "@/components/admin/CustomersTab";
 import { RemindersTab } from "@/components/admin/RemindersTab";
+import PromotionsTab from "@/components/admin/PromotionsTab";
 
 const ADMIN_EMAIL = (import.meta.env.VITE_ADMIN_EMAIL as string) || "";
 
-type TabKey = "products" | "orders" | "customers" | "reminders";
+type TabKey = "products" | "orders" | "customers" | "reminders" | "promotions";
 
 export default function Admin() {
   const { toast } = useToast();
@@ -199,6 +201,7 @@ export default function Admin() {
     { key: "orders", label: t.admin.tabs.orders, icon: ClipboardList },
     { key: "customers", label: t.admin.tabs.customers, icon: UsersIcon },
     { key: "reminders", label: t.admin.tabs.reminders, icon: Bell },
+    { key: "promotions", label: t.admin.tabs.promotions, icon: Megaphone },
   ];
 
   return (
@@ -243,6 +246,7 @@ export default function Admin() {
       {tab === "orders" && <OrdersTab />}
       {tab === "customers" && <CustomersTab />}
       {tab === "reminders" && <RemindersTab />}
+      {tab === "promotions" && <PromotionsTab />}
     </div>
   );
 }

@@ -35,11 +35,6 @@ export const translations = {
       viewAllProducts: 'View All Products',
     },
     discountPopup: {
-      badge: 'May 1-2 only',
-      title: '20% OFF',
-      description: 'Celebrate the first days of May with 20% off your next digital subscription order.',
-      window: 'Valid on May 1 and May 2. Ask for the May discount when you checkout on WhatsApp.',
-      cta: 'Shop the deal',
       later: 'Maybe later',
       dismiss: 'Close discount popup',
     },
@@ -138,6 +133,7 @@ export const translations = {
         orders: 'Orders',
         customers: 'Customers',
         reminders: 'Reminders',
+        promotions: 'Promotions',
       },
       orders: {
         title: 'Orders',
@@ -313,13 +309,8 @@ export const translations = {
       viewAllProducts: 'عرض كل المنتجات',
     },
     discountPopup: {
-      badge: 'May 1-2 only',
-      title: '20% OFF',
-      description: 'Celebrate the first days of May with 20% off your next digital subscription order.',
-      window: 'Valid on May 1 and May 2. Ask for the May discount when you checkout on WhatsApp.',
-      cta: 'Shop the deal',
-      later: 'Maybe later',
-      dismiss: 'Close discount popup',
+      later: 'ربما لاحقا',
+      dismiss: 'إغلاق نافذة الخصم',
     },
     whyUs: {
       label: 'لماذا تختار',
@@ -416,6 +407,7 @@ export const translations = {
         orders: 'الطلبات',
         customers: 'العملاء',
         reminders: 'التذكيرات',
+        promotions: 'العروض',
       },
       orders: {
         title: 'الطلبات',
