@@ -2,14 +2,22 @@ openapi: 3.1.0
 info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
-  version: 0.1.0
-  description: API specification
+  version: 0.2.0
+  description: BundlyPlus API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: products
+    description: Product catalog operations
+  - name: bundles
+    description: Bundle package operations
+  - name: settings
+    description: Site settings operations
+  - name: orders
+    description: Order operations
 paths:
   /healthz:
     get:
@@ -24,6 +32,146 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /products:
+    get:
+      operationId: listProducts
+      tags: [products]
+      summary: List all products
+      description: Returns a list of products with optional filtering
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by category
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search by name or description
+        - name: featured
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ["true", "false"]
+          description: Filter by featured status
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /products/{id}:
+    get:
+      operationId: getProduct
+      tags: [products]
+      summary: Get a single product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /bundles:
+    get:
+      operationId: listBundles
+      tags: [bundles]
+      summary: List all bundles
+      responses:
+        "200":
+          description: List of bundles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Bundle"
+
+  /bundles/{id}:
+    get:
+      operationId: getBundle
+      tags: [bundles]
+      summary: Get a single bundle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Bundle details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bundle"
+        "404":
+          description: Bundle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [settings]
+      summary: Get site settings
+      responses:
+        "200":
+          description: Site settings object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteSettings"
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderRequest"
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +182,147 @@ components:
       required:
         - status
 
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        duration:
+          type: string
+        account_type:
+          type: string
+        price:
+          type: number
+        features:
+          type: array
+          items:
+            type: string
+        image_url:
+          type: string
+        featured:
+          type: boolean
+        hot:
+          type: boolean
+        created_at:
+          type: number
+      required:
+        - id
+        - name
+        - price
+
+    Bundle:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        duration:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+        - price
+        - originalPrice
+
+    SiteSettings:
+      type: object
+      properties:
+        site:
+          type: object
+          properties:
+            hero_title:
+              type: string
+            hero_subtitle:
+              type: string
+            hero_cta:
+              type: string
+            whatsapp_number:
+              type: string
+            site_name:
+              type: string
+        bundles:
+          type: object
+
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+        type:
+          type: string
+          enum: [product, bundle]
+        duration:
+          type: string
+      required:
+        - id
+        - name
+        - price
+        - quantity
+        - type
+
+    CreateOrderRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        total:
+          type: number
+        customerNote:
+          type: string
+      required:
+        - items
+        - total
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        total:
+          type: number
+        status:
+          type: string
+        createdAt:
+          type: number
+      required:
+        - id
+        - items
+        - total
+        - status
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
