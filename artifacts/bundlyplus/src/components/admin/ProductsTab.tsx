@@ -120,7 +120,7 @@ export function ProductsTab() {
 
     setSaving(true);
     try {
-      const payload: any = {
+      const basePayload: Omit<Product, "id" | "created_at"> = {
         name: editing.name.trim(),
         description: editing.description?.trim() || "",
         category: editing.category,
@@ -135,11 +135,11 @@ export function ProductsTab() {
       };
 
       if (editing.id) {
-        await updateDoc(doc(firestore, "products", editing.id), payload);
+        await updateDoc(doc(firestore, "products", editing.id), basePayload);
         toast({ title: "Updated", description: editing.name });
       } else {
-        payload.created_at = Date.now();
-        await addDoc(collection(firestore, "products"), payload);
+        const createPayload: Omit<Product, "id"> = { ...basePayload, created_at: Date.now() };
+        await addDoc(collection(firestore, "products"), createPayload);
         toast({ title: "Added", description: editing.name });
       }
       setEditing(null);

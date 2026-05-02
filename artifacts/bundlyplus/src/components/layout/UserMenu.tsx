@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Show, useUser, useClerk } from "@clerk/react";
-import { LogIn, User as UserIcon, CreditCard, Receipt, LogOut } from "lucide-react";
+import { LogIn, User as UserIcon, CreditCard, Receipt, LogOut, MessageCircle } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { useSettings } from "@/lib/settings";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -37,9 +38,13 @@ function SignedInDropdown() {
   const { user } = useUser();
   const { signOut } = useClerk();
   const { t } = useI18n();
+  const { siteSettings } = useSettings();
   const [open, setOpen] = useState(false);
   const [, setLocation] = useLocation();
   const ref = useRef<HTMLDivElement>(null);
+
+  const whatsappPhone = (siteSettings.whatsapp_number || "").replace(/[^0-9]/g, "");
+  const contactHref = whatsappPhone ? `https://wa.me/${whatsappPhone}` : "#";
 
   useEffect(() => {
     if (!open) return;
@@ -102,6 +107,16 @@ function SignedInDropdown() {
             <MenuItem icon={UserIcon} label={t.account.profile} onClick={() => go("/account")} />
             <MenuItem icon={CreditCard} label={t.account.mySubscriptions} onClick={() => go("/account/subscriptions")} />
             <MenuItem icon={Receipt} label={t.account.myOrders} onClick={() => go("/account/orders")} />
+            <a
+              href={contactHref}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left"
+            >
+              <MessageCircle size={15} />
+              <span>{t.nav.contactUs}</span>
+            </a>
           </div>
           <div className="p-1.5 border-t border-slate-100 dark:border-slate-800">
             <button

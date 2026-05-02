@@ -47,6 +47,8 @@ service cloud.firestore {
 
     // Orders — owner can create their own pending orders and read them.
     // Status transitions (confirm/deliver/cancel) and listAll are admin-only.
+    // Owner updates are restricted to flipping `whatsappOpened` (+ `updatedAt`)
+    // on their own pending order — no item, price, contact or status mutation.
     match /orders/{orderId} {
       allow read: if isAdmin() ||
         (request.auth != null && resource.data.userId == request.auth.uid);
@@ -55,11 +57,11 @@ service cloud.firestore {
         && request.resource.data.status == "pending";
       allow update: if isAdmin() ||
         (
-          // Owner can only flip whatsappOpened on their own pending order.
           request.auth != null
           && resource.data.userId == request.auth.uid
-          && request.resource.data.userId == resource.data.userId
-          && request.resource.data.status == resource.data.status
+          && resource.data.status == "pending"
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(["whatsappOpened", "updatedAt"])
         );
       allow delete: if isAdmin();
     }

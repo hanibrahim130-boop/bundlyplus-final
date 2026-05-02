@@ -3,7 +3,7 @@ import { useUser } from "@clerk/react";
 import { Loader2, Receipt } from "lucide-react";
 import { AccountLayout } from "@/components/account/AccountLayout";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, type T } from "@/lib/i18n";
 import { useCurrency } from "@/lib/currency";
 import { listUserOrders, type Order } from "@/lib/users-store";
 
@@ -112,7 +112,7 @@ export default function AccountOrdersPage() {
   );
 }
 
-function OrderStatusPill({ status, t }: { status: string; t: any }) {
+function OrderStatusPill({ status, t }: { status: string; t: T }) {
   const map: Record<string, string> = {
     pending: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300",
     confirmed: "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300",

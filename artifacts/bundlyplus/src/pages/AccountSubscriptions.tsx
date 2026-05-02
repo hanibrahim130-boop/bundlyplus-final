@@ -3,7 +3,7 @@ import { useUser } from "@clerk/react";
 import { Loader2, RefreshCcw, Calendar, CreditCard } from "lucide-react";
 import { AccountLayout } from "@/components/account/AccountLayout";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, type T } from "@/lib/i18n";
 import { useSettings } from "@/lib/settings";
 import { listUserSubscriptions, type Subscription } from "@/lib/users-store";
 
@@ -126,7 +126,7 @@ export default function AccountSubscriptionsPage() {
   );
 }
 
-function StatusPill({ status, t }: { status: string; t: any }) {
+function StatusPill({ status, t }: { status: string; t: T }) {
   const map: Record<string, string> = {
     active: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300",
     expired: "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300",
