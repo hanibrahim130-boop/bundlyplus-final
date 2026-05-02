@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap, RefreshCw, Phone, Copy, Check, QrCode, Wallet } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap, RefreshCw, Phone, Copy, Check, QrCode, Wallet, Loader2 } from 'lucide-react';
+import { useUser } from '@clerk/react';
 import { useCart } from '@/hooks/use-cart';
 import { generateWhatsAppLink } from '@/utils/whatsapp';
 import { useSettings } from '@/lib/settings';
@@ -8,6 +9,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { getBrandGradient, getInitials } from '@/lib/brand-theme';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
+import { createOrder, markOrderWhatsappOpened, getUserDoc } from '@/lib/users-store';
 import type { SiteSettings } from '@/types';
 
 export default function Cart() {
@@ -15,13 +17,54 @@ export default function Cart() {
   const { siteSettings } = useSettings();
   const { t } = useI18n();
   const { format } = useCurrency();
+  const { user } = useUser();
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!siteSettings.whatsapp_number) {
       alert(t.cart.whatsappNotConfigured);
       return;
     }
-    const link = generateWhatsAppLink(siteSettings.whatsapp_number, items, totalPrice, format);
+
+    let orderRef: string | undefined;
+    if (user) {
+      try {
+        setSubmitting(true);
+        const userDoc = await getUserDoc(user.id);
+        orderRef = await createOrder({
+          userId: user.id,
+          userEmail: user.primaryEmailAddress?.emailAddress,
+          userName: user.fullName || undefined,
+          userPhone: userDoc?.phone || user.primaryPhoneNumber?.phoneNumber || undefined,
+          items: items.map((it) => ({
+            productId: it.id,
+            name: it.name,
+            price: it.price,
+            quantity: it.quantity,
+            type: it.type,
+            duration: it.duration,
+          })),
+          totalPriceUsd: totalPrice,
+        });
+      } catch (e) {
+        console.warn('Failed to create order draft', e);
+      } finally {
+        setSubmitting(false);
+      }
+    }
+
+    const link = generateWhatsAppLink(
+      siteSettings.whatsapp_number,
+      items,
+      totalPrice,
+      format,
+      orderRef ? `#${orderRef.slice(0, 8).toUpperCase()}` : undefined,
+    );
+
+    if (orderRef) {
+      markOrderWhatsappOpened(orderRef).catch(() => {});
+    }
+
     window.open(link, '_blank');
   };
 
@@ -122,10 +165,14 @@ export default function Cart() {
 
             <button
               onClick={handleCheckout}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group min-h-[48px] gap-2"
+              disabled={submitting}
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold shadow-lg shadow-green-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group min-h-[48px] gap-2 disabled:opacity-70 disabled:cursor-wait"
             >
+              {submitting ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : null}
               {t.cart.checkout}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              {!submitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
             </button>
             <p className="text-xs text-center text-slate-500 dark:text-slate-400 mt-4">
               {t.cart.checkoutPaymentInstruction}

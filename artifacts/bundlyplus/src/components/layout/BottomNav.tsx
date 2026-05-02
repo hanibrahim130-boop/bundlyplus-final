@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'wouter';
-import { Home, Package, ShoppingCart, MessageCircle } from 'lucide-react';
+import { Home, Package, ShoppingCart, MessageCircle, User as UserIcon } from 'lucide-react';
+import { Show } from '@clerk/react';
 import { useCart } from '@/hooks/use-cart';
 import { useSettings } from '@/lib/settings';
 import { useI18n } from '@/lib/i18n';
@@ -47,18 +48,37 @@ export function BottomNav() {
         );
       })}
 
-      {siteSettings.whatsapp_number && (
-        <a
-          href={`https://wa.me/${siteSettings.whatsapp_number}`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Contact us on WhatsApp"
-          className="flex flex-col items-center justify-center w-14 h-12 rounded-full transition-all duration-300 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
+      <Show when="signed-in">
+        <Link
+          href="/account"
+          aria-label={t.account.profile}
+          className={`flex flex-col items-center justify-center w-14 h-12 rounded-full transition-all duration-300 ${
+            location.startsWith('/account')
+              ? 'bg-white/80 dark:bg-white/15 shadow-sm text-pink-600 dark:text-pink-400'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+          }`}
         >
-          <MessageCircle size={20} strokeWidth={2} />
-          <span className="text-[10px] font-medium mt-1 opacity-0 h-0 overflow-hidden">{t.bottomNav.chat}</span>
-        </a>
-      )}
+          <UserIcon size={20} strokeWidth={location.startsWith('/account') ? 2.5 : 2} />
+          <span className={`text-[10px] font-medium mt-1 ${location.startsWith('/account') ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
+            {t.bottomNav.account}
+          </span>
+        </Link>
+      </Show>
+
+      <Show when="signed-out">
+        {siteSettings.whatsapp_number && (
+          <a
+            href={`https://wa.me/${siteSettings.whatsapp_number}`}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Contact us on WhatsApp"
+            className="flex flex-col items-center justify-center w-14 h-12 rounded-full transition-all duration-300 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
+          >
+            <MessageCircle size={20} strokeWidth={2} />
+            <span className="text-[10px] font-medium mt-1 opacity-0 h-0 overflow-hidden">{t.bottomNav.chat}</span>
+          </a>
+        )}
+      </Show>
     </div>
   );
 }

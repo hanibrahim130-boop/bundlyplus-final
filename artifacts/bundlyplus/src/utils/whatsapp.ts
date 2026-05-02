@@ -4,11 +4,16 @@ export const generateWhatsAppLink = (
   phoneNumber: string,
   items: CartItem[],
   total: number,
-  formatAmount: (usd: number) => string = (usd) => `$${usd.toFixed(2)}`
+  formatAmount: (usd: number) => string = (usd) => `$${usd.toFixed(2)}`,
+  orderRef?: string,
 ): string => {
   const cleanNumber = phoneNumber.replace(/[^0-9]/g, '');
 
   let message = "*Hello! I would like to place an order on BundlyPlus:*\n\n";
+
+  if (orderRef) {
+    message += `*Order ref:* ${orderRef}\n\n`;
+  }
 
   items.forEach(item => {
     message += `${item.quantity}x *${item.name}*`;

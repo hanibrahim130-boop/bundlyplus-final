@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { ShoppingCart, MessageCircle, Sun, Moon, Languages, Heart } from 'lucide-react';
+import { ShoppingCart, Sun, Moon, Languages, Heart } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
 import { useWishlist } from '@/hooks/use-wishlist';
-import { useSettings, getWhatsAppUrl } from '@/lib/settings';
+import { useSettings } from '@/lib/settings';
 import { useTheme } from '@/lib/theme';
 import { useI18n } from '@/lib/i18n';
 import { useCurrency } from '@/lib/currency';
+import { UserMenu } from '@/components/layout/UserMenu';
 
 export function Navbar() {
   const [location] = useLocation();
@@ -40,7 +41,6 @@ export function Navbar() {
   ];
 
   const isCartActive = location === '/cart';
-  const whatsAppLink = getWhatsAppUrl(siteSettings.whatsapp_number);
 
   return (
     <nav style={{ top: 'max(env(safe-area-inset-top, 0px), 12px)' }} className={`fixed sm:!top-6 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-50 rounded-full px-3 sm:px-6 py-2.5 sm:py-3 flex justify-between items-center gap-2 transition-[background-color,box-shadow] duration-300 ${
@@ -138,15 +138,7 @@ export function Navbar() {
           )}
         </Link>
 
-        <a
-          href={whatsAppLink}
-          target="_blank"
-          rel="noreferrer"
-          className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-white transition-all shadow-md shadow-slate-900/20 text-sm font-medium min-h-[44px]"
-        >
-          <MessageCircle size={16} />
-          <span>{t.nav.contactUs}</span>
-        </a>
+        <UserMenu />
       </div>
     </nav>
   );

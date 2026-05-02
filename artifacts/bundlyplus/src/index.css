@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@layer theme, base, clerk, components, utilities;
 @import "tailwindcss";
 @import "tw-animate-css";
+@import '@clerk/themes/shadcn.css';
+
+/* Clerk UI placeholder + small overrides for dark surfaces */
+.cl-formFieldInput::placeholder {
+  color: hsl(var(--muted-foreground));
+  opacity: 1;
+}
 
 @plugin "@tailwindcss/typography";
 

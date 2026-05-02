@@ -1,17 +1,20 @@
 import { lazy, Suspense } from "react";
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AnimatePresence } from "framer-motion";
+import { ClerkProvider } from "@clerk/react";
+import { publishableKeyFromHost } from "@clerk/react/internal";
 
 import { ThemeProvider } from "@/lib/theme";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, useI18n } from "@/lib/i18n";
 import { CurrencyProvider } from "@/lib/currency";
 import { CartProvider } from "@/hooks/use-cart";
 import { WishlistProvider } from "@/hooks/use-wishlist";
 import { SocialProofToasts } from "@/components/layout/SocialProofToasts";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
+import { buildClerkAppearance, basePath, getClerkLocalization } from "@/lib/clerk-appearance";
 
 import { Navbar } from "@/components/layout/Navbar";
 import { BottomNav } from "@/components/layout/BottomNav";
@@ -26,6 +29,11 @@ const Cart = lazy(() => import("@/pages/Cart"));
 const Wishlist = lazy(() => import("@/pages/Wishlist"));
 const Admin = lazy(() => import("@/pages/Admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const SignInPage = lazy(() => import("@/pages/SignIn"));
+const SignUpPage = lazy(() => import("@/pages/SignUp"));
+const AccountPage = lazy(() => import("@/pages/Account"));
+const AccountSubscriptionsPage = lazy(() => import("@/pages/AccountSubscriptions"));
+const AccountOrdersPage = lazy(() => import("@/pages/AccountOrders"));
 
 function PageLoader() {
   return (
@@ -39,6 +47,19 @@ function PageLoader() {
 
 const queryClient = new QueryClient();
 
+const clerkPubKey = publishableKeyFromHost(
+  window.location.hostname,
+  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
+);
+
+const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
+
+function stripBase(path: string): string {
+  return basePath && path.startsWith(basePath)
+    ? path.slice(basePath.length) || "/"
+    : path;
+}
+
 function Router() {
   useScrollToTop();
 
@@ -50,6 +71,11 @@ function Router() {
           <Route path="/products" component={Products} />
           <Route path="/cart" component={Cart} />
           <Route path="/wishlist" component={Wishlist} />
+          <Route path="/sign-in/*?" component={SignInPage} />
+          <Route path="/sign-up/*?" component={SignUpPage} />
+          <Route path="/account" component={AccountPage} />
+          <Route path="/account/subscriptions" component={AccountSubscriptionsPage} />
+          <Route path="/account/orders" component={AccountOrdersPage} />
           <Route path="/admin" component={Admin} />
           <Route component={NotFound} />
         </Switch>
@@ -58,36 +84,70 @@ function Router() {
   );
 }
 
+function ClerkAppShell() {
+  const [, setLocation] = useLocation();
+  const { lang } = useI18n();
+  const appearance = buildClerkAppearance();
+  const localization = getClerkLocalization(lang);
+
+  if (!clerkPubKey) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 text-center text-slate-700 dark:text-slate-200">
+        <p>
+          Missing <code>VITE_CLERK_PUBLISHABLE_KEY</code>. Authentication is unavailable.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <ClerkProvider
+      publishableKey={clerkPubKey}
+      proxyUrl={clerkProxyUrl}
+      appearance={appearance}
+      localization={localization}
+      signInUrl={`${basePath}/sign-in`}
+      signUpUrl={`${basePath}/sign-up`}
+      signInFallbackRedirectUrl={`${basePath}/account`}
+      signUpFallbackRedirectUrl={`${basePath}/account`}
+      routerPush={(to) => setLocation(stripBase(to))}
+      routerReplace={(to) => setLocation(stripBase(to), { replace: true })}
+    >
+      <CartProvider>
+        <WishlistProvider>
+          <div className="relative min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-pink-200 dark:selection:bg-pink-900/50">
+            <Background />
+            <Navbar />
+
+            <main className="flex-grow pb-24 md:pb-0">
+              <Router />
+            </main>
+
+            <Footer />
+            <BottomNav />
+            <SocialProofToasts />
+            <DiscountPopup />
+            <CommandPalette />
+          </div>
+        </WishlistProvider>
+      </CartProvider>
+    </ClerkProvider>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
       <I18nProvider>
         <CurrencyProvider>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <CartProvider>
-              <WishlistProvider>
-              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-                <div className="relative min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-pink-200 dark:selection:bg-pink-900/50">
-                  <Background />
-                  <Navbar />
-
-                  <main className="flex-grow pb-24 md:pb-0">
-                    <Router />
-                  </main>
-
-                  <Footer />
-                  <BottomNav />
-                  <SocialProofToasts />
-                  <DiscountPopup />
-                  <CommandPalette />
-                </div>
+          <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+              <WouterRouter base={basePath}>
+                <ClerkAppShell />
               </WouterRouter>
               <Toaster />
-              </WishlistProvider>
-            </CartProvider>
-          </TooltipProvider>
-        </QueryClientProvider>
+            </TooltipProvider>
+          </QueryClientProvider>
         </CurrencyProvider>
       </I18nProvider>
     </ThemeProvider>
