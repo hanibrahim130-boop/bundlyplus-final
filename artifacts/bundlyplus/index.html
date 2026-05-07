@@ -11,10 +11,87 @@
     <meta property="og:image" content="/opengraph.jpg" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BundlyPlus — Premium Digital Subscriptions" />
+    <meta name="twitter:description" content="50+ premium subscriptions at up to 80% off. Instant WhatsApp delivery across Lebanon &amp; MENA." />
+    <meta name="twitter:image" content="https://bundlyplus.com/opengraph.jpg" />
+
+    <!-- Extended OG -->
+    <meta property="og:url" content="https://bundlyplus.com/" />
+    <meta property="og:site_name" content="BundlyPlus" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_LB" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Indexing & Geo -->
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://bundlyplus.com/" />
+    <meta name="keywords" content="Netflix Lebanon, Spotify Lebanon, ChatGPT subscription, Adobe Creative Cloud Lebanon, cheap subscriptions MENA, digital subscriptions Lebanon, BundlyPlus" />
+    <meta name="author" content="BundlyPlus" />
+    <meta name="application-name" content="BundlyPlus" />
+    <meta name="geo.region" content="LB" />
+    <meta name="geo.country" content="Lebanon" />
+
     <link rel="icon" type="image/png" href="/logo-icon.png" />
     <link rel="apple-touch-icon" href="/logo-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BundlyPlus",
+      "url": "https://bundlyplus.com",
+      "logo": "https://bundlyplus.com/logo.svg",
+      "description": "Premium digital subscriptions marketplace for Lebanon and MENA, offering Netflix, Spotify, ChatGPT and 50+ services at up to 80% off.",
+      "areaServed": ["LB","SA","AE","KW","QA","BH","JO","EG"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "availableLanguage": ["English","Arabic"]
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite + SearchAction -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "BundlyPlus",
+      "url": "https://bundlyplus.com",
+      "description": "Premium digital subscriptions marketplace for Lebanon and MENA",
+      "inLanguage": ["en","ar"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://bundlyplus.com/products?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: ItemList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Premium Digital Subscriptions",
+      "description": "Top digital subscription services available on BundlyPlus at discounted prices",
+      "url": "https://bundlyplus.com/products",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Netflix","url":"https://bundlyplus.com/products"},
+        {"@type":"ListItem","position":2,"name":"Spotify","url":"https://bundlyplus.com/products"},
+        {"@type":"ListItem","position":3,"name":"ChatGPT Plus","url":"https://bundlyplus.com/products"},
+        {"@type":"ListItem","position":4,"name":"Adobe Creative Cloud","url":"https://bundlyplus.com/products"},
+        {"@type":"ListItem","position":5,"name":"YouTube Premium","url":"https://bundlyplus.com/products"}
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -13,6 +13,7 @@ import { useProducts } from '@/lib/firestore-hooks';
 import { useSettings } from '@/lib/settings';
 import { Product } from '@/types';
 import { useI18n } from '@/lib/i18n';
+import { Seo } from '@/components/seo/Seo';
 
 const Testimonials = lazy(() => import('@/components/home/Testimonials').then((m) => ({ default: m.Testimonials })));
 const FAQ = lazy(() => import('@/components/home/FAQ').then((m) => ({ default: m.FAQ })));
@@ -32,6 +33,19 @@ export default function Home() {
 
   return (
     <div className="pb-20">
+      <Seo
+        canonical="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Store",
+          "name": "BundlyPlus",
+          "url": "https://bundlyplus.com",
+          "description": "Premium digital subscriptions marketplace for Lebanon and MENA",
+          "priceRange": "$$",
+          "currenciesAccepted": "USD, LBP",
+          "paymentAccepted": "Cash, Whish, OMT, USDT"
+        }}
+      />
       <Hero settings={siteSettings} />
 
       <Section>

@@ -8,6 +8,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { useProducts } from '@/lib/firestore-hooks';
 import { Product } from '@/types';
 import { useI18n } from '@/lib/i18n';
+import { Seo } from '@/components/seo/Seo';
 
 type AccountTypeFilter = 'All' | 'Private' | 'Shared';
 type ProductSort = 'popular' | 'price-asc' | 'price-desc' | 'name';
@@ -77,6 +78,25 @@ export default function Products() {
 
   return (
     <PageLayout>
+      <Seo
+        title="All Products — Digital Subscriptions"
+        description="Browse 50+ premium digital subscriptions: Netflix, Spotify, ChatGPT, Adobe & more. Best prices in Lebanon & MENA, instant WhatsApp delivery."
+        canonical="/products"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Digital Subscriptions Catalog",
+          "description": "Browse 50+ premium digital subscriptions at unbeatable prices",
+          "url": "https://bundlyplus.com/products",
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bundlyplus.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://bundlyplus.com/products" }
+            ]
+          }
+        }}
+      />
       <PageHeader
         title={t.products.title}
         gradientWord={t.products.gradientWord}

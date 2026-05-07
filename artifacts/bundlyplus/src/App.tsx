@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { ClerkProvider } from "@clerk/react";
 import { publishableKeyFromHost } from "@clerk/react/internal";
 
+import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "@/lib/theme";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { CurrencyProvider } from "@/lib/currency";
@@ -162,20 +163,22 @@ function ClerkAppShell() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <I18nProvider>
-        <CurrencyProvider>
-          <QueryClientProvider client={queryClient}>
-            <TooltipProvider>
-              <WouterRouter base={basePath}>
-                <ClerkAppShell />
-              </WouterRouter>
-              <Toaster />
-            </TooltipProvider>
-          </QueryClientProvider>
-        </CurrencyProvider>
-      </I18nProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <I18nProvider>
+          <CurrencyProvider>
+            <QueryClientProvider client={queryClient}>
+              <TooltipProvider>
+                <WouterRouter base={basePath}>
+                  <ClerkAppShell />
+                </WouterRouter>
+                <Toaster />
+              </TooltipProvider>
+            </QueryClientProvider>
+          </CurrencyProvider>
+        </I18nProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 
