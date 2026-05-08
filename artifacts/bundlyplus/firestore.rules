@@ -37,6 +37,14 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Promotional banners shown on the homepage discount popup.
+    // Public read so unauthenticated visitors see the live promo;
+    // admin-only write from the Promotions tab.
+    match /promotions/{promotionId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // User profile, wishlist, cart — owner-only writes; admin can read.
     match /users/{userId} {
       allow read: if isOwner(userId) || isAdmin();

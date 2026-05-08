@@ -1,18 +1,9 @@
 import * as admin from "firebase-admin";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { getAdminApp } from "./lib/firebase-admin.js";
 
-const sa = JSON.parse(
-  readFileSync(
-    resolve(
-      import.meta.dirname,
-      "../../attached_assets/bundlyplus-firebase-adminsdk-fbsvc-983286af8b_1774297045593.json"
-    ),
-    "utf-8"
-  )
-);
-
-admin.initializeApp({ credential: admin.credential.cert(sa as admin.ServiceAccount) });
+getAdminApp();
 const db = admin.firestore();
 
 async function seed() {
