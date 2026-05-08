@@ -40,6 +40,10 @@ const AccountPage = lazy(() => import("@/pages/Account"));
 const AccountSubscriptionsPage = lazy(() => import("@/pages/AccountSubscriptions"));
 const AccountOrdersPage = lazy(() => import("@/pages/AccountOrders"));
 const ComingSoon = lazy(() => import("@/pages/ComingSoon"));
+const Terms = lazy(() => import("@/pages/Terms"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
+const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"));
+const Contact = lazy(() => import("@/pages/Contact"));
 
 function PageLoader() {
   return (
@@ -84,6 +88,10 @@ function Router() {
           <Route path="/account/subscriptions" component={AccountSubscriptionsPage} />
           <Route path="/account/orders" component={AccountOrdersPage} />
           <Route path="/admin" component={Admin} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/refund-policy" component={RefundPolicy} />
+          <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>
