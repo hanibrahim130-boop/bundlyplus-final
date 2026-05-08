@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/react";
 import { Loader2, Save, Phone, Globe, DollarSign } from "lucide-react";
 import { AccountLayout } from "@/components/account/AccountLayout";
+import { Seo } from "@/components/seo/Seo";
 import { useI18n } from "@/lib/i18n";
 import { useToast } from "@/hooks/use-toast";
-import { getOrCreateUser, updateUserProfile, type UserDoc } from "@/lib/users-store";
+import {
+  getOrCreateUser,
+  updateUserProfile,
+  type UserDoc,
+} from "@/lib/users-store";
 
 export default function AccountPage() {
   const { user, isLoaded } = useUser();
@@ -13,7 +18,9 @@ export default function AccountPage() {
   const [profile, setProfile] = useState<UserDoc | null>(null);
   const [phone, setPhone] = useState("");
   const [preferredLang, setPreferredLang] = useState<"en" | "ar">(lang);
-  const [preferredCurrency, setPreferredCurrency] = useState<"USD" | "LBP">("USD");
+  const [preferredCurrency, setPreferredCurrency] = useState<"USD" | "LBP">(
+    "USD",
+  );
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -72,6 +79,7 @@ export default function AccountPage() {
 
   return (
     <AccountLayout>
+      <Seo title="Account" canonical="/account" noIndex />
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl md:text-4xl font-display font-bold text-slate-800 dark:text-slate-100">
@@ -129,7 +137,9 @@ export default function AccountPage() {
                     />
                     <select
                       value={preferredLang}
-                      onChange={(e) => setPreferredLang(e.target.value as "en" | "ar")}
+                      onChange={(e) =>
+                        setPreferredLang(e.target.value as "en" | "ar")
+                      }
                       className={inputClsWithIcon}
                     >
                       <option value="en">English</option>
@@ -145,7 +155,9 @@ export default function AccountPage() {
                     />
                     <select
                       value={preferredCurrency}
-                      onChange={(e) => setPreferredCurrency(e.target.value as "USD" | "LBP")}
+                      onChange={(e) =>
+                        setPreferredCurrency(e.target.value as "USD" | "LBP")
+                      }
                       className={inputClsWithIcon}
                     >
                       <option value="USD">USD</option>
@@ -161,7 +173,11 @@ export default function AccountPage() {
                   disabled={saving}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold shadow-lg shadow-pink-500/30 hover:scale-105 active:scale-95 transition-transform disabled:opacity-60"
                 >
-                  {saving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                  {saving ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Save size={16} />
+                  )}
                   {t.account.save}
                 </button>
               </div>
@@ -173,7 +189,13 @@ export default function AccountPage() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
       <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">

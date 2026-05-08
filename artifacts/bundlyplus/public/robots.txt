@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
-
+Disallow: /api/
+Disallow: /admin/
+Disallow: /account/
+Disallow: /cart/
 Sitemap: https://bundlyplus.com/sitemap.xml

@@ -3,6 +3,7 @@ import { useUser } from "@clerk/react";
 import { Loader2, Receipt } from "lucide-react";
 import { AccountLayout } from "@/components/account/AccountLayout";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { Seo } from "@/components/seo/Seo";
 import { useI18n, type T } from "@/lib/i18n";
 import { useCurrency } from "@/lib/currency";
 import { listUserOrders, type Order } from "@/lib/users-store";
@@ -38,6 +39,7 @@ export default function AccountOrdersPage() {
 
   return (
     <AccountLayout>
+      <Seo title="Account orders" canonical="/account/orders" noIndex />
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl md:text-4xl font-display font-bold text-slate-800 dark:text-slate-100">
@@ -55,7 +57,9 @@ export default function AccountOrdersPage() {
           </div>
         ) : orders.length === 0 ? (
           <EmptyState
-            icon={<Receipt className="w-12 h-12 text-slate-300 dark:text-slate-600" />}
+            icon={
+              <Receipt className="w-12 h-12 text-slate-300 dark:text-slate-600" />
+            }
             title={t.account.noOrdersTitle}
             description={t.account.noOrdersDesc}
             actionLabel={t.account.browseCatalog}
@@ -79,13 +83,18 @@ export default function AccountOrdersPage() {
 
                 <ul className="space-y-2 mb-4">
                   {order.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start justify-between gap-2 text-sm">
+                    <li
+                      key={idx}
+                      className="flex items-start justify-between gap-2 text-sm"
+                    >
                       <div className="min-w-0">
                         <div className="font-semibold text-slate-700 dark:text-slate-200 truncate">
                           {item.quantity} × {item.name}
                         </div>
                         {item.duration && (
-                          <div className="text-xs text-slate-400">{item.duration.replace(/_/g, " ")}</div>
+                          <div className="text-xs text-slate-400">
+                            {item.duration.replace(/_/g, " ")}
+                          </div>
                         )}
                       </div>
                       <div className="font-semibold text-slate-700 dark:text-slate-200 tabular-nums-p whitespace-nowrap">
@@ -114,10 +123,13 @@ export default function AccountOrdersPage() {
 
 function OrderStatusPill({ status, t }: { status: string; t: T }) {
   const map: Record<string, string> = {
-    pending: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300",
+    pending:
+      "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300",
     confirmed: "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300",
-    delivered: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300",
-    cancelled: "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300",
+    delivered:
+      "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300",
+    cancelled:
+      "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300",
   };
   const labels: Record<string, string> = {
     pending: t.account.statusPending,
@@ -126,7 +138,9 @@ function OrderStatusPill({ status, t }: { status: string; t: T }) {
     cancelled: t.account.statusCancelled,
   };
   return (
-    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${map[status] || map.pending}`}>
+    <span
+      className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${map[status] || map.pending}`}
+    >
       {labels[status] || status}
     </span>
   );
