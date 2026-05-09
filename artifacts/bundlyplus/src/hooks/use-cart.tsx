@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import { useUser } from '@clerk/react';
-import { CartItem, Product, Bundle } from '@/types';
+import { CartItem, Product } from '@/types';
 import { useToast } from '@/hooks/use-toast';
 import { getOrCreateUser, setUserCart } from '@/lib/users-store';
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (item: Product | Bundle, type: 'product' | 'bundle') => void;
+  addToCart: (item: Product, type: 'product') => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, delta: number) => void;
   clearCart: () => void;
@@ -116,7 +116,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [userLoaded, user]);
 
-  const addToCart = (item: Product | Bundle, type: 'product' | 'bundle') => {
+  const addToCart = (item: Product, type: 'product') => {
     setItems((prev) => {
       const existing = prev.find(i => i.id === item.id);
       if (existing) {

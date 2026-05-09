@@ -2,12 +2,15 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { Seo } from "@/components/seo/Seo";
 
 export default function NotFound() {
   const { t } = useI18n();
 
   return (
-    <motion.div
+    <>
+      <Seo title="Page not found" canonical="/404" noIndex />
+      <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="pt-40 pb-32 px-6 max-w-3xl mx-auto min-h-[80vh] flex flex-col items-center justify-center text-center"
@@ -29,5 +32,6 @@ export default function NotFound() {
         {t.notFound.back}
       </Link>
     </motion.div>
+    </>
   );
 }

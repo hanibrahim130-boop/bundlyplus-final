@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { ProductCard } from '@/components/shared/ProductCard';
 import { ProductGridSkeleton } from '@/components/shared/ProductGridSkeleton';
@@ -7,7 +7,9 @@ import { PageHeader } from '@/components/shared/PageHeader';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { useProducts } from '@/lib/firestore-hooks';
 import { Product } from '@/types';
+import { useUser } from '@clerk/react';
 import { useI18n } from '@/lib/i18n';
+import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
 import { Seo } from '@/components/seo/Seo';
 
 type AccountTypeFilter = 'All' | 'Private' | 'Shared';
@@ -19,13 +21,39 @@ export default function Products() {
   const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeFilter>('All');
   const [sortBy, setSortBy] = useState<ProductSort>('popular');
 
+  const { t, lang } = useI18n();
+  const { isSignedIn } = useUser();
+
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const trackSearchRef = useRef(false);
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => setSearchQuery(val), 300);
-  }, []);
-  const { t } = useI18n();
+    debounceRef.current = setTimeout(() => {
+      setSearchQuery(val);
+      if (val.trim().length >= 2) {
+        trackSearchRef.current = true;
+        trackEvent(ANALYTICS_EVENTS.SEARCH_PERFORMED, {
+          query: val.trim(),
+          language: lang,
+          signed_in: !!isSignedIn,
+        });
+      }
+    }, 400);
+  }, [lang, isSignedIn]);
+
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!initialized) { setInitialized(true); return; }
+    trackEvent(ANALYTICS_EVENTS.FILTER_APPLIED, {
+      category: selectedCategory,
+      account_type: selectedAccountType,
+      sort_by: sortBy,
+      language: lang,
+      signed_in: !!isSignedIn,
+    });
+  }, [selectedCategory, selectedAccountType, sortBy]);
 
   const { data: products = [], isLoading } = useProducts();
 

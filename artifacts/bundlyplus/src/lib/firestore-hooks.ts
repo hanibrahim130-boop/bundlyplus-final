@@ -74,35 +74,6 @@ export function useProducts(filters?: {
 
   return { data, isLoading, error };
 }
-
-export function useBundles(): UseQueryResult<any[]> {
-  const cacheKey = 'bundles';
-  const cached = getCached(cacheKey);
-  const [data, setData] = useState<any[] | undefined>(cached ?? undefined);
-  const [isLoading, setIsLoading] = useState(!cached);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    if (getCached(cacheKey)) return;
-    async function fetch() {
-      try {
-        setIsLoading(true);
-        const snapshot = await getDocs(collection(firestore, "bundles"));
-        const bundles = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setCached(cacheKey, bundles);
-        setData(bundles);
-      } catch (e) {
-        setError(e as Error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetch();
-  }, []);
-
-  return { data, isLoading, error };
-}
-
 export interface Promotion {
   id: string;
   title: string;

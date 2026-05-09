@@ -22,6 +22,7 @@ import {
 import { IntroSplash } from "@/components/IntroSplash";
 import { SocialProofToasts } from "@/components/layout/SocialProofToasts";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
+import { useWebMCP } from "@/hooks/use-webmcp";
 import {
   buildClerkAppearance,
   basePath,
@@ -134,6 +135,7 @@ function AnalyticsIdentityBridge() {
 function ClerkAppShell() {
   const [, setLocation] = useLocation();
   const { lang } = useI18n();
+  useWebMCP();
   const appearance = buildClerkAppearance();
   const localization = getClerkLocalization(lang);
 

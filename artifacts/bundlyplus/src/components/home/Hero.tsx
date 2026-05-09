@@ -228,9 +228,19 @@ export function Hero({ settings }: HeroProps) {
             {t.hero.subtitle}
           </p>
 
+          {/* Savings pill */}
+          <div
+            className={`mt-5 flex justify-center ${isMobile ? 'animate-[fadeIn_0.5s_ease-out_0.12s_both]' : ''}`}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-50 to-orange-50 dark:from-pink-500/10 dark:to-orange-500/10 border border-pink-200/60 dark:border-pink-500/20 px-4 py-1.5 text-sm font-bold text-pink-600 dark:text-pink-400">
+              <Sparkles size={14} />
+              {t.hero.savingsPill}
+            </span>
+          </div>
+
           {/* CTAs */}
           <div
-            className={`mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 ${isMobile ? 'animate-[fadeIn_0.5s_ease-out_0.15s_both]' : ''}`}
+            className={`mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 ${isMobile ? 'animate-[fadeIn_0.5s_ease-out_0.15s_both]' : ''}`}
           >
             <Link
               href="/products"

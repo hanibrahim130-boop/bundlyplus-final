@@ -10,6 +10,12 @@ import {
 } from "./middlewares/clerkProxyMiddleware";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import { linkHeaders } from "./middlewares/linkHeaders";
+import { markdownNegotiation } from "./middlewares/markdownNegotiation";
+import apiCatalogRouter from "./routes/apiCatalog";
+import oauthDiscoveryRouter from "./routes/oauthDiscovery";
+import mcpServerCardRouter from "./routes/mcpServerCard";
+import agentSkillsRouter from "./routes/agentSkills";
 
 const app: Express = express();
 
@@ -35,6 +41,8 @@ app.use(
 
 app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
 
+app.use(linkHeaders);
+app.use(markdownNegotiation);
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +56,10 @@ app.use(
   })),
 );
 
+app.use(apiCatalogRouter);
+app.use(oauthDiscoveryRouter);
+app.use(mcpServerCardRouter);
+app.use(agentSkillsRouter);
 app.use("/api", router);
 
 export default app;

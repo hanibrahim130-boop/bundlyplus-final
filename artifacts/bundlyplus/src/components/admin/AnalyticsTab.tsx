@@ -25,7 +25,6 @@ const FUNNEL_EVENTS: Array<{
   icon: React.ComponentType<{ size?: number; className?: string }>;
 }> = [
   { event: ANALYTICS_EVENTS.PRODUCT_VIEWED, label: 'Product viewed', icon: Eye },
-  { event: ANALYTICS_EVENTS.BUNDLE_VIEWED, label: 'Bundle viewed', icon: Eye },
   { event: ANALYTICS_EVENTS.ADD_TO_CART, label: 'Added to cart', icon: ShoppingCart },
   { event: ANALYTICS_EVENTS.CART_VIEWED, label: 'Cart viewed', icon: ShoppingCart },
   {

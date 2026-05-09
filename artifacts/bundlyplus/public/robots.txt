@@ -4,4 +4,26 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /account/
 Disallow: /cart/
+
+User-agent: AIbot
+User-agent: ChatGPT-User
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: GPTBot
+User-agent: anthropic-ai
+User-agent: Claude-User
+User-agent: cohere-ai
+User-agent: PerplexityBot
+User-agent: Applebot-Extended
+User-agent: Diffbot
+User-agent: FacebookBot
+User-agent: meta-externalagent
+User-agent: Bytespider
+Disallow: /api/
+Disallow: /admin/
+Disallow: /account/
+Disallow: /cart/
+
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+
 Sitemap: https://bundlyplus.com/sitemap.xml

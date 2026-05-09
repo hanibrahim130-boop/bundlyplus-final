@@ -14,16 +14,6 @@ export interface Product {
   out_of_stock?: boolean;
 }
 
-export interface Bundle {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  originalPrice: number;
-  duration: string;
-  features: string[];
-}
-
 export interface CartItem {
   id: string;
   name: string;

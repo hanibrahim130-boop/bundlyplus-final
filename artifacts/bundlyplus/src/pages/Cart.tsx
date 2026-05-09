@@ -25,6 +25,7 @@ import { Seo } from "@/components/seo/Seo";
 import { getBrandGradient, getInitials } from "@/lib/brand-theme";
 import { useI18n } from "@/lib/i18n";
 import { useCurrency } from "@/lib/currency";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   createOrder,
   markOrderWhatsappOpened,
@@ -41,6 +42,14 @@ export default function Cart() {
   const { format, currency } = useCurrency();
   const { user, isSignedIn } = useUser();
   const [submitting, setSubmitting] = useState(false);
+
+  const isMobile = useIsMobile();
+  const estimatedFullPrice = items.reduce((acc, it) => {
+    const fullPrice = it.type === 'product' ? it.price * 5 : it.price * 4;
+    return acc + fullPrice * it.quantity;
+  }, 0);
+  const estimatedSavings = estimatedFullPrice - totalPrice;
+  const savingsPercent = estimatedFullPrice > 0 ? Math.round((estimatedSavings / estimatedFullPrice) * 100) : 0;
 
   const cartViewedRef = useRef(false);
   useEffect(() => {
@@ -231,6 +240,14 @@ export default function Cart() {
                     {format(0)}
                   </span>
                 </div>
+                {estimatedSavings > 0 && (
+                  <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
+                    <span>{t.cart.youSave}</span>
+                    <span className="font-bold tabular-nums-p">
+                      {format(estimatedSavings)} ({savingsPercent}%)
+                    </span>
+                  </div>
+                )}
                 <div className="pt-4 border-t border-slate-200/60 dark:border-slate-700/60 flex justify-between items-end">
                   <span className="text-slate-800 dark:text-slate-100 font-bold text-base">
                     {t.cart.total}
@@ -317,6 +334,31 @@ export default function Cart() {
           </div>
         </div>
       </PageLayout>
+
+      {isMobile && (
+        <div className="fixed bottom-16 left-0 right-0 z-[60] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 px-4 py-3 shadow-lg">
+          <div className="flex items-center gap-3 mb-2 text-center justify-center">
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+              <ShieldCheck size={12} /> {t.cart.securePayment}
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-600 dark:text-amber-400">
+              <Zap size={12} /> {t.cart.instantDelivery}
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-purple-600 dark:text-purple-400">
+              <RefreshCw size={12} /> {t.cart.moneyBackGuarantee}
+            </span>
+          </div>
+          <button
+            onClick={handleCheckout}
+            disabled={submitting}
+            className="w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold shadow-lg shadow-green-500/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 min-h-[48px] disabled:opacity-70"
+          >
+            {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            {t.cart.checkout} — {format(totalPrice)}
+            {!submitting && <ArrowRight className="w-4 h-4" />}
+          </button>
+        </div>
+      )}
     </>
   );
 }

@@ -64,6 +64,7 @@ export default defineConfig({
     allowedHosts: true,
     headers: {
       "Cache-Control": "no-store",
+      "Link": '</sitemap.xml>; rel="sitemap", </api>; rel="service-doc", </.well-known/api-catalog>; rel="api-catalog"',
     },
     fs: {
       strict: true,

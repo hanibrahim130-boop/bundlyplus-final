@@ -6,12 +6,14 @@ export const ANALYTICS_EVENTS = {
   CART_VIEWED: 'cart_viewed',
   WHATSAPP_CHECKOUT_CLICKED: 'whatsapp_checkout_clicked',
   WISHLIST_ADDED: 'wishlist_added',
-  BUNDLE_VIEWED: 'bundle_viewed',
   DISCOUNT_POPUP_SHOWN: 'discount_popup_shown',
   DISCOUNT_POPUP_DISMISSED: 'discount_popup_dismissed',
   DISCOUNT_POPUP_CTA_CLICKED: 'discount_popup_cta_clicked',
   CURRENCY_TOGGLED: 'currency_toggled',
   LANGUAGE_TOGGLED: 'language_toggled',
+  SEARCH_PERFORMED: 'search_performed',
+  FILTER_APPLIED: 'filter_applied',
+  FAQ_OPENED: 'faq_opened',
 } as const;
 
 export type AnalyticsEvent =
@@ -63,16 +65,6 @@ export interface WishlistAddedProps {
   product_id: string;
   product_name?: string;
   language?: string;
-  signed_in: boolean;
-}
-
-export interface BundleViewedProps {
-  bundle_id: string;
-  bundle_name: string;
-  price_usd: number;
-  original_price_usd?: number;
-  currency: string;
-  language: string;
   signed_in: boolean;
 }
 
