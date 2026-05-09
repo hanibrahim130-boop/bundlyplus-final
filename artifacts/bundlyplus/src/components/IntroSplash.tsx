@@ -18,7 +18,10 @@ function shouldShowIntro() {
   if (isPreviewMode()) return true;
 
   try {
-    return sessionStorage.getItem(SESSION_KEY) !== "true";
+    const seen = sessionStorage.getItem(SESSION_KEY) === "true";
+    if (seen) return false;
+    sessionStorage.setItem(SESSION_KEY, "true");
+    return true;
   } catch {
     return false;
   }
@@ -33,22 +36,13 @@ export function IntroSplash() {
   useEffect(() => {
     if (!isVisible) return;
 
-    if (!isPreview) {
-      try {
-        sessionStorage.setItem(SESSION_KEY, "true");
-      } catch {
-        setIsVisible(false);
-        return;
-      }
-    }
-
     const timeout = window.setTimeout(
       () => setIsVisible(false),
       isReduced ? REDUCED_DURATION_MS : INTRO_DURATION_MS,
     );
 
     return () => window.clearTimeout(timeout);
-  }, [isPreview, isReduced, isVisible]);
+  }, [isReduced, isVisible]);
 
   return (
     <AnimatePresence>
