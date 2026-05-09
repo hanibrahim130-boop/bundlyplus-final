@@ -14,10 +14,19 @@ import { I18nProvider, useI18n } from "@/lib/i18n";
 import { CurrencyProvider } from "@/lib/currency";
 import { CartProvider } from "@/hooks/use-cart";
 import { WishlistProvider } from "@/hooks/use-wishlist";
-import { initAnalytics, identifyUser, resetAnalyticsUser } from "@/lib/analytics";
+import {
+  initAnalytics,
+  identifyUser,
+  resetAnalyticsUser,
+} from "@/lib/analytics";
+import { IntroSplash } from "@/components/IntroSplash";
 import { SocialProofToasts } from "@/components/layout/SocialProofToasts";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { buildClerkAppearance, basePath, getClerkLocalization } from "@/lib/clerk-appearance";
+import {
+  buildClerkAppearance,
+  basePath,
+  getClerkLocalization,
+} from "@/lib/clerk-appearance";
 
 initAnalytics();
 
@@ -37,7 +46,9 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 const SignInPage = lazy(() => import("@/pages/SignIn"));
 const SignUpPage = lazy(() => import("@/pages/SignUp"));
 const AccountPage = lazy(() => import("@/pages/Account"));
-const AccountSubscriptionsPage = lazy(() => import("@/pages/AccountSubscriptions"));
+const AccountSubscriptionsPage = lazy(
+  () => import("@/pages/AccountSubscriptions"),
+);
 const AccountOrdersPage = lazy(() => import("@/pages/AccountOrders"));
 const ComingSoon = lazy(() => import("@/pages/ComingSoon"));
 const Terms = lazy(() => import("@/pages/Terms"));
@@ -85,7 +96,10 @@ function Router() {
           <Route path="/sign-in/*?" component={SignInPage} />
           <Route path="/sign-up/*?" component={SignUpPage} />
           <Route path="/account" component={AccountPage} />
-          <Route path="/account/subscriptions" component={AccountSubscriptionsPage} />
+          <Route
+            path="/account/subscriptions"
+            component={AccountSubscriptionsPage}
+          />
           <Route path="/account/orders" component={AccountOrdersPage} />
           <Route path="/admin" component={Admin} />
           <Route path="/terms" component={Terms} />
@@ -127,7 +141,8 @@ function ClerkAppShell() {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 text-center text-slate-700 dark:text-slate-200">
         <p>
-          Missing <code>VITE_CLERK_PUBLISHABLE_KEY</code>. Authentication is unavailable.
+          Missing <code>VITE_CLERK_PUBLISHABLE_KEY</code>. Authentication is
+          unavailable.
         </p>
       </div>
     );
@@ -177,6 +192,7 @@ function App() {
           <CurrencyProvider>
             <QueryClientProvider client={queryClient}>
               <TooltipProvider>
+                <IntroSplash />
                 <WouterRouter base={basePath}>
                   <ClerkAppShell />
                 </WouterRouter>
