@@ -56,3 +56,8 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Firebase Admin SDK service-account keys (never commit).
+# Local fallback path used by scripts/src/lib/firebase-admin.ts.
+/secrets/
+*-firebase-adminsdk-*.json

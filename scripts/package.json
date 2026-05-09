@@ -7,6 +7,8 @@
     "hello": "tsx ./src/hello.ts",
     "seed": "tsx ./src/seed.ts",
     "set-admin-claim": "tsx ./src/set-admin-claim.ts",
+    "firestore-seed": "tsx ./src/firestore-seed.ts",
+    "firestore-deploy-rules": "tsx ./src/firestore-deploy-rules.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
