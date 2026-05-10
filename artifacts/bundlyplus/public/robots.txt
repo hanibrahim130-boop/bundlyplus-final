@@ -4,7 +4,14 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /account/
 Disallow: /cart/
+Disallow: /checkout/
+Disallow: /wishlist/
+Disallow: /sign-in/
+Disallow: /sign-up/
 
+# Opt out of AI training. Keep search + AI-input (Perplexity-style
+# grounded answers) allowed since they drive traffic. Enforcement is
+# per-crawler honor system.
 User-agent: AIbot
 User-agent: ChatGPT-User
 User-agent: CCBot
@@ -23,6 +30,10 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /account/
 Disallow: /cart/
+Disallow: /checkout/
+Disallow: /wishlist/
+Disallow: /sign-in/
+Disallow: /sign-up/
 
 Content-Signal: ai-train=no, search=yes, ai-input=yes
 
