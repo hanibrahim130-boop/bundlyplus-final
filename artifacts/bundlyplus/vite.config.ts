@@ -50,10 +50,31 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          // Ship React + the router together — they're on every page.
           "vendor-react": ["react", "react-dom", "wouter"],
-          "vendor-firebase": ["firebase/app", "firebase/firestore"],
+
+          // Firestore is needed by products/settings/promotions — parts
+          // of the home page. Keep it eager. Split auth into its own chunk
+          // so anonymous pageloads never pay for it; it's loaded by the
+          // Clerk->Firebase bridge and the admin panel on demand.
+          "vendor-firebase-app": ["firebase/app", "firebase/firestore"],
+          "vendor-firebase-auth": ["firebase/auth"],
+
+          // Clerk is a heavy dependency but is referenced by the shell on
+          // every route, so it stays in the eager critical chunk. Motion
+          // and UI primitives are both shared across multiple lazy routes
+          // so keep them as dedicated shared chunks.
           "vendor-motion": ["framer-motion"],
-          "vendor-ui": ["lucide-react", "@radix-ui/react-tooltip", "@radix-ui/react-toast"],
+          "vendor-ui": [
+            "lucide-react",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-toast",
+          ],
+
+          // Analytics is optional and initializes fire-and-forget from the
+          // browser entry, so let it land in its own chunk; browsers that
+          // block the tracker (adblock, DNT) won't pay the download cost.
+          "vendor-analytics": ["posthog-js"],
         },
       },
     },
