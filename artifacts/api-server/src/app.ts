@@ -3,6 +3,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import { clerkMiddleware } from "@clerk/express";
 import { publishableKeyFromHost } from "@clerk/shared/keys";
+import { Sentry } from "./lib/sentry";
 import {
   CLERK_PROXY_PATH,
   clerkProxyMiddleware,
@@ -61,5 +62,9 @@ app.use(oauthDiscoveryRouter);
 app.use(mcpServerCardRouter);
 app.use(agentSkillsRouter);
 app.use("/api", router);
+
+// Sentry's Express error handler must be registered after all routes
+// but before any user-defined error handler.
+Sentry.setupExpressErrorHandler(app);
 
 export default app;

@@ -74,7 +74,9 @@ export default defineConfig({
           // Analytics is optional and initializes fire-and-forget from the
           // browser entry, so let it land in its own chunk; browsers that
           // block the tracker (adblock, DNT) won't pay the download cost.
-          "vendor-analytics": ["posthog-js"],
+          // Sentry rides with analytics because it also loads from env
+          // vars and is irrelevant until an error fires.
+          "vendor-analytics": ["posthog-js", "@sentry/react"],
         },
       },
     },

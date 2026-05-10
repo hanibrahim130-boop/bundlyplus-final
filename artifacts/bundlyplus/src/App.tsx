@@ -20,6 +20,7 @@ import {
   identifyUser,
   resetAnalyticsUser,
 } from "@/lib/analytics";
+import { initSentry, setSentryUser, SentryErrorBoundary } from "@/lib/sentry";
 import { IntroSplash } from "@/components/IntroSplash";
 import { SocialProofToasts } from "@/components/layout/SocialProofToasts";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
@@ -31,6 +32,7 @@ import {
 } from "@/lib/clerk-appearance";
 
 initAnalytics();
+initSentry();
 
 import { Navbar } from "@/components/layout/Navbar";
 import { BottomNav } from "@/components/layout/BottomNav";
@@ -126,8 +128,10 @@ function AnalyticsIdentityBridge() {
         email: user.primaryEmailAddress?.emailAddress,
         name: user.fullName || undefined,
       });
+      setSentryUser(user.id);
     } else {
       resetAnalyticsUser();
+      setSentryUser(null);
     }
   }, [isLoaded, isSignedIn, user?.id]);
 
@@ -196,23 +200,45 @@ function ClerkAppShell() {
 
 function App() {
   return (
-    <HelmetProvider>
-      <ThemeProvider>
-        <I18nProvider>
-          <CurrencyProvider>
-            <QueryClientProvider client={queryClient}>
-              <TooltipProvider>
-                <IntroSplash />
-                <WouterRouter base={basePath}>
-                  <ClerkAppShell />
-                </WouterRouter>
-                <Toaster />
-              </TooltipProvider>
-            </QueryClientProvider>
-          </CurrencyProvider>
-        </I18nProvider>
-      </ThemeProvider>
-    </HelmetProvider>
+    <SentryErrorBoundary fallback={<GlobalErrorFallback />}>
+      <HelmetProvider>
+        <ThemeProvider>
+          <I18nProvider>
+            <CurrencyProvider>
+              <QueryClientProvider client={queryClient}>
+                <TooltipProvider>
+                  <IntroSplash />
+                  <WouterRouter base={basePath}>
+                    <ClerkAppShell />
+                  </WouterRouter>
+                  <Toaster />
+                </TooltipProvider>
+              </QueryClientProvider>
+            </CurrencyProvider>
+          </I18nProvider>
+        </ThemeProvider>
+      </HelmetProvider>
+    </SentryErrorBoundary>
+  );
+}
+
+function GlobalErrorFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center p-6 text-center text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900">
+      <div className="max-w-md space-y-3">
+        <h1 className="text-2xl font-display font-bold">Something broke.</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          Our team has been notified. Refresh the page or head back to the
+          homepage to keep browsing.
+        </p>
+        <a
+          href="/"
+          className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold"
+        >
+          Back to home
+        </a>
+      </div>
+    </div>
   );
 }
 
