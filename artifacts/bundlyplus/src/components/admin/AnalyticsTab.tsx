@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '@clerk/react';
 import {
   BarChart3,
   ExternalLink,
@@ -71,6 +72,7 @@ function fmtPct(n: number | null): string {
 }
 
 export function AnalyticsTab() {
+  const { getToken } = useAuth();
   const isClientConfigured = Boolean(POSTHOG_KEY);
   const hasDashboard = Boolean(POSTHOG_PROJECT_URL);
   const [kpis, setKpis] = useState<KpiResponse | null>(null);
@@ -81,24 +83,27 @@ export function AnalyticsTab() {
     let cancelled = false;
     setLoading(true);
     setFetchError(null);
-    fetch(apiUrl('/api/analytics/kpis?days=7'))
-      .then(async (r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return (await r.json()) as KpiResponse;
-      })
-      .then((data) => {
+    (async () => {
+      try {
+        const token = await getToken().catch(() => null);
+        const headers: Record<string, string> = {};
+        if (token) headers.Authorization = `Bearer ${token}`;
+        const response = await fetch(apiUrl('/api/analytics/kpis?days=7'), { headers });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = (await response.json()) as KpiResponse;
         if (!cancelled) setKpis(data);
-      })
-      .catch((err) => {
-        if (!cancelled) setFetchError(err instanceof Error ? err.message : 'Fetch failed');
-      })
-      .finally(() => {
+      } catch (err) {
+        if (!cancelled) {
+          setFetchError(err instanceof Error ? err.message : 'Fetch failed');
+        }
+      } finally {
         if (!cancelled) setLoading(false);
-      });
+      }
+    })();
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [getToken]);
 
   const serverConfigured = kpis?.configured ?? false;
 

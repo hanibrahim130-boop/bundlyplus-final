@@ -16,8 +16,6 @@ tags:
     description: Bundle package operations
   - name: settings
     description: Site settings operations
-  - name: orders
-    description: Order operations
 paths:
   /healthz:
     get:
@@ -147,31 +145,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/SiteSettings"
 
-  /orders:
-    post:
-      operationId: createOrder
-      tags: [orders]
-      summary: Create a new order
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateOrderRequest"
-      responses:
-        "201":
-          description: Order created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Order"
-        "400":
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
 components:
   schemas:
     HealthStatus:
@@ -259,65 +232,6 @@ components:
               type: string
         bundles:
           type: object
-
-    OrderItem:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        price:
-          type: number
-        quantity:
-          type: integer
-        type:
-          type: string
-          enum: [product, bundle]
-        duration:
-          type: string
-      required:
-        - id
-        - name
-        - price
-        - quantity
-        - type
-
-    CreateOrderRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/OrderItem"
-        total:
-          type: number
-        customerNote:
-          type: string
-      required:
-        - items
-        - total
-
-    Order:
-      type: object
-      properties:
-        id:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/OrderItem"
-        total:
-          type: number
-        status:
-          type: string
-        createdAt:
-          type: number
-      required:
-        - id
-        - items
-        - total
-        - status
 
     ErrorResponse:
       type: object

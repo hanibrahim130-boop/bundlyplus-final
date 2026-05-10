@@ -96,47 +96,85 @@ function durationToDays(duration?: string): number {
   return 30;
 }
 
-function tsToMs(value: any): number {
+function tsToMs(value: unknown): number {
   if (!value) return 0;
   if (typeof value === "number") return value;
   if (value instanceof Timestamp) return value.toMillis();
-  if (value?.toMillis) return value.toMillis();
-  if (typeof value === "object" && "seconds" in value) return value.seconds * 1000;
+  if (typeof value === "object" && value !== null) {
+    if ("toMillis" in value && typeof (value as { toMillis: unknown }).toMillis === "function") {
+      return (value as { toMillis: () => number }).toMillis();
+    }
+    if ("seconds" in value && typeof (value as { seconds: unknown }).seconds === "number") {
+      return (value as { seconds: number }).seconds * 1000;
+    }
+  }
   return 0;
 }
 
-function normalizeOrder(id: string, raw: any): Order {
+function asString(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : fallback;
+}
+
+function asOrderStatus(value: unknown): OrderStatus {
+  return value === "pending" ||
+    value === "confirmed" ||
+    value === "delivered" ||
+    value === "cancelled"
+    ? value
+    : "pending";
+}
+
+function asSubscriptionStatus(value: unknown): SubscriptionStatus {
+  return value === "active" || value === "expired" || value === "cancelled"
+    ? value
+    : "active";
+}
+
+function asOrderItems(value: unknown): OrderItem[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (item): item is OrderItem =>
+      typeof item === "object" &&
+      item !== null &&
+      typeof (item as OrderItem).productId === "string" &&
+      typeof (item as OrderItem).name === "string" &&
+      typeof (item as OrderItem).price === "number" &&
+      typeof (item as OrderItem).quantity === "number",
+  );
+}
+
+function normalizeOrder(id: string, raw: Record<string, unknown>): Order {
   return {
     id,
-    userId: raw.userId,
-    userEmail: raw.userEmail,
-    userName: raw.userName,
-    userPhone: raw.userPhone,
-    items: raw.items || [],
-    totalPriceUsd: Number(raw.totalPriceUsd || 0),
-    status: raw.status || "pending",
-    notes: raw.notes || "",
-    whatsappOpened: !!raw.whatsappOpened,
+    userId: asString(raw.userId),
+    userEmail: asString(raw.userEmail, "") || undefined,
+    userName: asString(raw.userName, "") || undefined,
+    userPhone: asString(raw.userPhone, "") || undefined,
+    items: asOrderItems(raw.items),
+    totalPriceUsd: typeof raw.totalPriceUsd === "number" ? raw.totalPriceUsd : Number(raw.totalPriceUsd) || 0,
+    status: asOrderStatus(raw.status),
+    notes: asString(raw.notes),
+    whatsappOpened: raw.whatsappOpened === true,
     createdAt: tsToMs(raw.createdAt),
     updatedAt: tsToMs(raw.updatedAt),
     deliveredAt: tsToMs(raw.deliveredAt),
   };
 }
 
-function normalizeSubscription(id: string, raw: any): Subscription {
+function normalizeSubscription(id: string, raw: Record<string, unknown>): Subscription {
   return {
     id,
-    userId: raw.userId,
-    orderId: raw.orderId,
-    productName: raw.productName,
-    productId: raw.productId,
-    durationLabel: raw.durationLabel || "",
-    durationDays: Number(raw.durationDays || 30),
+    userId: asString(raw.userId),
+    orderId: asString(raw.orderId),
+    productName: asString(raw.productName),
+    productId: asString(raw.productId, "") || undefined,
+    durationLabel: asString(raw.durationLabel),
+    durationDays: typeof raw.durationDays === "number" ? raw.durationDays : Number(raw.durationDays) || 30,
     startDate: tsToMs(raw.startDate),
     expiryDate: tsToMs(raw.expiryDate),
-    status: raw.status || "active",
-    reminderSentAt: tsToMs(raw.reminderSentAt),
-    notes: raw.notes || "",
+    status: asSubscriptionStatus(raw.status),
+    reminderSentAt: tsToMs(raw.reminderSentAt) || undefined,
+    notes: asString(raw.notes),
     createdAt: tsToMs(raw.createdAt),
   };
 }
@@ -149,7 +187,7 @@ export async function getOrCreateUser(
   const snap = await getDoc(ref);
   if (snap.exists()) {
     const existing = snap.data() as UserDoc;
-    const updates: Record<string, any> = { updatedAt: serverTimestamp() };
+    const updates: Record<string, unknown> = { updatedAt: serverTimestamp() };
     if (profile.email && profile.email !== existing.email) updates.email = profile.email;
     if (profile.fullName && profile.fullName !== existing.fullName) updates.fullName = profile.fullName;
     if (Object.keys(updates).length > 1) {
@@ -176,7 +214,7 @@ export async function updateUserProfile(
   patch: Partial<UserDoc>,
 ): Promise<void> {
   const ref = doc(firestore, "users", clerkId);
-  const sanitized: Record<string, any> = { updatedAt: serverTimestamp() };
+  const sanitized: Record<string, unknown> = { updatedAt: serverTimestamp() };
   for (const k of ["email", "fullName", "phone", "preferredLang", "preferredCurrency"] as const) {
     if (patch[k] !== undefined) sanitized[k] = patch[k];
   }
@@ -248,7 +286,7 @@ export async function listAllOrders(): Promise<Order[]> {
 }
 
 export async function setOrderStatus(orderId: string, status: OrderStatus, notes?: string): Promise<void> {
-  const updates: Record<string, any> = { status, updatedAt: serverTimestamp() };
+  const updates: Record<string, unknown> = { status, updatedAt: serverTimestamp() };
   if (notes !== undefined) updates.notes = notes;
   if (status === "delivered") updates.deliveredAt = serverTimestamp();
   await updateDoc(doc(firestore, "orders", orderId), updates);

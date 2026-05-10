@@ -5,30 +5,25 @@
  * BundlyPlus API specification
  * OpenAPI spec version: 0.2.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type {
-  MutationFunction,
   QueryFunction,
   QueryKey,
-  UseMutationOptions,
-  UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
 
 import type {
   Bundle,
-  CreateOrderRequest,
   ErrorResponse,
   HealthStatus,
   ListProductsParams,
-  Order,
   Product,
   SiteSettings,
 } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
-import type { ErrorType, BodyType } from "../custom-fetch";
+import type { ErrorType } from "../custom-fetch";
 
 type AwaitedInput<T> = PromiseLike<T> | T;
 
@@ -526,89 +521,3 @@ export function useGetSettings<
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
-
-/**
- * @summary Create a new order
- */
-export const getCreateOrderUrl = () => {
-  return `/api/orders`;
-};
-
-export const createOrder = async (
-  createOrderRequest: CreateOrderRequest,
-  options?: RequestInit,
-): Promise<Order> => {
-  return customFetch<Order>(getCreateOrderUrl(), {
-    ...options,
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(createOrderRequest),
-  });
-};
-
-export const getCreateOrderMutationOptions = <
-  TError = ErrorType<ErrorResponse>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof createOrder>>,
-    TError,
-    { data: BodyType<CreateOrderRequest> },
-    TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof createOrder>>,
-  TError,
-  { data: BodyType<CreateOrderRequest> },
-  TContext
-> => {
-  const mutationKey = ["createOrder"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof createOrder>>,
-    { data: BodyType<CreateOrderRequest> }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return createOrder(data, requestOptions);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type CreateOrderMutationResult = NonNullable<
-  Awaited<ReturnType<typeof createOrder>>
->;
-export type CreateOrderMutationBody = BodyType<CreateOrderRequest>;
-export type CreateOrderMutationError = ErrorType<ErrorResponse>;
-
-/**
- * @summary Create a new order
- */
-export const useCreateOrder = <
-  TError = ErrorType<ErrorResponse>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof createOrder>>,
-    TError,
-    { data: BodyType<CreateOrderRequest> },
-    TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof createOrder>>,
-  TError,
-  { data: BodyType<CreateOrderRequest> },
-  TContext
-> => {
-  return useMutation(getCreateOrderMutationOptions(options));
-};

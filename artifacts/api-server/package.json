@@ -22,6 +22,9 @@
     "pino": "^9",
     "pino-http": "^10"
   },
+  "optionalDependencies": {
+    "firebase-admin": "^12.7.0"
+  },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",

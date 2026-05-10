@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 import { logger } from "../lib/logger";
+import { requireAdmin } from "../middlewares/requireAdmin";
 
 const router: IRouter = Router();
 
@@ -47,7 +48,7 @@ function ratio(numerator: number, denominator: number): number | null {
   return Math.round((numerator / denominator) * 1000) / 10;
 }
 
-router.get("/analytics/kpis", async (req, res) => {
+router.get("/analytics/kpis", requireAdmin, async (req, res) => {
   const apiKey = process.env.POSTHOG_PERSONAL_API_KEY;
   const projectId = process.env.POSTHOG_PROJECT_ID;
   const host = process.env.POSTHOG_HOST || "https://us.posthog.com";

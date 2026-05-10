@@ -14,6 +14,7 @@ import { I18nProvider, useI18n } from "@/lib/i18n";
 import { CurrencyProvider } from "@/lib/currency";
 import { CartProvider } from "@/hooks/use-cart";
 import { WishlistProvider } from "@/hooks/use-wishlist";
+import { useFirebaseBridge } from "@/hooks/use-firebase-bridge";
 import {
   initAnalytics,
   identifyUser,
@@ -74,7 +75,7 @@ const clerkPubKey = publishableKeyFromHost(
   import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
 );
 
-const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
+const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL || "";
 
 function stripBase(path: string): string {
   return basePath && path.startsWith(basePath)
@@ -116,6 +117,7 @@ function Router() {
 
 function AnalyticsIdentityBridge() {
   const { isLoaded, isSignedIn, user } = useUser();
+  useFirebaseBridge();
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -170,7 +172,7 @@ function ClerkAppShell() {
             <Background />
             <Navbar />
 
-            <main className="flex-grow pb-24 md:pb-0">
+            <main className="grow pb-24 md:pb-0">
               <Router />
             </main>
 

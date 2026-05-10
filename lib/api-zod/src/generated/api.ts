@@ -115,21 +115,3 @@ export const GetSettingsResponse = zod.object({
     .optional(),
   bundles: zod.object({}).passthrough().optional(),
 });
-
-/**
- * @summary Create a new order
- */
-export const CreateOrderBody = zod.object({
-  items: zod.array(
-    zod.object({
-      id: zod.string(),
-      name: zod.string(),
-      price: zod.number(),
-      quantity: zod.number(),
-      type: zod.enum(["product", "bundle"]),
-      duration: zod.string().optional(),
-    }),
-  ),
-  total: zod.number(),
-  customerNote: zod.string().optional(),
-});

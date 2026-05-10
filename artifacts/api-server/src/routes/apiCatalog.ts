@@ -48,16 +48,6 @@ router.get("/.well-known/api-catalog", (_req, res) => {
       ],
     },
     {
-      anchor: `${BASE}/api/orders`,
-      "about-rdf": [
-        {
-          href: `${BASE}/api/orders`,
-          type: "application/json",
-          title: "Order Processing",
-        },
-      ],
-    },
-    {
       anchor: `${BASE}/api/settings`,
       "about-rdf": [
         {

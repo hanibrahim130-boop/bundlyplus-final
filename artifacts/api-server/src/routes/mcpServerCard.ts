@@ -39,16 +39,6 @@ router.get("/.well-known/mcp/server-card.json", (_req, res) => {
             },
           ],
         },
-        orders: {
-          description: "Create and manage orders",
-          endpoints: [
-            {
-              method: "POST",
-              path: "/api/orders",
-              description: "Create a new order",
-            },
-          ],
-        },
         settings: {
           description: "Site configuration and pricing",
           endpoints: [

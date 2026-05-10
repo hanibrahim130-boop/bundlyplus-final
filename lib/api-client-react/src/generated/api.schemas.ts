@@ -49,36 +49,6 @@ export interface SiteSettings {
   bundles?: SiteSettingsBundles;
 }
 
-export type OrderItemType = (typeof OrderItemType)[keyof typeof OrderItemType];
-
-export const OrderItemType = {
-  product: "product",
-  bundle: "bundle",
-} as const;
-
-export interface OrderItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  type: OrderItemType;
-  duration?: string;
-}
-
-export interface CreateOrderRequest {
-  items: OrderItem[];
-  total: number;
-  customerNote?: string;
-}
-
-export interface Order {
-  id: number;
-  items: OrderItem[];
-  total: number;
-  status: string;
-  createdAt?: number;
-}
-
 export interface ErrorResponse {
   error: string;
 }
