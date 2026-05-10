@@ -1,0 +1,117 @@
+name: CI
+
+# Gates every PR and push to main on the typecheck + build path that devs
+# already run locally. Keeps pnpm/Node versions aligned with package.json so
+# CI matches the engine the project requires.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Required by vite.config.ts in bundlyplus-pitch and bundlyplus-promo —
+  # they read PORT/BASE_PATH at config-load time even for production builds.
+  PORT: "3000"
+  BASE_PATH: "/"
+
+jobs:
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          # Match the `packageManager` field in the root package.json exactly.
+          # Bumping pnpm here and in package.json together keeps the
+          # minimumReleaseAge defense in pnpm-workspace.yaml consistent.
+          version: 10.33.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        # --frozen-lockfile enforces that pnpm-lock.yaml is up to date.
+        # If the lockfile is out of sync the job fails fast.
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck (composite libs + apps)
+        # Runs tsc --build on lib/* plus `--noEmit` typechecks on every
+        # artifacts/* workspace that defines a `typecheck` script.
+        run: pnpm run typecheck
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: typecheck
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspace (api-server + bundlyplus + siblings)
+        # `pnpm run build` runs typecheck then `pnpm -r run build` across
+        # every workspace that exposes a build script.
+        run: pnpm run build
+
+      - name: Check main bundle size budget
+        # Keep the customer-facing entry bundle under 800 KB minified. The
+        # May 2026 build after the firebase-auth + posthog chunk split is
+        # 652 KB, so this leaves ~150 KB headroom before a regression is
+        # forced into review. Tighten whenever a clean win lands.
+        run: |
+          set -euo pipefail
+          bundle_dir="artifacts/bundlyplus/dist/public/assets"
+          if [ ! -d "$bundle_dir" ]; then
+            echo "::error::Expected build output missing: $bundle_dir"
+            exit 1
+          fi
+          main_js=$(find "$bundle_dir" -maxdepth 1 -name 'index-*.js' | head -n 1)
+          if [ -z "$main_js" ]; then
+            echo "::error::No main index-*.js chunk found under $bundle_dir"
+            exit 1
+          fi
+          size=$(wc -c < "$main_js")
+          budget=$((800 * 1024))
+          echo "Main bundle: $main_js ($size bytes, budget $budget)"
+          if [ "$size" -gt "$budget" ]; then
+            echo "::error::Main bundle $size bytes exceeds $budget byte budget. See docs/performance.md (TBD)."
+            exit 1
+          fi
+
+      - name: Upload bundlyplus dist artifact
+        # Makes the built site downloadable from the run summary for any
+        # reviewer who wants to inspect what shipped. 7-day retention keeps
+        # storage costs trivial.
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundlyplus-dist
+          path: artifacts/bundlyplus/dist/public
+          retention-days: 7
+          if-no-files-found: error
