@@ -56,3 +56,9 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Playwright
+/test-results/
+artifacts/*/test-results/
+artifacts/*/playwright-report/
+artifacts/*/blob-report/
