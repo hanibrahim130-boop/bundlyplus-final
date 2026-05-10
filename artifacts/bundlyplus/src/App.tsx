@@ -169,10 +169,16 @@ function ClerkAppShell() {
         <WishlistProvider>
           <AnalyticsIdentityBridge />
           <div className="relative min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-pink-200 dark:selection:bg-pink-900/50">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-slate-900 focus:text-white focus:font-semibold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+            >
+              Skip to main content
+            </a>
             <Background />
             <Navbar />
 
-            <main className="grow pb-24 md:pb-0">
+            <main id="main-content" className="grow pb-24 md:pb-0">
               <Router />
             </main>
 

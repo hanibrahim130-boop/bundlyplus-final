@@ -27,6 +27,9 @@ export default function SignInPage() {
     <>
       <Seo title="Sign in" canonical="/sign-in" noIndex />
       <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 pt-28 pb-16">
+        <h1 className="sr-only">
+          {lang === 'ar' ? 'تسجيل الدخول إلى BundlyPlus' : 'Sign in to BundlyPlus'}
+        </h1>
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16 max-w-4xl w-full">
           <SignIn
             routing="path"

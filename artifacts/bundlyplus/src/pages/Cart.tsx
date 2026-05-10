@@ -168,9 +168,9 @@ export default function Cart() {
                   </div>
 
                   <div className="flex-grow w-full sm:w-auto">
-                    <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-1">
+                    <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-1">
                       {item.name}
-                    </h3>
+                    </h2>
                     <div className="text-sm text-slate-500 dark:text-slate-400">
                       <span className="uppercase tracking-wider text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-semibold">
                         {item.type}
@@ -221,9 +221,9 @@ export default function Cart() {
 
           <div className="lg:w-1/3">
             <div className="glass-panel rounded-3xl p-8 sticky top-32">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6">
                 {t.cart.orderSummary}
-              </h3>
+              </h2>
 
               <div className="space-y-4 mb-8 text-sm">
                 <div className="flex justify-between text-slate-600 dark:text-slate-300">

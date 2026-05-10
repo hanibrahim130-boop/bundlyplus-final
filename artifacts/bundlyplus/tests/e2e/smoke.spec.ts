@@ -31,8 +31,10 @@ test.describe("app shell", () => {
     const pageErrors: string[] = [];
     page.on("pageerror", (err) => pageErrors.push(err.message));
 
-    await page.goto("/");
-    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    // Give React a moment to hydrate without waiting on long-polling
+    // Firebase/PostHog requests that never go idle.
+    await page.waitForTimeout(1_500);
 
     // Third-party SDKs (Clerk, PostHog, Firebase) log warnings in dev
     // without a real key — those are acceptable. App-level errors are not.

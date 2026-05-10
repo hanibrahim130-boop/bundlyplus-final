@@ -27,6 +27,9 @@ export default function SignUpPage() {
     <>
       <Seo title="Create account" canonical="/sign-up" noIndex />
       <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 pt-28 pb-16">
+        <h1 className="sr-only">
+          {lang === 'ar' ? 'إنشاء حساب BundlyPlus' : 'Create a BundlyPlus account'}
+        </h1>
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16 max-w-4xl w-full">
           <SignUp
             routing="path"

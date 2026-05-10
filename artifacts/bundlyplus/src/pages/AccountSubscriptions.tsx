@@ -94,9 +94,9 @@ export default function AccountSubscriptionsPage() {
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">
+                      <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">
                         {sub.productName}
-                      </h3>
+                      </h2>
                       <StatusPill status={sub.status} t={t} />
                       {expiringSoon && (
                         <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">
