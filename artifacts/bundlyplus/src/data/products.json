@@ -473,7 +473,7 @@
     "price": 69.99,
     "description": "Anthropic Claude with 5x usage, priority access and Claude 4.7 Sonnet/Opus",
     "category": "AI Tools",
-    "duration": "1 Mounth",
+    "duration": "1 Month",
     "account_type": "Private",
     "features": [
       "Claude 4.7 Opus",
@@ -491,7 +491,7 @@
     "price": 109.99,
     "description": "Anthropic Claude with 20x usage, priority access and Claude 4.7 Sonnet/Opus",
     "category": "AI Tools",
-    "duration": "1 Mounth",
+    "duration": "1 Month",
     "account_type": "Private",
     "features": [
       "Claude 4.7 Opus",
