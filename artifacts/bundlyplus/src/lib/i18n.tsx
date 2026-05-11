@@ -32,13 +32,13 @@ export const translations = {
       mainHeadline:
         'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Cheapest Prices in Lebanon & MENA 🔥',
       mainSubtitle:
-        'Instant WhatsApp Delivery • Pay in LBP • USDT • 7-Day Guarantee • Trusted by 2000+ Customers',
+        'Instant WhatsApp Delivery • Pay in LBP • USDT • 25-Day Guarantee • Trusted by 2000+ Customers',
       primaryCta: 'Browse Subscriptions Now',
       secondaryCta: 'Chat with Us on WhatsApp',
       trustBadges: {
         instantDelivery: 'Instant Delivery',
         localPayment: 'Local Payment',
-        moneyBack: '7-Day Money Back',
+        moneyBack: '25-Day Money Back',
         lebanese: 'Lebanese Service',
       },
     },
@@ -326,13 +326,13 @@ export const translations = {
       mainHeadline:
         'Netflix + ChatGPT + Adobe + IPTV — اشتراكات مميزة بأرخص أسعار في لبنان والشرق الأوسط 🔥',
       mainSubtitle:
-        'تسليم فوري عبر واتساب • الدفع بالليرة أو USDT • ضمان 7 أيام • يثق بنا أكثر من 2000 زبون',
+        'تسليم فوري عبر واتساب • الدفع بالليرة أو USDT • ضمان 25 يومًا • يثق بنا أكثر من 2000 زبون',
       primaryCta: 'تصفّح الاشتراكات الآن',
       secondaryCta: 'راسلنا على واتساب',
       trustBadges: {
         instantDelivery: 'تسليم فوري',
         localPayment: 'دفع محلي',
-        moneyBack: 'استرجاع خلال 7 أيام',
+        moneyBack: 'استرجاع خلال 25 يومًا',
         lebanese: 'خدمة لبنانية',
       },
     },

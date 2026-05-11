@@ -449,3 +449,142 @@
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-slate-300 dark:bg-slate-600;
 }
+
+/* ────────────────────────────────────────────────────────────────
+   epic-design cinematic hero
+   Adds depth-layered parallax, word-by-word lighting, constellation
+   drift, and clip-path reveals for the rewritten Hero component.
+   All animations respect prefers-reduced-motion via the block above.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Word-by-word headline lighting — each .cine-word fades in with a
+   small upward drift. JS sets --i on each word to stagger the delay. */
+@keyframes cine-word-in {
+  0%   { opacity: 0; transform: translate3d(0, 20%, 0); filter: blur(6px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+.cine-word {
+  display: inline-block;
+  opacity: 0;
+  animation: cine-word-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 60ms + 120ms);
+}
+
+/* Clip-path curtain reveal for the subtitle + CTA stack. Sits below
+   the headline so it fires after the main line has landed. */
+@keyframes cine-curtain-rise {
+  0%   { clip-path: inset(0 0 100% 0); opacity: 0; }
+  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+.cine-curtain {
+  clip-path: inset(0 0 100% 0);
+  animation: cine-curtain-rise 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--cine-delay, 600ms);
+}
+
+/* Floating constellation logos — depth-2. Three orbit variations so
+   the assets feel alive but never drift the same direction at once. */
+@keyframes cine-orbit-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(8px, -14px, 0) rotate(3deg); }
+}
+@keyframes cine-orbit-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(-10px, 8px, 0) rotate(-2deg); }
+}
+@keyframes cine-orbit-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(12px, 10px, 0) rotate(2deg); }
+}
+.cine-orbit-1 { animation: cine-orbit-1 11s ease-in-out infinite; }
+.cine-orbit-2 { animation: cine-orbit-2 13s ease-in-out infinite; animation-delay: -3s; }
+.cine-orbit-3 { animation: cine-orbit-3 15s ease-in-out infinite; animation-delay: -7s; }
+
+/* Spotlight sweep that passes behind the headline once per cycle.
+   Pure CSS — no JS required. Paused on reduced-motion. */
+@keyframes cine-spotlight-sweep {
+  0%   { transform: translate3d(-120%, 0, 0) rotate(-12deg); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translate3d(120%, 0, 0) rotate(-12deg); opacity: 0; }
+}
+.cine-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(236, 72, 153, 0.18) 45%,
+    rgba(168, 85, 247, 0.22) 55%,
+    transparent 100%
+  );
+  animation: cine-spotlight-sweep 9s ease-in-out infinite;
+  animation-delay: 2s;
+  will-change: transform, opacity;
+}
+
+/* Grid overlay that adds subtle depth-0 texture. Uses dual radial
+   gradients so the pattern reads on both light and dark surfaces. */
+.cine-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.22) 1px, transparent 0);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, black 0%, transparent 70%);
+  opacity: 0.45;
+}
+.dark .cine-grid {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(226, 232, 240, 0.1) 1px, transparent 0);
+  opacity: 0.6;
+}
+
+/* Ticker bar — infinite marquee for hero bottom strip. Matches the
+   product marquee timing (45s) so they look related, not duplicated. */
+@keyframes cine-ticker {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.cine-ticker {
+  animation: cine-ticker 45s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-word,
+  .cine-curtain {
+    opacity: 1 !important;
+    clip-path: inset(0) !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+  .cine-orbit-1,
+  .cine-orbit-2,
+  .cine-orbit-3,
+  .cine-spotlight,
+  .cine-ticker {
+    animation: none !important;
+  }
+}
+
+/* Mobile: drop the spotlight sweep + grid for frame budget (see
+   the mobile policy block above). Constellation logos already gated
+   by the framer-free CSS but we further tone down motion. */
+@media (max-width: 767px) {
+  .cine-spotlight,
+  .cine-grid {
+    display: none;
+  }
+  .cine-orbit-1,
+  .cine-orbit-2,
+  .cine-orbit-3 {
+    animation: none;
+  }
+}

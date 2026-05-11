@@ -68,7 +68,7 @@ const SECTIONS_EN: Section[] = [
   {
     heading: '6. Time Frame',
     paragraphs: [
-      'Refund requests must be opened within 7 days of delivery. After that we will still help with replacements and support but cash refunds are case-by-case.',
+      'Refund requests must be opened within 25 days of delivery. After that we will still help with replacements and support but cash refunds are case-by-case.',
     ],
   },
 ];
