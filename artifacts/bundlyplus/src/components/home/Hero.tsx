@@ -11,10 +11,78 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useCurrency } from "@/lib/currency";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { getLogoUrl } from "@/utils/logoUtils";
+import { getBrandGradient, getInitials } from "@/lib/brand-theme";
 import type { SiteSettings } from "@/types";
 
 interface HeroProps {
   settings?: SiteSettings | null;
+}
+
+/**
+ * Small floating brand tile used in the hero backdrop.
+ *
+ * Cheap by design: one shared CSS keyframe (.float-logo, already in
+ * index.css), stagger via animation-delay only. No blur, no blend
+ * mode, no per-element custom keyframes.
+ */
+interface FloatingBrand {
+  name: string;
+  /** % of the hero container box */
+  top: string;
+  left?: string;
+  right?: string;
+  /** pixel diameter of the tile */
+  size: number;
+  /** negative animation-delay spreads the 5s loop across instances */
+  delay: string;
+}
+
+const FLOATING_BRANDS: FloatingBrand[] = [
+  { name: "Netflix Premium", top: "18%", left: "6%", size: 72, delay: "0s" },
+  { name: "ChatGPT Plus", top: "24%", right: "7%", size: 76, delay: "-1.6s" },
+  { name: "Spotify Premium", top: "62%", left: "4%", size: 64, delay: "-3.2s" },
+];
+
+function FloatingBrandTile({ brand }: { brand: FloatingBrand }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const url = getLogoUrl(brand.name);
+  const side = brand.left ? { left: brand.left } : { right: brand.right };
+
+  return (
+    <div
+      className="float-logo absolute pointer-events-none"
+      style={{
+        top: brand.top,
+        ...side,
+        width: `${brand.size}px`,
+        height: `${brand.size}px`,
+        animationDelay: brand.delay,
+      }}
+      aria-hidden="true"
+    >
+      <div className="w-full h-full rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-white/80 dark:border-slate-700/60 shadow-xl shadow-purple-900/15 p-3">
+        {url && !imgFailed ? (
+          <img
+            src={url}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-contain"
+            onError={() => setImgFailed(true)}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div
+            className={`w-full h-full bg-linear-to-br ${getBrandGradient(brand.name)} flex items-center justify-center text-white font-bold text-xs rounded-xl`}
+          >
+            {getInitials(brand.name)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 /**
@@ -37,6 +105,7 @@ interface HeroProps {
 export function Hero({ settings }: HeroProps) {
   const { t, lang } = useI18n();
   const isRTL = lang === "ar";
+  const isMobile = useIsMobile();
   const { format } = useCurrency();
 
   const [liveCount, setLiveCount] = useState(247);
@@ -88,6 +157,20 @@ export function Hero({ settings }: HeroProps) {
       className="relative pt-32 sm:pt-40 pb-16 sm:pb-24 isolate"
       dir={isRTL ? "rtl" : "ltr"}
     >
+      {/* Floating brand tiles — desktop only. Three household names
+          layered behind the headline using the existing .float-logo
+          keyframe + staggered delays. No new CSS required. */}
+      {!isMobile && (
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 max-w-7xl mx-auto"
+          aria-hidden="true"
+        >
+          {FLOATING_BRANDS.map((b) => (
+            <FloatingBrandTile key={b.name} brand={b} />
+          ))}
+        </div>
+      )}
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         {/* Live counter pill */}
         <div className="flex justify-center mb-6 sm:mb-8">
