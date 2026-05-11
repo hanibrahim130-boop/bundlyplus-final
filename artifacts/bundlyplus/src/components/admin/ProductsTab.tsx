@@ -13,11 +13,14 @@ import {
   Image as ImageIcon,
   Check,
   Loader2,
+  RefreshCw,
 } from "lucide-react";
 import { Product } from "@/types";
 import { suggestProductFields, guessLogoUrl } from "@/lib/product-knowledge";
 import { getLogoUrl, hasLogo } from "@/utils/logoUtils";
 import { useToast } from "@/hooks/use-toast";
+import { syncCatalogToFirestore } from "@/lib/catalog-sync";
+import productsData from "@/data/products.json";
 
 const CATEGORIES = ["Streaming", "Music & Others", "Software & AI", "Gaming", "Other"];
 const ACCOUNT_TYPES = ["Private", "Shared"];
@@ -47,6 +50,12 @@ export function ProductsTab() {
   const [editing, setEditing] = useState<FormState | null>(null);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [syncing, setSyncing] = useState(false);
+  const [syncProgress, setSyncProgress] = useState<{ done: number; total: number } | null>(null);
+
+  const catalogJsonCount = (productsData as Product[]).length;
+  const firestoreCount = products.length;
+  const needsSync = !loading && catalogJsonCount !== firestoreCount;
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -165,18 +174,88 @@ export function ProductsTab() {
     }
   }
 
+  async function runSync() {
+    if (syncing) return;
+    const confirmMsg =
+      catalogJsonCount > firestoreCount
+        ? `This will create ${catalogJsonCount - firestoreCount} new products in Firestore and update existing ones from the local catalog (${catalogJsonCount} total). Continue?`
+        : `This will re-sync all ${catalogJsonCount} catalog products to Firestore. Existing products will be updated if any field changed. Continue?`;
+    if (!confirm(confirmMsg)) return;
+
+    setSyncing(true);
+    setSyncProgress({ done: 0, total: catalogJsonCount });
+    try {
+      const result = await syncCatalogToFirestore((done, total) => {
+        setSyncProgress({ done, total });
+      });
+      toast({
+        title: "Catalog synced",
+        description: `${result.created} created · ${result.updated} updated · ${result.unchanged} unchanged${
+          result.orphaned > 0 ? ` · ${result.orphaned} Firestore-only` : ""
+        } (${result.elapsedMs}ms)`,
+      });
+      await loadProducts();
+    } catch (e) {
+      toast({
+        title: "Sync failed",
+        description: (e as Error).message,
+        variant: "destructive",
+      });
+    } finally {
+      setSyncing(false);
+      setSyncProgress(null);
+    }
+  }
+
   return (
     <div className="space-y-4">
+      {needsSync && (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-900/20 p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+              Catalog out of sync
+            </p>
+            <p className="text-xs text-amber-800 dark:text-amber-300 mt-0.5">
+              The bundled catalog has <strong>{catalogJsonCount}</strong> products but
+              Firestore only has <strong>{firestoreCount}</strong>. Click
+              <em> Sync catalog </em>
+              to upload the new products.
+            </p>
+          </div>
+          <button
+            onClick={runSync}
+            disabled={syncing}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-amber-500 text-white font-semibold shadow-md hover:bg-amber-600 active:scale-95 transition-all disabled:opacity-60 whitespace-nowrap"
+          >
+            {syncing ? <Loader2 className="animate-spin" size={15} /> : <RefreshCw size={15} />}
+            {syncing && syncProgress
+              ? `Syncing ${syncProgress.done} / ${syncProgress.total}`
+              : "Sync catalog"}
+          </button>
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <p className="text-slate-500 dark:text-slate-400 text-sm">
-          {products.length} products — click any to edit, or add a new one with auto-fill.
+          {products.length} products in Firestore · {catalogJsonCount} in catalog JSON. Click any to edit, add a new one, or sync from the bundled catalog.
         </p>
-        <button
-          onClick={startNew}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white font-semibold shadow-lg shadow-pink-500/30 hover:scale-105 active:scale-95 transition-transform self-start sm:self-auto"
-        >
-          <Plus size={18} /> Add Product
-        </button>
+        <div className="flex gap-2 self-start sm:self-auto">
+          <button
+            onClick={runSync}
+            disabled={syncing}
+            title="Bulk-upload src/data/products.json to Firestore (idempotent)"
+            className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-semibold hover:border-pink-300 hover:text-pink-600 dark:hover:border-pink-500/40 dark:hover:text-pink-300 transition-colors disabled:opacity-60"
+          >
+            {syncing ? <Loader2 className="animate-spin" size={16} /> : <RefreshCw size={16} />}
+            Sync catalog
+          </button>
+          <button
+            onClick={startNew}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white font-semibold shadow-lg shadow-pink-500/30 hover:scale-105 active:scale-95 transition-transform"
+          >
+            <Plus size={18} /> Add Product
+          </button>
+        </div>
       </div>
 
       <div className="relative">
