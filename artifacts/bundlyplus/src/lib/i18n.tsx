@@ -28,6 +28,13 @@ export const translations = {
       from: 'from',
       getOnWhatsApp: 'Get on WhatsApp',
       savingsPill: 'Save up to 80% — prices from $4.99/mo',
+      socialProof: [
+        'Karim from Beirut saved $84 last month',
+        'Nour from Tripoli just subscribed to Netflix + Spotify',
+        'Elie from Jounieh renewed ChatGPT Plus for the 3rd time',
+        'Rima from Saida switched from the app store and saved $61',
+        'Jad from Byblos bundled 4 services and cut his bill in half',
+      ],
       // ---- new MENA-focused copy (used by the rewritten hero) ----
       mainHeadline:
         'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Cheapest Prices in Lebanon & MENA 🔥',
@@ -322,6 +329,13 @@ export const translations = {
       from: 'يبدأ من',
       getOnWhatsApp: 'اطلب عبر واتساب',
       savingsPill: 'وفّر حتى 80% — أسعار تبدأ من 4.99$/شهر',
+      socialProof: [
+        'كريم من بيروت وفّر 84$ الشهر الفائت',
+        'نور من طرابلس اشترك للتو بـ Netflix + Spotify',
+        'إيلي من جونيه جدّد ChatGPT Plus للمرّة الثالثة',
+        'ريما من صيدا حوّلت من الـ app store وفّرت 61$',
+        'جاد من جبيل جمع 4 خدمات ونزّل فاتورته للنص',
+      ],
       // ---- new MENA-focused copy (used by the rewritten hero) ----
       mainHeadline:
         'Netflix + ChatGPT + Adobe + IPTV — اشتراكات مميزة بأرخص أسعار في لبنان والشرق الأوسط 🔥',

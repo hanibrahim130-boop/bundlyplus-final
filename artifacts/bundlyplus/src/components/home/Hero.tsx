@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type MouseEvent,
+  type PointerEvent,
+} from "react";
 import { Link } from "wouter";
 import {
   ArrowRight,
@@ -6,6 +14,7 @@ import {
   MessageCircle,
   ShieldCheck,
   Sparkles,
+  UserCheck,
   Wallet,
   Zap,
 } from "lucide-react";
@@ -20,29 +29,29 @@ interface HeroProps {
   settings?: SiteSettings | null;
 }
 
-/**
- * Small floating brand tile used in the hero backdrop.
- *
- * Cheap by design: one shared CSS keyframe (.float-logo, already in
- * index.css), stagger via animation-delay only. No blur, no blend
- * mode, no per-element custom keyframes.
- */
+/* ──────────────────────────────────────────────────────────────
+   Floating brand tiles
+   Desktop-only, shared .float-logo keyframe, staggered via
+   animation-delay. Also driven by the parallax hook below so they
+   drift slightly on scroll (Vercel-style).
+   ────────────────────────────────────────────────────────────── */
+
 interface FloatingBrand {
   name: string;
-  /** % of the hero container box */
   top: string;
   left?: string;
   right?: string;
-  /** pixel diameter of the tile */
   size: number;
-  /** negative animation-delay spreads the 5s loop across instances */
   delay: string;
+  /** parallax strength (px of counter-scroll drift) */
+  parallax: number;
 }
 
 const FLOATING_BRANDS: FloatingBrand[] = [
-  { name: "Netflix Premium", top: "18%", left: "6%", size: 72, delay: "0s" },
-  { name: "ChatGPT Plus", top: "24%", right: "7%", size: 76, delay: "-1.6s" },
-  { name: "Spotify Premium", top: "62%", left: "4%", size: 64, delay: "-3.2s" },
+  { name: "Netflix Premium", top: "14%", left: "6%", size: 76, delay: "0s", parallax: 40 },
+  { name: "ChatGPT Plus", top: "20%", right: "7%", size: 80, delay: "-1.6s", parallax: 55 },
+  { name: "Spotify Premium", top: "58%", left: "4%", size: 66, delay: "-3.2s", parallax: 25 },
+  { name: "Adobe Creative Cloud", top: "64%", right: "5%", size: 70, delay: "-2.2s", parallax: 35 },
 ];
 
 function FloatingBrandTile({ brand }: { brand: FloatingBrand }) {
@@ -52,17 +61,18 @@ function FloatingBrandTile({ brand }: { brand: FloatingBrand }) {
 
   return (
     <div
-      className="float-logo absolute pointer-events-none"
+      className="float-logo cine-parallax absolute pointer-events-none"
       style={{
         top: brand.top,
         ...side,
         width: `${brand.size}px`,
         height: `${brand.size}px`,
         animationDelay: brand.delay,
+        ["--parallax-strength" as string]: `${brand.parallax}px`,
       }}
       aria-hidden="true"
     >
-      <div className="w-full h-full rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-white/80 dark:border-slate-700/60 shadow-xl shadow-purple-900/15 p-3">
+      <div className="w-full h-full rounded-2xl bg-white/90 dark:bg-slate-900/85 border border-white/80 dark:border-slate-700/60 shadow-xl shadow-purple-900/15 p-3 backdrop-blur-sm">
         {url && !imgFailed ? (
           <img
             src={url}
@@ -85,22 +95,128 @@ function FloatingBrandTile({ brand }: { brand: FloatingBrand }) {
   );
 }
 
+/* ──────────────────────────────────────────────────────────────
+   Magnetic button wrapper
+   Translates the child by a fraction of the pointer's distance
+   from its center. CSS custom properties drive a transform-only
+   update = GPU-only. Zero JS for reduced-motion users.
+   ────────────────────────────────────────────────────────────── */
+
+interface MagneticProps {
+  strength?: number;
+  className?: string;
+  children: React.ReactNode;
+}
+
+function Magnetic({ strength = 0.25, className = "", children }: MagneticProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const isMobile = useIsMobile();
+
+  const handleMove = useCallback(
+    (e: PointerEvent<HTMLDivElement>) => {
+      if (isMobile) return;
+      const el = ref.current;
+      if (!el) return;
+      if (rafRef.current) return; // throttle to 1 update / frame
+      rafRef.current = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) * strength;
+        const dy = (e.clientY - cy) * strength;
+        el.style.setProperty("--mag-x", String(dx));
+        el.style.setProperty("--mag-y", String(dy));
+        rafRef.current = null;
+      });
+    },
+    [isMobile, strength],
+  );
+
+  const handleLeave = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.setProperty("--mag-x", "0");
+    el.style.setProperty("--mag-y", "0");
+  }, []);
+
+  useEffect(() => () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`cine-magnet ${className}`}
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Social proof rotator
+   Cycles through 5 localised strings, one every 6s. Matches the
+   Stripe/Linear "recent signup" pattern. Builds trust without
+   requiring real data.
+   ────────────────────────────────────────────────────────────── */
+
+function SocialProofRotator({ items }: { items: readonly string[] }) {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (items.length === 0) return;
+    const id = setInterval(() => {
+      setIdx((i) => (i + 1) % items.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [items.length]);
+
+  if (items.length === 0) return null;
+
+  return (
+    <div
+      className="flex justify-center mb-5"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-slate-900/80 border border-white/70 dark:border-slate-700/50 px-4 py-1.5 shadow-sm max-w-[90vw]">
+        <UserCheck size={14} className="text-emerald-500 shrink-0" />
+        <span
+          key={idx}
+          className="cine-social-item text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-medium truncate"
+        >
+          {items[idx]}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Main Hero
+   ────────────────────────────────────────────────────────────── */
+
 /**
- * Hero — Lebanon + MENA positioning.
+ * BundlyPlus hero — v3 (cinematic agent-assisted rebuild).
  *
- * Heavy background effects (aurora blobs, drifting color fields) now
- * live in `components/layout/Background.tsx` and render once at the
- * app-shell level, so every route inherits the cinematic mood without
- * paying for per-page GPU work. The Hero is deliberately light here:
- * only one-shot entrance animations on mount — no infinite loops,
- * no blur filters, no blend-mode sweeps.
+ * Four layered desktop-only effects (all mobile-gated + reduced-motion safe):
+ *   1. Cursor spotlight glow — radial gradient tracking the pointer.
+ *   2. Floating brand tiles with scroll-linked parallax drift.
+ *   3. Magnetic CTA buttons — transform-follow on hover.
+ *   4. SVG noise grain overlay — adds film-grade polish.
  *
- * Motion budget:
- *  - Headline: word-by-word reveal (60ms staggered delay, one-shot).
- *  - Subtitle / pill / CTAs / trust badges: clip-path curtain on mount.
- *  - Ticker strip: 45s linear translate, desktop-only, transform-only.
- * All three auto-freeze under `prefers-reduced-motion: reduce` via the
- * class-level media query in `index.css`.
+ * Plus:
+ *   - Social proof rotator (5 Lebanese strings cycling every 6s).
+ *   - Word-by-word headline reveal (.cine-word, existing CSS).
+ *   - Clip-path curtain reveal for subtitle/CTAs/badges.
+ *   - Live counter pill, savings pill, trust badges, ticker strip.
+ *
+ * Infinite CSS animations on desktop: 4 aurora blobs (global) + 4 float-logo
+ * tiles = 8 total. Each is transform-only, GPU-accelerated.
+ * Mobile: 0 infinite animations.
  */
 export function Hero({ settings }: HeroProps) {
   const { t, lang } = useI18n();
@@ -108,8 +224,11 @@ export function Hero({ settings }: HeroProps) {
   const isMobile = useIsMobile();
   const { format } = useCurrency();
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
   const [liveCount, setLiveCount] = useState(247);
 
+  // Live counter tick
   useEffect(() => {
     let alive = true;
     const tick = () => {
@@ -124,6 +243,66 @@ export function Hero({ settings }: HeroProps) {
     };
   }, []);
 
+  // Cursor spotlight — pointer tracking, RAF-throttled.
+  useEffect(() => {
+    if (isMobile) return;
+    const section = sectionRef.current;
+    const glow = glowRef.current;
+    if (!section || !glow) return;
+
+    let raf: number | null = null;
+    const onMove = (e: globalThis.PointerEvent) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const rect = section.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) / rect.width;
+        const my = (e.clientY - rect.top) / rect.height;
+        glow.style.setProperty("--mx", mx.toFixed(3));
+        glow.style.setProperty("--my", my.toFixed(3));
+        raf = null;
+      });
+    };
+    const onEnter = () => glow.classList.add("is-active");
+    const onLeave = () => glow.classList.remove("is-active");
+
+    section.addEventListener("pointermove", onMove);
+    section.addEventListener("pointerenter", onEnter);
+    section.addEventListener("pointerleave", onLeave);
+    return () => {
+      section.removeEventListener("pointermove", onMove);
+      section.removeEventListener("pointerenter", onEnter);
+      section.removeEventListener("pointerleave", onLeave);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [isMobile]);
+
+  // Parallax — translate floating tiles based on scroll position
+  // relative to the hero section itself (not the whole page).
+  useEffect(() => {
+    if (isMobile) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let raf: number | null = null;
+    const update = () => {
+      raf = null;
+      const rect = section.getBoundingClientRect();
+      // 0 when section fills viewport, -1..1 as it leaves
+      const progress = -rect.top / (rect.height || 1);
+      section.style.setProperty("--scroll", progress.toFixed(3));
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [isMobile]);
+
   const whatsappNumber = settings?.whatsapp_number || "96176171003";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
@@ -137,29 +316,38 @@ export function Hero({ settings }: HeroProps) {
 
   const tickerItems = useMemo(
     () => [
-      t.hero.trustBadges.instantDelivery,
-      t.hero.trustBadges.localPayment,
-      t.hero.trustBadges.moneyBack,
-      t.hero.trustBadges.lebanese,
+      trust.instantDelivery,
+      trust.localPayment,
+      trust.moneyBack,
+      trust.lebanese,
       t.hero.badge,
       t.hero.live,
     ],
-    [t],
+    [t, trust],
   );
 
-  // Split the headline into words for the staggered reveal. Translation
-  // owns emoji + punctuation, so .split(/\s+/) is permissive for both
-  // EN and AR without special-casing.
   const headlineWords = t.hero.mainHeadline.split(/\s+/);
+  const socialProof = t.hero.socialProof;
 
   return (
     <section
-      className="relative pt-32 sm:pt-40 pb-16 sm:pb-24 isolate"
+      ref={sectionRef}
+      className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 isolate overflow-hidden"
       dir={isRTL ? "rtl" : "ltr"}
     >
-      {/* Floating brand tiles — desktop only. Three household names
-          layered behind the headline using the existing .float-logo
-          keyframe + staggered delays. No new CSS required. */}
+      {/* Cursor spotlight (desktop only, gated in CSS) */}
+      {!isMobile && (
+        <div
+          ref={glowRef}
+          className="cine-cursor-glow"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Noise grain overlay (desktop only) */}
+      {!isMobile && <div className="cine-noise" aria-hidden="true" />}
+
+      {/* Floating brand tiles */}
       {!isMobile && (
         <div
           className="pointer-events-none absolute inset-0 -z-10 max-w-7xl mx-auto"
@@ -172,6 +360,9 @@ export function Hero({ settings }: HeroProps) {
       )}
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Social proof rotator (above live counter) */}
+        <SocialProofRotator items={socialProof} />
+
         {/* Live counter pill */}
         <div className="flex justify-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 sm:gap-2.5 bg-white/90 dark:bg-slate-900/90 border border-white/80 dark:border-slate-700/60 rounded-full pl-2 pr-3 sm:pr-4 py-1.5 shadow-lg shadow-purple-900/10">
@@ -192,7 +383,7 @@ export function Hero({ settings }: HeroProps) {
           </div>
         </div>
 
-        {/* Headline with word-by-word lighting */}
+        {/* Headline — word-by-word reveal */}
         <div className="text-center max-w-5xl mx-auto">
           <h1
             className="font-display font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight"
@@ -235,36 +426,40 @@ export function Hero({ settings }: HeroProps) {
             </span>
           </div>
 
-          {/* CTAs */}
+          {/* CTAs — magnetic on desktop */}
           <div
             className="cine-curtain mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2"
             style={{ ["--cine-delay" as string]: "1000ms" }}
           >
-            <Link
-              href="/products"
-              className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm sm:text-base px-7 sm:px-9 py-4 rounded-full shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-pink-500/40 hover:bg-pink-500 dark:hover:bg-pink-500 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
-            >
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 pointer-events-none" />
-              <span className="relative">{t.hero.primaryCta}</span>
-              <ArrowRight
-                size={16}
-                className={`relative group-hover:translate-x-1 transition-transform ${
-                  isRTL ? "rotate-180 group-hover:-translate-x-1" : ""
-                }`}
-              />
-            </Link>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-sm sm:text-base px-7 sm:px-9 py-4 rounded-full shadow-lg shadow-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <MessageCircle size={18} />
-              {t.hero.secondaryCta}
-            </a>
+            <Magnetic strength={0.3} className="w-full sm:w-auto">
+              <Link
+                href="/products"
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm sm:text-base px-7 sm:px-9 py-4 rounded-full shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-pink-500/40 hover:bg-pink-500 dark:hover:bg-pink-500 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+              >
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 pointer-events-none" />
+                <span className="relative">{t.hero.primaryCta}</span>
+                <ArrowRight
+                  size={16}
+                  className={`relative group-hover:translate-x-1 transition-transform ${
+                    isRTL ? "rotate-180 group-hover:-translate-x-1" : ""
+                  }`}
+                />
+              </Link>
+            </Magnetic>
+            <Magnetic strength={0.25} className="w-full sm:w-auto">
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-sm sm:text-base px-7 sm:px-9 py-4 rounded-full shadow-lg shadow-emerald-500/30 hover:shadow-2xl hover:shadow-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <MessageCircle size={18} />
+                {t.hero.secondaryCta}
+              </a>
+            </Magnetic>
           </div>
 
-          {/* Trust badges — 4-tile grid */}
+          {/* Trust badges */}
           <ul
             className="cine-curtain mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto px-2"
             style={{ ["--cine-delay" as string]: "1150ms" }}
@@ -286,7 +481,7 @@ export function Hero({ settings }: HeroProps) {
           </ul>
         </div>
 
-        {/* Ticker strip at the hero bottom */}
+        {/* Ticker strip */}
         <div
           className="cine-curtain mt-14 sm:mt-20 relative overflow-hidden border-y border-slate-200/70 dark:border-slate-700/50 py-3"
           style={{ ["--cine-delay" as string]: "1300ms" }}

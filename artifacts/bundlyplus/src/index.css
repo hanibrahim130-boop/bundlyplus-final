@@ -514,3 +514,121 @@
     animation: none;
   }
 }
+
+/* ────────────────────────────────────────────────────────────────
+   Hero epic design add-ons (desktop only, mobile-gated)
+   - Cursor spotlight glow (Linear-style)
+   - Magnetic CTA micro-interaction (transform-only)
+   - SVG noise grain overlay (pure CSS background)
+   - Social proof fade/slide rotation
+   All effects respect prefers-reduced-motion + the mobile policy.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Cursor spotlight — a radial gradient that tracks the mouse on
+   desktop only. JS sets --mx/--my (0..1). Renders as a very soft
+   pink/purple halo that makes the hero feel "alive" without touching
+   the paint hot path (pure compositor work). */
+.cine-cursor-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+  background: radial-gradient(
+    circle 520px at
+    calc(var(--mx, 0.5) * 100%)
+    calc(var(--my, 0.3) * 100%),
+    rgba(236, 72, 153, 0.18) 0%,
+    rgba(168, 85, 247, 0.12) 30%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+.cine-cursor-glow.is-active {
+  opacity: 1;
+}
+.dark .cine-cursor-glow {
+  background: radial-gradient(
+    circle 520px at
+    calc(var(--mx, 0.5) * 100%)
+    calc(var(--my, 0.3) * 100%),
+    rgba(236, 72, 153, 0.28) 0%,
+    rgba(168, 85, 247, 0.2) 30%,
+    transparent 70%
+  );
+}
+
+/* Magnetic button — uses CSS custom properties that JS drives. The
+   transform is composited on the GPU so there's no layout work. */
+.cine-magnet {
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform:
+    translate3d(
+      calc(var(--mag-x, 0) * 1px),
+      calc(var(--mag-y, 0) * 1px),
+      0
+    );
+}
+
+/* Noise grain overlay — single inline SVG via data URI. Rasterised
+   once by the browser, costs ~nothing at runtime. Adds that analog
+   film grain premium feel. */
+.cine-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+.dark .cine-noise {
+  opacity: 0.14;
+  mix-blend-mode: soft-light;
+}
+
+/* Social proof — one string visible at a time, fade + slight lift */
+@keyframes cine-social-in {
+  0%   { opacity: 0; transform: translate3d(0, 8px, 0); }
+  15%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  85%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  100% { opacity: 0; transform: translate3d(0, -8px, 0); }
+}
+.cine-social-item {
+  animation: cine-social-in 6s ease-in-out both;
+}
+
+/* Parallax drift on the floating brand tiles — JS sets --scroll (0..1)
+   based on window scroll position. Pure transform = GPU-only. */
+.cine-parallax {
+  transform: translate3d(
+    0,
+    calc(var(--scroll, 0) * var(--parallax-strength, 40px) * -1),
+    0
+  );
+  transition: transform 120ms ease-out;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-cursor-glow,
+  .cine-noise {
+    display: none !important;
+  }
+  .cine-magnet,
+  .cine-parallax {
+    transform: none !important;
+  }
+  .cine-social-item {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .cine-cursor-glow,
+  .cine-noise,
+  .cine-parallax {
+    display: none;
+  }
+}
