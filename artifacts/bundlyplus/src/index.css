@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @layer theme, base, clerk, components, utilities;
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -24,8 +24,9 @@
 }
 
 @theme inline {
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-brand: 'Space Grotesk', sans-serif;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -59,60 +60,98 @@
   --radius-3xl: calc(var(--radius) + 16px);
 }
 
+/* ── BundlyPlus Apple-style palette ──────────────────────────────
+   Light-first design tokens inspired by apple.com:
+   - Near-white background (#FBFBFD), near-black text (#1D1D1F)
+   - Brand hot-pink (#EC4899) as the only saturated accent
+   - Hairline border at 8% black / 10% white
+   - Dark mode flips to #000 bg, #F5F5F7 text (Apple's exact dark choice)
+   HSL kept so the existing shadcn/Radix primitives still work. */
 :root {
-  --background: 0 0% 99%;
-  --foreground: 222 47% 15%;
-  
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 15%;
-  
-  --border: 280 20% 90%;
-  --input: 280 20% 90%;
-  --ring: 326 100% 74%;
-  
-  --primary: 326 80% 65%;
+  /* Apple-style surfaces */
+  --background: 240 5% 98%;           /* #FBFBFD */
+  --foreground: 240 6% 12%;           /* #1D1D1F */
+
+  --card: 0 0% 100%;                  /* pure white cards */
+  --card-foreground: 240 6% 12%;
+
+  --border: 240 5% 90%;               /* near-hairline */
+  --input: 240 5% 92%;
+  --ring: 330 81% 60%;                /* EC4899 focus ring */
+
+  --primary: 330 81% 60%;             /* EC4899 */
   --primary-foreground: 0 0% 100%;
-  
-  --secondary: 260 60% 85%;
-  --secondary-foreground: 260 40% 25%;
-  
-  --muted: 210 20% 96%;
-  --muted-foreground: 215 16% 45%;
-  
-  --accent: 25 90% 75%;
-  --accent-foreground: 25 50% 25%;
-  
+
+  --secondary: 240 5% 96%;            /* F5F5F7 */
+  --secondary-foreground: 240 6% 12%;
+
+  --muted: 240 5% 96%;                /* F5F5F7 */
+  --muted-foreground: 240 4% 45%;     /* 6E6E73 */
+
+  --accent: 330 81% 60%;              /* brand pink */
+  --accent-foreground: 0 0% 100%;
+
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  
-  --radius: 1rem;
+
+  --radius: 0.875rem;
+
+  /* Apple extras (raw hex via CSS custom properties — for code that
+     reads non-HSL values such as SVG or inline styles) */
+  --bp-ink: #1D1D1F;
+  --bp-ink-soft: #6E6E73;
+  --bp-ink-faint: #86868B;
+  --bp-bg: #FFFFFF;
+  --bp-bg-soft: #FBFBFD;
+  --bp-bg-muted: #F5F5F7;
+  --bp-hairline: rgba(0,0,0,0.12);
+  --bp-border: rgba(0,0,0,0.08);
+  --bp-pink: #EC4899;
+  --bp-pink-soft: #FCE7F3;
+  --bp-divider: #D2D2D7;
+  --bp-glass-bg: rgba(255,255,255,0.72);
+  --bp-glass-border: rgba(0,0,0,0.08);
 }
 
 .dark {
-  --background: 222 30% 8%;
-  --foreground: 220 15% 92%;
+  --background: 0 0% 0%;              /* pure black like apple.com dark */
+  --foreground: 240 6% 96%;           /* F5F5F7 */
 
-  --card: 222 25% 11%;
-  --card-foreground: 220 15% 92%;
+  --card: 240 6% 12%;                 /* 1D1D1F */
+  --card-foreground: 240 6% 96%;
 
-  --border: 220 20% 18%;
-  --input: 220 20% 18%;
-  --ring: 326 100% 74%;
+  --border: 240 4% 18%;
+  --input: 240 4% 18%;
+  --ring: 330 81% 65%;
 
-  --primary: 326 80% 65%;
+  --primary: 330 81% 65%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 260 25% 22%;
-  --secondary-foreground: 260 50% 85%;
+  --secondary: 240 4% 12%;
+  --secondary-foreground: 240 6% 96%;
 
-  --muted: 220 22% 14%;
-  --muted-foreground: 215 15% 55%;
+  --muted: 240 4% 11%;
+  --muted-foreground: 240 4% 68%;     /* A1A1A6 */
 
-  --accent: 25 80% 60%;
-  --accent-foreground: 25 50% 95%;
+  --accent: 330 81% 65%;
+  --accent-foreground: 0 0% 100%;
 
   --destructive: 0 70% 55%;
   --destructive-foreground: 0 0% 100%;
+
+  --bp-ink: #F5F5F7;
+  --bp-ink-soft: #A1A1A6;
+  --bp-ink-faint: #86868B;
+  --bp-bg: #000000;
+  --bp-bg-soft: #0B0B0D;
+  --bp-bg-muted: #1D1D1F;
+  --bp-hairline: rgba(255,255,255,0.14);
+  --bp-border: rgba(255,255,255,0.1);
+  --bp-pink: #F472B6;
+  --bp-pink-soft: rgba(236,72,153,0.14);
+  --bp-divider: #2C2C2E;
+  --bp-glass-bg: rgba(29,29,31,0.72);
+  --bp-glass-border: rgba(255,255,255,0.1);
 }
 
 @layer base {
@@ -516,119 +555,182 @@
 }
 
 /* ────────────────────────────────────────────────────────────────
-   Hero epic design add-ons (desktop only, mobile-gated)
-   - Cursor spotlight glow (Linear-style)
-   - Magnetic CTA micro-interaction (transform-only)
-   - SVG noise grain overlay (pure CSS background)
-   - Social proof fade/slide rotation
-   All effects respect prefers-reduced-motion + the mobile policy.
+   Apple-style primitives — Hero v5 rebuild
    ──────────────────────────────────────────────────────────────── */
 
-/* Cursor spotlight — a radial gradient that tracks the mouse on
-   desktop only. JS sets --mx/--my (0..1). Renders as a very soft
-   pink/purple halo that makes the hero feel "alive" without touching
-   the paint hot path (pure compositor work). */
-.cine-cursor-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 400ms ease-out;
-  background: radial-gradient(
-    circle 520px at
-    calc(var(--mx, 0.5) * 100%)
-    calc(var(--my, 0.3) * 100%),
-    rgba(236, 72, 153, 0.18) 0%,
-    rgba(168, 85, 247, 0.12) 30%,
-    transparent 70%
-  );
-  mix-blend-mode: screen;
-}
-.cine-cursor-glow.is-active {
-  opacity: 1;
-}
-.dark .cine-cursor-glow {
-  background: radial-gradient(
-    circle 520px at
-    calc(var(--mx, 0.5) * 100%)
-    calc(var(--my, 0.3) * 100%),
-    rgba(236, 72, 153, 0.28) 0%,
-    rgba(168, 85, 247, 0.2) 30%,
-    transparent 70%
-  );
+/* Glass navigation — frosted backdrop with saturation kick.
+   Follows Apple nav spec. Mobile disables backdrop-filter (see the
+   mobile override block above). */
+.bp-glass-nav {
+  background: var(--bp-glass-bg);
+  border: 1px solid var(--bp-glass-border);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
-/* Magnetic button — uses CSS custom properties that JS drives. The
-   transform is composited on the GPU so there's no layout work. */
-.cine-magnet {
-  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform:
-    translate3d(
-      calc(var(--mag-x, 0) * 1px),
-      calc(var(--mag-y, 0) * 1px),
-      0
-    );
+/* Flat Apple card — hairline border, whisper of shadow on hover.
+   Used by product tiles and the "Why BundlyPlus" rail. */
+.bp-card {
+  background: var(--bp-bg);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius);
+  transition:
+    transform 300ms cubic-bezier(0.28, 0.11, 0.32, 1),
+    box-shadow 300ms cubic-bezier(0.28, 0.11, 0.32, 1),
+    border-color 300ms cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+.bp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.dark .bp-card {
+  background: var(--bp-bg-muted);
+}
+.dark .bp-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
-/* Noise grain overlay — single inline SVG via data URI. Rasterised
-   once by the browser, costs ~nothing at runtime. Adds that analog
-   film grain premium feel. */
-.cine-noise {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  opacity: 0.08;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
+/* Hot-pink primary pill — Apple's continue button with brand accent */
+.bp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  border-radius: 999px;
+  background: var(--bp-pink);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  box-shadow:
+    0 6px 20px -6px rgba(236, 72, 153, 0.55),
+    0 1px 2px rgba(236, 72, 153, 0.1);
+  transition:
+    transform 200ms cubic-bezier(0.28, 0.11, 0.32, 1),
+    box-shadow 200ms cubic-bezier(0.28, 0.11, 0.32, 1),
+    background-color 200ms cubic-bezier(0.28, 0.11, 0.32, 1);
 }
-.dark .cine-noise {
-  opacity: 0.14;
-  mix-blend-mode: soft-light;
+.bp-btn-primary:hover {
+  transform: scale(1.02);
+  background: #DB2777;
+  box-shadow:
+    0 10px 28px -6px rgba(236, 72, 153, 0.6),
+    0 2px 4px rgba(236, 72, 153, 0.12);
+}
+.bp-btn-primary:active {
+  transform: scale(0.98);
+}
+.dark .bp-btn-primary:hover {
+  background: #F472B6;
 }
 
-/* Social proof — one string visible at a time, fade + slight lift */
-@keyframes cine-social-in {
-  0%   { opacity: 0; transform: translate3d(0, 8px, 0); }
-  15%  { opacity: 1; transform: translate3d(0, 0, 0); }
-  85%  { opacity: 1; transform: translate3d(0, 0, 0); }
-  100% { opacity: 0; transform: translate3d(0, -8px, 0); }
+/* Outline secondary — stroke only, inherits ink colour */
+.bp-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--bp-ink);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  border: 1px solid var(--bp-hairline);
+  transition:
+    transform 200ms cubic-bezier(0.28, 0.11, 0.32, 1),
+    background-color 200ms cubic-bezier(0.28, 0.11, 0.32, 1),
+    border-color 200ms cubic-bezier(0.28, 0.11, 0.32, 1);
 }
-.cine-social-item {
-  animation: cine-social-in 6s ease-in-out both;
+.bp-btn-secondary:hover {
+  transform: scale(1.02);
+  background: var(--bp-bg-muted);
+  border-color: var(--bp-ink);
+}
+.bp-btn-secondary:active {
+  transform: scale(0.98);
 }
 
-/* Parallax drift on the floating brand tiles — JS sets --scroll (0..1)
-   based on window scroll position. Pure transform = GPU-only. */
-.cine-parallax {
-  transform: translate3d(
-    0,
-    calc(var(--scroll, 0) * var(--parallax-strength, 40px) * -1),
-    0
-  );
-  transition: transform 120ms ease-out;
+/* Text-link with chevron — Apple's "Learn more ›" micro-CTA */
+.bp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--bp-pink);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  transition: gap 200ms cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+.bp-link:hover {
+  gap: 0.5rem;
+}
+[dir="rtl"] .bp-link svg {
+  transform: scaleX(-1);
+}
+
+/* Apple-style hairline divider */
+.bp-hairline {
+  height: 1px;
+  background: var(--bp-hairline);
+}
+
+/* Overline / eyebrow caption — tight uppercase label used above heroes */
+.bp-overline {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bp-ink-soft);
+}
+
+/* Display hero type — Inter Tight with razor-tight tracking */
+.bp-display {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  font-weight: 700;
+  color: var(--bp-ink);
+}
+[dir="rtl"] .bp-display {
+  font-family: 'Cairo', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Lead paragraph — sits right under the headline, slightly lighter */
+.bp-lead {
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--bp-ink-soft);
+  font-weight: 400;
+  letter-spacing: -0.011em;
+}
+
+/* Ticker / marquee strip — transform-only, pauses on hover */
+@keyframes bp-marquee {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.bp-marquee {
+  animation: bp-marquee 40s linear infinite;
   will-change: transform;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .cine-cursor-glow,
-  .cine-noise {
-    display: none !important;
-  }
-  .cine-magnet,
-  .cine-parallax {
-    transform: none !important;
-  }
-  .cine-social-item {
-    animation: none !important;
-    opacity: 1 !important;
-  }
+.bp-marquee:hover {
+  animation-play-state: paused;
 }
 
 @media (max-width: 767px) {
-  .cine-cursor-glow,
-  .cine-noise,
-  .cine-parallax {
-    display: none;
+  .bp-marquee {
+    animation-duration: 55s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-marquee {
+    animation: none !important;
   }
 }

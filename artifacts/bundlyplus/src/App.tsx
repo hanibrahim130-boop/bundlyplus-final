@@ -62,6 +62,7 @@ const Terms = lazy(() => import("@/pages/Terms"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"));
 const Contact = lazy(() => import("@/pages/Contact"));
+const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
 
 function PageLoader() {
   return (
@@ -105,6 +106,7 @@ function Router() {
         <RouteReadySignal />
         <Switch>
           <Route path="/" component={Home} />
+          <Route path="/products/:slug" component={ProductDetail} />
           <Route path="/products" component={Products} />
           <Route path="/coming-soon" component={ComingSoon} />
           <Route path="/cart" component={Cart} />

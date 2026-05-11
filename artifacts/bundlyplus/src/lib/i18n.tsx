@@ -48,8 +48,80 @@ export const translations = {
         moneyBack: '25-Day Money Back',
         lebanese: 'Lebanese Service',
       },
+      // ---- editorial / luxury copy (v4 hero rebuild — kept for reference, not rendered) ----
+      editorial: {
+        kicker: 'LEBANON — MENA · SELECTION Nº 04',
+        headline: {
+          line1: 'The quiet way',
+          line2: 'to own the',
+          line3: 'subscriptions',
+          line4: 'you already use.',
+        },
+        subtitle:
+          'A curated catalog of streaming, AI, and creative tools — sourced, priced, and delivered for Beirut and the wider region.',
+        primaryCta: 'View the catalogue',
+        secondaryCta: 'Speak to the house',
+        sections: ['Streaming', 'Artificial Intelligence', 'Creative Suite', 'Lifestyle'],
+        catalogueCount: '149 services',
+        since: 'Beirut · 2024',
+      },
+      // ---- Apple-style rebuild (v5) — used by the current Hero ----
+      apple: {
+        overline: 'PREMIUM DIGITAL SUBSCRIPTIONS · LEBANON & MENA',
+        headline: 'Everything you stream.',
+        headlineAccent: 'For a fraction of the price.',
+        subline:
+          'Netflix, ChatGPT, Adobe, Spotify, IPTV and 140+ more — delivered to your phone in minutes, paid in LBP, USDT or card.',
+        primaryCta: 'Browse all subscriptions',
+        secondaryCta: 'Chat on WhatsApp',
+        trustPills: [
+          'Instant WhatsApp delivery',
+          '25-day money-back',
+          'Trusted by 500+ in Lebanon',
+        ],
+      },
+      // ---- Apple rebuild: homepage subsections ----
+      tickerLabel: 'Popular right now',
+      trust: {
+        overline: 'WHY BUNDLYPLUS',
+        title: 'Premium access, without the premium bill.',
+        lead:
+          'We source subscriptions at retail and hand them off to you at a fraction of the price — fast, private, and paid the way Lebanon actually pays.',
+        items: [
+          {
+            title: 'Delivered in minutes',
+            desc: 'Pay, receive, log in. Most orders complete inside the same WhatsApp chat.',
+          },
+          {
+            title: 'Pay the local way',
+            desc: 'LBP via Whish or OMT. USDT on TRC20 or BEP20. No card roadblocks, no international fees.',
+          },
+          {
+            title: '25-day guarantee',
+            desc: 'Access problems? We replace the account or return your money. No argument, no forms.',
+          },
+          {
+            title: 'Lebanese team, Arabic support',
+            desc: 'Beirut-based support on WhatsApp from morning to midnight, every day of the week.',
+          },
+        ],
+      },
+      categories: {
+        overline: 'BROWSE',
+        title: 'Every tool, one catalog.',
+        lead: '10 categories. 149 products. One place to manage your digital life.',
+      },
     },
     home: {
+      // Apple rebuild headings for catalog sections
+      catalogOverline: 'THE CATALOG',
+      catalogTitle: 'Subscriptions worth owning.',
+      catalogLead:
+        'Six picks our customers renew again and again — curated from the full 149-product catalog.',
+      pricingOverline: 'PRICING',
+      pricingTitle: 'One simple rule: less than retail, every time.',
+      pricingLead:
+        'Every subscription comes in four durations. The longer you commit, the more you save — up to 17% on the annual tier.',
       topToolsLabel: 'Top Tools',
       topToolsTitle: 'Best of Bundly',
       viewAll: 'View All',
@@ -86,6 +158,17 @@ export const translations = {
       was: 'was',
       perMonth: '/mo',
       choose: 'Choose',
+      // Apple rebuild — duration labels
+      duration: {
+        oneMonth: '1 Month',
+        threeMonths: '3 Months',
+        sixMonths: '6 Months',
+        oneYear: '1 Year',
+      },
+      recommended: 'Best value',
+      orderWhatsApp: 'Order on WhatsApp',
+      total: 'Total',
+      effectivePerMonth: 'per month',
     },
     testimonials: {
       subtitle: 'Reviews',
@@ -290,6 +373,33 @@ export const translations = {
       guarantee: 'Guarantee',
       guaranteeHelp: 'If access cannot be delivered, support will replace it or help with a refund.',
       includedFeatures: 'Included features',
+      // Apple rebuild — product detail
+      overline: 'DIGITAL SUBSCRIPTION',
+      featuresTitle: 'What you get',
+      pricingTitle: 'Choose your plan',
+      pricingSubtitle: 'Lock in a longer term, save more. Every plan is paid once and activated instantly.',
+      faqTitle: 'Frequently asked',
+      faq: [
+        {
+          q: 'How quickly will I receive my account?',
+          a: 'Most orders are delivered on WhatsApp within 5 to 15 minutes during working hours. Overnight orders are handled first thing the next morning.',
+        },
+        {
+          q: 'What if something goes wrong?',
+          a: "You're covered by our 25-day guarantee. If the account stops working, message us on WhatsApp with your order ref — we'll replace it or refund you.",
+        },
+        {
+          q: 'Can I pay in LBP?',
+          a: 'Yes. We accept Whish and OMT in Lebanese Pounds, plus USDT on TRC20 or BEP20. Payment instructions arrive after we confirm your order.',
+        },
+        {
+          q: 'Is this shared or private?',
+          a: 'Some subscriptions are shared (logged into on a limited number of devices), others are private (all yours). Check the account type badge near the top of this page.',
+        },
+      ],
+      stickyOrderCta: 'Order via WhatsApp',
+      stickyFrom: 'From',
+      backToProducts: 'Back to all products',
     },
     comingSoon: {
       title: 'Something new is coming...',
@@ -349,8 +459,78 @@ export const translations = {
         moneyBack: 'استرجاع خلال 25 يومًا',
         lebanese: 'خدمة لبنانية',
       },
+      // ---- editorial / luxury copy (v4 hero rebuild — kept for reference, not rendered) ----
+      editorial: {
+        kicker: 'لبنان — مينا · ملحق رقم ٠٤',
+        headline: {
+          line1: 'الطريقة الهادئة',
+          line2: 'لتملك اشتراكاتك',
+          line3: 'الرقمية',
+          line4: 'بكل راحة.',
+        },
+        subtitle:
+          'كاتالوج منتقى من خدمات البثّ والذكاء الاصطناعي والأدوات الإبداعية، مُسعَّر ومُسلَّم لبيروت والمنطقة.',
+        primaryCta: 'استعرض الكاتالوج',
+        secondaryCta: 'تواصل مع الدار',
+        sections: ['البث', 'الذكاء الاصطناعي', 'الإبداع والتصميم', 'نمط الحياة'],
+        catalogueCount: '١٤٩ خدمة',
+        since: 'بيروت · ٢٠٢٤',
+      },
+      // ---- Apple-style rebuild (v5) ----
+      apple: {
+        overline: 'اشتراكات رقمية مميّزة · لبنان والشرق الأوسط',
+        headline: 'كل شي بتشوفو وبتسمعو.',
+        headlineAccent: 'بأرخص سعر.',
+        subline:
+          'Netflix وChatGPT وAdobe وSpotify وIPTV وأكتر من 140 خدمة — بتوصلك عالموبايل بدقائق، وبتدفع بالليرة أو USDT أو كارد.',
+        primaryCta: 'تصفّح كل الاشتراكات',
+        secondaryCta: 'راسلنا على واتساب',
+        trustPills: [
+          'تسليم فوري عبر واتساب',
+          'استرجاع خلال 25 يوم',
+          'أكتر من 500 زبون بلبنان',
+        ],
+      },
+      tickerLabel: 'الأكثر طلباً اليوم',
+      trust: {
+        overline: 'ليش BundlyPlus',
+        title: 'اشتراكات premium، بدون فاتورة premium.',
+        lead:
+          'منشتري الاشتراكات بسعر السوق، وبنوصلك ياها بسعر أرخص بكتير — سريع، آمن، وبطريقة دفع لبنانية.',
+        items: [
+          {
+            title: 'تسليم بدقائق',
+            desc: 'بتدفع، بتستلم، بتسجّل دخولك. معظم الطلبات بتخلص بنفس محادثة الواتساب.',
+          },
+          {
+            title: 'دفع محلّي',
+            desc: 'ليرة لبنانية عبر Whish أو OMT، أو USDT على TRC20 أو BEP20. بدون مشاكل الكارد ولا رسوم دولية.',
+          },
+          {
+            title: 'ضمان 25 يوم',
+            desc: 'إذا صار شي بالوصول، منبدّلك الحساب أو منرجّعلك مصاري. بدون نقاش وبدون فورم.',
+          },
+          {
+            title: 'فريق لبناني، دعم عربي',
+            desc: 'فريق دعم ببيروت على واتساب من الصباح لنص الليل، كل أيام الأسبوع.',
+          },
+        ],
+      },
+      categories: {
+        overline: 'تصفّح',
+        title: 'كل أداة، بكتالوج واحد.',
+        lead: '10 فئات. 149 منتج. مكان واحد لكل حياتك الرقمية.',
+      },
     },
     home: {
+      catalogOverline: 'الكتالوج',
+      catalogTitle: 'اشتراكات بتستاهل تكون إلك.',
+      catalogLead:
+        'ست خيارات بيرجعولنا زباينا كل شهر — منتقاة من أصل 149 منتج بالكتالوج.',
+      pricingOverline: 'التسعير',
+      pricingTitle: 'قاعدة واحدة: أرخص من السعر الأصلي، دايماً.',
+      pricingLead:
+        'كل اشتراك متوفر بـ4 مدد. كل ما طوّلت المدة، وفّرت أكتر — توفير يوصل لـ17% بالاشتراك السنوي.',
       topToolsLabel: 'أفضل الأدوات',
       topToolsTitle: 'الأفضل من Bundly',
       viewAll: 'عرض الكل',
@@ -387,6 +567,16 @@ export const translations = {
       was: 'كان',
       perMonth: '/شهر',
       choose: 'اختر',
+      duration: {
+        oneMonth: 'شهر',
+        threeMonths: '3 أشهر',
+        sixMonths: '6 أشهر',
+        oneYear: 'سنة',
+      },
+      recommended: 'الأوفر',
+      orderWhatsApp: 'اطلب عبر واتساب',
+      total: 'الإجمالي',
+      effectivePerMonth: 'بالشهر',
     },
     testimonials: {
       subtitle: 'آراء العملاء',
@@ -591,6 +781,32 @@ export const translations = {
       guarantee: 'الضمان',
       guaranteeHelp: 'إذا تعذر تسليم الوصول، سيساعدك الدعم باستبداله أو الاسترداد.',
       includedFeatures: 'الميزات المضمنة',
+      overline: 'اشتراك رقمي',
+      featuresTitle: 'شو بتاخد',
+      pricingTitle: 'اختار خطتك',
+      pricingSubtitle: 'كل ما طوّلت المدة، وفّرت أكتر. كل خطة بتتفعّل فوراً بعد الدفع.',
+      faqTitle: 'أسئلة متكررة',
+      faq: [
+        {
+          q: 'قديش بياخد وقت ليوصلني الحساب؟',
+          a: 'معظم الطلبات بتوصل على الواتساب خلال 5 لـ15 دقيقة بأوقات الدوام. الطلبات المسائية منعالجها أول شي بالصبح.',
+        },
+        {
+          q: 'شو بصير إذا صار شي غلط؟',
+          a: 'ضمانك معنا 25 يوم. إذا بطّل الحساب يشتغل، راسلنا عالواتساب بالـ order ref ومنبدّلو أو منرجّعلك مصاري.',
+        },
+        {
+          q: 'فيني ادفع بالليرة؟',
+          a: 'أكيد. منقبل Whish وOMT بالليرة، وUSDT على TRC20 أو BEP20. تفاصيل الدفع بتوصلك بعد ما نأكّد طلبك.',
+        },
+        {
+          q: 'الحساب خاص ولا مشترك؟',
+          a: 'بعض الاشتراكات مشتركة (دخول على عدد محدود من الأجهزة)، والباقي خاص. شيك عالـ badge بأعلى الصفحة.',
+        },
+      ],
+      stickyOrderCta: 'اطلب عبر واتساب',
+      stickyFrom: 'يبدأ من',
+      backToProducts: 'الرجوع للمنتجات',
     },
     comingSoon: {
       title: 'شي جديد قادم...',

@@ -1,221 +1,361 @@
-import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
-import { Search, SlidersHorizontal } from 'lucide-react';
-import { ProductCard } from '@/components/shared/ProductCard';
-import { ProductGridSkeleton } from '@/components/shared/ProductGridSkeleton';
-import { PageLayout } from '@/components/shared/PageLayout';
-import { PageHeader } from '@/components/shared/PageHeader';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { useProducts } from '@/lib/firestore-hooks';
-import { Product } from '@/types';
-import { useUser } from '@clerk/react';
-import { useI18n } from '@/lib/i18n';
-import { ANALYTICS_EVENTS, trackEvent } from '@/lib/analytics';
-import { Seo } from '@/components/seo/Seo';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { useLocation } from "wouter";
+import { Search, SlidersHorizontal, X } from "lucide-react";
+import { useProducts } from "@/lib/firestore-hooks";
+import { useI18n } from "@/lib/i18n";
+import { useSettings } from "@/lib/settings";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics";
+import { Seo } from "@/components/seo/Seo";
+import { CATEGORY_ORDER, getCategoryTheme } from "@/lib/category-theme";
+import { ProductShopCard } from "@/components/shared/ProductShopCard";
+import type { Product } from "@/types";
 
-type AccountTypeFilter = 'All' | 'Private' | 'Shared';
-type ProductSort = 'popular' | 'price-asc' | 'price-desc' | 'name';
+type AccountTypeFilter = "All" | "Private" | "Shared";
+type ProductSort = "popular" | "price-asc" | "price-desc" | "name";
 
+/**
+ * Products listing — Apple-style rebuild.
+ *
+ * - Sticky glass filter bar (category chips + sort + type tabs)
+ * - Responsive 1 / 2 / 3 / 4-col grid
+ * - Category chips are tinted by the category-theme palette so the
+ *   selected chip reads the same whether you're on Streaming orange
+ *   or Gaming lime
+ * - Reads ?category= and ?q= from the URL (set by CategoryRail links)
+ */
 export default function Products() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedAccountType, setSelectedAccountType] = useState<AccountTypeFilter>('All');
-  const [sortBy, setSortBy] = useState<ProductSort>('popular');
-
+  const [location] = useLocation();
   const { t, lang } = useI18n();
-  const { isSignedIn } = useUser();
+  const { siteSettings } = useSettings();
+  const whatsappNumber =
+    (siteSettings as { whatsapp_number?: string }).whatsapp_number ||
+    "96176171003";
 
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const trackSearchRef = useRef(false);
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      setSearchQuery(val);
-      if (val.trim().length >= 2) {
-        trackSearchRef.current = true;
-        trackEvent(ANALYTICS_EVENTS.SEARCH_PERFORMED, {
-          query: val.trim(),
-          language: lang,
-          signed_in: !!isSignedIn,
-        });
-      }
-    }, 400);
-  }, [lang, isSignedIn]);
+  // Parse URL query params on every location change
+  const initialQuery = useMemo(() => {
+    const q =
+      typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search)
+        : new URLSearchParams();
+    return {
+      category: q.get("category") || "All",
+      search: q.get("q") || "",
+    };
+  }, [location]);
 
-  const [initialized, setInitialized] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(initialQuery.search);
+  const [selectedCategory, setSelectedCategory] = useState(initialQuery.category);
+  const [selectedAccountType, setSelectedAccountType] =
+    useState<AccountTypeFilter>("All");
+  const [sortBy, setSortBy] = useState<ProductSort>("popular");
 
   useEffect(() => {
-    if (!initialized) { setInitialized(true); return; }
-    trackEvent(ANALYTICS_EVENTS.FILTER_APPLIED, {
-      category: selectedCategory,
-      account_type: selectedAccountType,
-      sort_by: sortBy,
-      language: lang,
-      signed_in: !!isSignedIn,
-    });
-  }, [selectedCategory, selectedAccountType, sortBy]);
+    setSelectedCategory(initialQuery.category);
+    setSearchQuery(initialQuery.search);
+  }, [initialQuery.category, initialQuery.search]);
+
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        setSearchQuery(val);
+        if (val.trim().length >= 2) {
+          trackEvent(ANALYTICS_EVENTS.SEARCH_PERFORMED, {
+            query: val.trim(),
+            language: lang,
+          });
+        }
+      }, 350);
+    },
+    [lang],
+  );
 
   const { data: products = [], isLoading } = useProducts();
 
-  const categories = useMemo(
-    () => ['All', ...Array.from(new Set((products as Product[]).map(p => p.category).filter(Boolean)))],
-    [products]
-  );
+  const availableCategories = useMemo(() => {
+    const seen = new Set<string>();
+    (products as Product[]).forEach((p) => {
+      if (p.category) seen.add(p.category);
+    });
+    // Use the canonical CATEGORY_ORDER but filter to those present
+    const ordered = CATEGORY_ORDER.filter((c) => seen.has(c));
+    // Append any oddballs not in the known list
+    seen.forEach((c) => {
+      if (!ordered.includes(c)) ordered.push(c);
+    });
+    return ["All", ...ordered];
+  }, [products]);
 
   const filteredProducts = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-
-    const visibleProducts = (products as Product[]).filter(product => {
-      const matchesSearch = !searchQuery ||
-        product.name.toLowerCase().includes(query) ||
-        (product.description || '').toLowerCase().includes(query);
-      const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
-      const matchesAccountType = selectedAccountType === 'All' || product.account_type === selectedAccountType;
-      return matchesSearch && matchesCategory && matchesAccountType;
+    const q = searchQuery.trim().toLowerCase();
+    const visible = (products as Product[]).filter((p) => {
+      const matchesSearch =
+        !q ||
+        p.name.toLowerCase().includes(q) ||
+        (p.description || "").toLowerCase().includes(q);
+      const matchesCategory =
+        selectedCategory === "All" || p.category === selectedCategory;
+      const matchesType =
+        selectedAccountType === "All" || p.account_type === selectedAccountType;
+      return matchesSearch && matchesCategory && matchesType;
     });
-
-    return [...visibleProducts].sort((a, b) => {
-      if (sortBy === 'price-asc') return a.price - b.price;
-      if (sortBy === 'price-desc') return b.price - a.price;
-      if (sortBy === 'name') return a.name.localeCompare(b.name);
-
-      const aPopular = Number(Boolean(a.hot || a.featured));
-      const bPopular = Number(Boolean(b.hot || b.featured));
-      if (aPopular !== bPopular) return bPopular - aPopular;
+    return [...visible].sort((a, b) => {
+      if (sortBy === "price-asc") return a.price - b.price;
+      if (sortBy === "price-desc") return b.price - a.price;
+      if (sortBy === "name") return a.name.localeCompare(b.name);
+      const ap = Number(!!(a.hot || a.featured));
+      const bp = Number(!!(b.hot || b.featured));
+      if (ap !== bp) return bp - ap;
       return a.name.localeCompare(b.name);
     });
   }, [products, searchQuery, selectedCategory, selectedAccountType, sortBy]);
 
-  const allLabel = t.products.all;
-  const resultLabel = filteredProducts.length === 1
-    ? t.products.resultSingular
-    : t.products.resultPlural.replace('{count}', String(filteredProducts.length));
-
-  const getCategoryLabel = (cat: string) => cat === 'All' ? allLabel : cat;
-
-  const isSelectedAll = selectedCategory === 'All';
-
-  if (isLoading) {
-    return (
-      <PageLayout>
-        <PageHeader title={t.products.title} gradientWord={t.products.gradientWord} subtitle={t.products.subtitle} />
-        <ProductGridSkeleton count={8} />
-      </PageLayout>
-    );
-  }
+  const resultLabel =
+    filteredProducts.length === 1
+      ? t.products.resultSingular
+      : t.products.resultPlural.replace("{count}", String(filteredProducts.length));
 
   return (
-    <PageLayout>
+    <main style={{ background: "var(--bp-bg)" }}>
       <Seo
         title="All Products — Digital Subscriptions"
-        description="Browse 50+ premium digital subscriptions: Netflix, Spotify, ChatGPT, Adobe & more. Best prices in Lebanon & MENA, instant WhatsApp delivery."
+        description="Browse 150+ premium digital subscriptions: Netflix, Spotify, ChatGPT, Adobe & more. Best prices in Lebanon & MENA, instant WhatsApp delivery."
         canonical="/products"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "Digital Subscriptions Catalog",
-          "description": "Browse 50+ premium digital subscriptions at unbeatable prices",
-          "url": "https://bundlyplus.com/products",
-          "breadcrumb": {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bundlyplus.com/" },
-              { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://bundlyplus.com/products" }
-            ]
-          }
+          name: "Digital Subscriptions Catalog",
+          description:
+            "Browse 150+ premium digital subscriptions at unbeatable prices",
+          url: "https://bundlyplus.com/products",
         }}
       />
-      <PageHeader
-        title={t.products.title}
-        gradientWord={t.products.gradientWord}
-        subtitle={t.products.subtitle}
-      />
 
-      <div className="w-full max-w-5xl mx-auto mb-12 space-y-6 animate-[fadeIn_0.4s_ease-out]">
-        <div className="relative group">
-          <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within:text-pink-400 transition-colors" size={20} />
-          <input
-            type="text"
-            placeholder={t.products.searchPlaceholder}
-            defaultValue=""
-            onChange={handleSearchChange}
-            className="w-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-sm rounded-full py-4 md:py-5 ps-14 pe-6 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 dark:focus:ring-pink-500/20 transition-all font-medium"
-          />
-        </div>
+      {/* Page header */}
+      <header className="mx-auto max-w-6xl px-5 sm:px-6 pt-10 sm:pt-16 pb-8 sm:pb-12">
+        <div className="bp-overline mb-3">{t.nav.products}</div>
+        <h1
+          className="bp-display"
+          style={{ fontSize: "clamp(2.25rem, 5vw, 3.75rem)" }}
+        >
+          {t.products.title}{" "}
+          <span
+            className="inline-block"
+            style={{
+              background:
+                "linear-gradient(110deg, #EC4899 0%, #DB2777 50%, #BE185D 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {t.products.gradientWord}
+          </span>
+        </h1>
+        <p className="bp-lead mt-4 max-w-2xl">{t.products.subtitle}</p>
+      </header>
 
-        <div className="flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white/80 p-3 shadow-sm dark:border-slate-700 dark:bg-slate-800/70 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-2" aria-label={t.products.accountTypeFilter}>
-            {(['All', 'Private', 'Shared'] as AccountTypeFilter[]).map(type => (
+      {/* Filter rail */}
+      <div
+        className="sticky top-12 z-40 border-y"
+        style={{
+          background: "var(--bp-glass-bg)",
+          borderColor: "var(--bp-border)",
+          backdropFilter: "saturate(180%) blur(20px)",
+          WebkitBackdropFilter: "saturate(180%) blur(20px)",
+        }}
+      >
+        <div className="mx-auto max-w-6xl px-5 sm:px-6 py-3.5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          {/* Search */}
+          <div className="relative w-full lg:max-w-sm">
+            <Search
+              size={16}
+              className="absolute start-4 top-1/2 -translate-y-1/2 pointer-events-none"
+              style={{ color: "var(--bp-ink-faint)" }}
+            />
+            <input
+              type="text"
+              placeholder={t.products.searchPlaceholder}
+              defaultValue={searchQuery}
+              onChange={handleSearchChange}
+              className="h-10 w-full rounded-full ps-10 pe-10 text-[14px] outline-none focus:ring-2 focus:ring-pink-500/40"
+              style={{
+                background: "var(--bp-bg-muted)",
+                color: "var(--bp-ink)",
+                border: "1px solid var(--bp-border)",
+              }}
+            />
+            {searchQuery && (
               <button
-                key={type}
                 type="button"
-                onClick={() => setSelectedAccountType(type)}
-                className={`min-h-[44px] rounded-full px-4 text-sm font-semibold transition-all ${
-                  selectedAccountType === type
-                    ? 'bg-pink-500 text-white shadow-md shadow-pink-500/25'
-                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:bg-slate-700'
-                }`}
-                aria-pressed={selectedAccountType === type}
+                onClick={() => {
+                  setSearchQuery("");
+                  const input = document.querySelector<HTMLInputElement>(
+                    'input[type="text"]',
+                  );
+                  if (input) input.value = "";
+                }}
+                className="absolute end-3 top-1/2 -translate-y-1/2"
+                aria-label="Clear search"
               >
-                {type === 'All' ? t.products.allTypes : type === 'Private' ? t.productCard.private : t.productCard.shared}
+                <X size={14} style={{ color: "var(--bp-ink-faint)" }} />
               </button>
-            ))}
+            )}
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400">
-              <SlidersHorizontal className="h-4 w-4" />
-              <span>{resultLabel}</span>
-            </div>
-            <label className="sr-only" htmlFor="product-sort">{t.products.sortProducts}</label>
+          {/* Account type + sort + count */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {(["All", "Private", "Shared"] as AccountTypeFilter[]).map((type) => {
+              const active = selectedAccountType === type;
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setSelectedAccountType(type)}
+                  className="inline-flex items-center h-9 rounded-full px-3.5 text-[12px] font-semibold transition-colors"
+                  style={{
+                    background: active ? "var(--bp-ink)" : "transparent",
+                    color: active ? "var(--bp-bg)" : "var(--bp-ink-soft)",
+                    border: "1px solid var(--bp-border)",
+                  }}
+                >
+                  {type === "All"
+                    ? t.products.allTypes
+                    : type === "Private"
+                      ? t.productCard.private
+                      : t.productCard.shared}
+                </button>
+              );
+            })}
+
             <select
-              id="product-sort"
               value={sortBy}
-              onChange={(event) => setSortBy(event.target.value as ProductSort)}
-              className="min-h-[44px] rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm outline-none transition focus:border-pink-400 focus:ring-4 focus:ring-pink-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-pink-500"
+              onChange={(e) => setSortBy(e.target.value as ProductSort)}
+              className="h-9 rounded-full px-3 text-[12px] font-semibold outline-none focus:ring-2 focus:ring-pink-500/40"
+              style={{
+                background: "transparent",
+                color: "var(--bp-ink)",
+                border: "1px solid var(--bp-border)",
+              }}
+              aria-label={t.products.sortProducts}
             >
               <option value="popular">{t.products.sortPopular}</option>
               <option value="price-asc">{t.products.sortPriceAsc}</option>
               <option value="price-desc">{t.products.sortPriceDesc}</option>
               <option value="name">{t.products.sortName}</option>
             </select>
-          </div>
-        </div>
 
-        <div className="flex flex-wrap justify-center gap-2">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
-                selectedCategory === category
-                  ? 'bg-slate-800 dark:bg-slate-100 text-white dark:text-slate-900 shadow-md shadow-slate-800/20 scale-105'
-                  : 'bg-white/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700/80 hover:shadow-sm'
-              }`}
+            <span
+              className="hidden sm:inline-flex items-center gap-1.5 text-[12px] font-semibold"
+              style={{ color: "var(--bp-ink-faint)" }}
             >
-              {getCategoryLabel(category)}
-            </button>
-          ))}
+              <SlidersHorizontal size={13} />
+              {resultLabel}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <div key={product.id} style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 320px' }}>
-              <ProductCard product={product} />
-            </div>
-          ))
-        ) : (
-          <div className="col-span-full">
-            <EmptyState
-              icon={<Search className="w-10 h-10 text-slate-300 dark:text-slate-600" />}
-              title={t.products.noResults}
-              description={t.products.noResultsDesc}
+      {/* Category chip rail */}
+      <div
+        className="border-b"
+        style={{
+          background: "var(--bp-bg-soft)",
+          borderColor: "var(--bp-border)",
+        }}
+      >
+        <div className="mx-auto max-w-6xl px-5 sm:px-6 py-3 overflow-x-auto">
+          <ul className="flex items-center gap-2 min-w-max">
+            {availableCategories.map((cat) => {
+              const active = selectedCategory === cat;
+              const theme = cat === "All" ? null : getCategoryTheme(cat);
+              return (
+                <li key={cat}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory(cat)}
+                    className="h-9 rounded-full px-3.5 text-[13px] font-semibold transition-colors whitespace-nowrap"
+                    style={{
+                      background: active
+                        ? theme
+                          ? `${theme.hex}14`
+                          : "var(--bp-ink)"
+                        : "transparent",
+                      color: active
+                        ? theme
+                          ? theme.hex
+                          : "var(--bp-bg)"
+                        : "var(--bp-ink-soft)",
+                      border: `1px solid ${
+                        active
+                          ? theme
+                            ? `${theme.hex}40`
+                            : "var(--bp-ink)"
+                          : "var(--bp-border)"
+                      }`,
+                    }}
+                  >
+                    {cat === "All" ? t.products.all : cat}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+
+      {/* Grid */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-6 py-10 sm:py-16">
+        {isLoading ? (
+          <div className="py-24 flex justify-center">
+            <div
+              className="h-8 w-8 rounded-full border-2 border-transparent animate-spin"
+              style={{
+                borderTopColor: "var(--bp-pink)",
+                borderRightColor: "var(--bp-pink)",
+              }}
             />
           </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="py-24 text-center">
+            <Search
+              size={28}
+              style={{ color: "var(--bp-ink-faint)" }}
+              className="mx-auto mb-4"
+            />
+            <h2
+              className="text-[17px] font-semibold tracking-tight"
+              style={{ color: "var(--bp-ink)" }}
+            >
+              {t.products.noResults}
+            </h2>
+            <p
+              className="mt-2 text-[14px]"
+              style={{ color: "var(--bp-ink-soft)" }}
+            >
+              {t.products.noResultsDesc}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+            {filteredProducts.map((product) => (
+              <ProductShopCard
+                key={product.id}
+                product={product}
+                whatsappNumber={whatsappNumber}
+              />
+            ))}
+          </div>
         )}
-      </div>
-    </PageLayout>
+      </section>
+    </main>
   );
 }
