@@ -28,6 +28,19 @@ export const translations = {
       from: 'from',
       getOnWhatsApp: 'Get on WhatsApp',
       savingsPill: 'Save up to 80% — prices from $4.99/mo',
+      // ---- new MENA-focused copy (used by the rewritten hero) ----
+      mainHeadline:
+        'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Cheapest Prices in Lebanon & MENA 🔥',
+      mainSubtitle:
+        'Instant WhatsApp Delivery • Pay in LBP • USDT • 7-Day Guarantee • Trusted by 2000+ Customers',
+      primaryCta: 'Browse Subscriptions Now',
+      secondaryCta: 'Chat with Us on WhatsApp',
+      trustBadges: {
+        instantDelivery: 'Instant Delivery',
+        localPayment: 'Local Payment',
+        moneyBack: '7-Day Money Back',
+        lebanese: 'Lebanese Service',
+      },
     },
     home: {
       topToolsLabel: 'Top Tools',
@@ -299,7 +312,8 @@ export const translations = {
       line2: 'مصممة لـ',
       line3: '',
       rotating: ['المشاهدة.', 'الاستماع.', 'الإبداع.', 'التعلم.', 'التصميم.', 'الإنجاز.'],
-      subtitle: 'احصل على وصول مميز إلى Netflix وSpotify وChatGPT وAdobe وأكثر من 50 خدمة، مع تسليم سريع عبر واتساب وخيارات دفع محلية.',
+      subtitle:
+        'احصل على وصول مميز إلى Netflix وSpotify وChatGPT وAdobe وأكثر من 50 خدمة، مع تسليم سريع عبر واتساب وخيارات دفع محلية.',
       cta: 'استعرض كل الخطط',
       users: '+250',
       secure: 'دفع آمن',
@@ -308,6 +322,19 @@ export const translations = {
       from: 'يبدأ من',
       getOnWhatsApp: 'اطلب عبر واتساب',
       savingsPill: 'وفّر حتى 80% — أسعار تبدأ من 4.99$/شهر',
+      // ---- new MENA-focused copy (used by the rewritten hero) ----
+      mainHeadline:
+        'Netflix + ChatGPT + Adobe + IPTV — اشتراكات مميزة بأرخص أسعار في لبنان والشرق الأوسط 🔥',
+      mainSubtitle:
+        'تسليم فوري عبر واتساب • الدفع بالليرة أو USDT • ضمان 7 أيام • يثق بنا أكثر من 2000 زبون',
+      primaryCta: 'تصفّح الاشتراكات الآن',
+      secondaryCta: 'راسلنا على واتساب',
+      trustBadges: {
+        instantDelivery: 'تسليم فوري',
+        localPayment: 'دفع محلي',
+        moneyBack: 'استرجاع خلال 7 أيام',
+        lebanese: 'خدمة لبنانية',
+      },
     },
     home: {
       topToolsLabel: 'أفضل الأدوات',
