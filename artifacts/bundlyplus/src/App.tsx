@@ -40,6 +40,10 @@ import { Background } from "@/components/layout/Background";
 import { Footer } from "@/components/layout/Footer";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { DiscountPopup } from "@/components/layout/DiscountPopup";
+import {
+  RouteProgressProvider,
+  RouteReadySignal,
+} from "@/components/layout/RouteProgress";
 
 import Home from "@/pages/Home";
 const Products = lazy(() => import("@/pages/Products"));
@@ -91,6 +95,15 @@ function Router() {
   return (
     <AnimatePresence mode="wait">
       <Suspense fallback={<PageLoader />}>
+        {/*
+          RouteReadySignal lives INSIDE the Suspense boundary, so it
+          only mounts once the lazy route chunk has resolved and the
+          real route is committing. That's the cue for the top progress
+          bar to snap to 100%. While the chunk is still downloading
+          React renders <PageLoader/> instead, so the signal stays
+          unmounted and the bar holds at ~90%.
+        */}
+        <RouteReadySignal />
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/products" component={Products} />
@@ -172,26 +185,28 @@ function ClerkAppShell() {
       <CartProvider>
         <WishlistProvider>
           <AnalyticsIdentityBridge />
-          <div className="relative min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-pink-200 dark:selection:bg-pink-900/50">
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-slate-900 focus:text-white focus:font-semibold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-            >
-              Skip to main content
-            </a>
-            <Background />
-            <Navbar />
+          <RouteProgressProvider>
+            <div className="relative min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 selection:bg-pink-200 dark:selection:bg-pink-900/50">
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-slate-900 focus:text-white focus:font-semibold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              >
+                Skip to main content
+              </a>
+              <Background />
+              <Navbar />
 
-            <main id="main-content" className="grow pb-24 md:pb-0">
-              <Router />
-            </main>
+              <main id="main-content" className="grow pb-24 md:pb-0">
+                <Router />
+              </main>
 
-            <Footer />
-            <BottomNav />
-            <SocialProofToasts />
-            <DiscountPopup />
-            <CommandPalette />
-          </div>
+              <Footer />
+              <BottomNav />
+              <SocialProofToasts />
+              <DiscountPopup />
+              <CommandPalette />
+            </div>
+          </RouteProgressProvider>
         </WishlistProvider>
       </CartProvider>
     </ClerkProvider>
