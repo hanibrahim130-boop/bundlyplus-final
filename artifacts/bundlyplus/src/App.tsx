@@ -34,7 +34,6 @@ initAnalytics();
 initSentry();
 
 import { Navbar } from "@/components/layout/Navbar";
-import { BottomNav } from "@/components/layout/BottomNav";
 import { Background } from "@/components/layout/Background";
 import { Footer } from "@/components/layout/Footer";
 import { CommandPalette } from "@/components/layout/CommandPalette";
@@ -197,12 +196,11 @@ function ClerkAppShell() {
               <Background />
               <Navbar />
 
-              <main id="main-content" className="grow pb-24 md:pb-0">
+              <main id="main-content" className="grow">
                 <Router />
               </main>
 
               <Footer />
-              <BottomNav />
               <SocialProofToasts />
               <DiscountPopup />
               <CommandPalette />

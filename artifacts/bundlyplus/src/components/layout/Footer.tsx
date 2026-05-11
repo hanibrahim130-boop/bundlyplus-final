@@ -58,7 +58,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full mt-24 pb-28 md:pb-0 relative z-10"
+      className="w-full mt-24 relative z-10"
       style={{
         background: 'var(--bp-bg-muted)',
         borderTop: '1px solid var(--bp-border)',
