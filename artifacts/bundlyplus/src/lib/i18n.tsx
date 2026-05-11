@@ -32,7 +32,7 @@ export const translations = {
       mainHeadline:
         'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Cheapest Prices in Lebanon & MENA 🔥',
       mainSubtitle:
-        'Instant WhatsApp Delivery • Pay in LBP • USDT • 25-Day Guarantee • Trusted by 2000+ Customers',
+        'Instant WhatsApp Delivery • Pay in LBP • USDT • 25-Day Guarantee • Trusted by 500+ Customers',
       primaryCta: 'Browse Subscriptions Now',
       secondaryCta: 'Chat with Us on WhatsApp',
       trustBadges: {
@@ -326,7 +326,7 @@ export const translations = {
       mainHeadline:
         'Netflix + ChatGPT + Adobe + IPTV — اشتراكات مميزة بأرخص أسعار في لبنان والشرق الأوسط 🔥',
       mainSubtitle:
-        'تسليم فوري عبر واتساب • الدفع بالليرة أو USDT • ضمان 25 يومًا • يثق بنا أكثر من 2000 زبون',
+        'تسليم فوري عبر واتساب • الدفع بالليرة أو USDT • ضمان 25 يومًا • يثق بنا أكثر من 500 زبون',
       primaryCta: 'تصفّح الاشتراكات الآن',
       secondaryCta: 'راسلنا على واتساب',
       trustBadges: {
