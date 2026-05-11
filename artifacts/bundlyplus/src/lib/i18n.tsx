@@ -71,7 +71,7 @@ export const translations = {
         headline: 'Everything you stream.',
         headlineAccent: 'For a fraction of the price.',
         subline:
-          'Netflix, ChatGPT, Adobe, Spotify, IPTV and 140+ more — delivered to your phone in minutes, paid in LBP, USDT or card.',
+          'Netflix, ChatGPT, Adobe, Spotify, IPTV and {count} more — delivered to your phone in minutes, paid in LBP, USDT or card.',
         primaryCta: 'Browse all subscriptions',
         secondaryCta: 'Chat on WhatsApp',
         trustPills: [
@@ -109,7 +109,7 @@ export const translations = {
       categories: {
         overline: 'BROWSE',
         title: 'Every tool, one catalog.',
-        lead: '10 categories. 149 products. One place to manage your digital life.',
+        lead: '10 categories. {count} products. One place to manage your digital life.',
       },
     },
     home: {
@@ -117,7 +117,8 @@ export const translations = {
       catalogOverline: 'THE CATALOG',
       catalogTitle: 'Subscriptions worth owning.',
       catalogLead:
-        'Six picks our customers renew again and again — curated from the full 149-product catalog.',
+        'Six picks our customers renew again and again — curated from the full {count}-product catalog.',
+      viewAllProductsCount: 'View all {count} products',
       pricingOverline: 'PRICING',
       pricingTitle: 'One simple rule: less than retail, every time.',
       pricingLead:
@@ -482,7 +483,7 @@ export const translations = {
         headline: 'كل شي بتشوفو وبتسمعو.',
         headlineAccent: 'بأرخص سعر.',
         subline:
-          'Netflix وChatGPT وAdobe وSpotify وIPTV وأكتر من 140 خدمة — بتوصلك عالموبايل بدقائق، وبتدفع بالليرة أو USDT أو كارد.',
+          'Netflix وChatGPT وAdobe وSpotify وIPTV و{count} خدمة — بتوصلك عالموبايل بدقائق، وبتدفع بالليرة أو USDT أو كارد.',
         primaryCta: 'تصفّح كل الاشتراكات',
         secondaryCta: 'راسلنا على واتساب',
         trustPills: [
@@ -519,14 +520,15 @@ export const translations = {
       categories: {
         overline: 'تصفّح',
         title: 'كل أداة، بكتالوج واحد.',
-        lead: '10 فئات. 149 منتج. مكان واحد لكل حياتك الرقمية.',
+        lead: '10 فئات. {count} منتج. مكان واحد لكل حياتك الرقمية.',
       },
     },
     home: {
       catalogOverline: 'الكتالوج',
       catalogTitle: 'اشتراكات بتستاهل تكون إلك.',
       catalogLead:
-        'ست خيارات بيرجعولنا زباينا كل شهر — منتقاة من أصل 149 منتج بالكتالوج.',
+        'ست خيارات بيرجعولنا زباينا كل شهر — منتقاة من أصل {count} منتج بالكتالوج.',
+      viewAllProductsCount: 'شوف كل {count} منتج',
       pricingOverline: 'التسعير',
       pricingTitle: 'قاعدة واحدة: أرخص من السعر الأصلي، دايماً.',
       pricingLead:

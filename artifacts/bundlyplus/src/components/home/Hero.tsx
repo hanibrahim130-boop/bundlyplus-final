@@ -5,6 +5,7 @@ import { useI18n } from "@/lib/i18n";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getLogoUrl } from "@/utils/logoUtils";
 import { getBrandGradient, getInitials } from "@/lib/brand-theme";
+import { useCatalogCount } from "@/lib/catalog-count";
 import type { SiteSettings } from "@/types";
 
 interface HeroProps {
@@ -81,6 +82,9 @@ export function Hero({ settings }: HeroProps) {
   const isRTL = lang === "ar";
   const isMobile = useIsMobile();
   const a = t.hero.apple;
+  const catalog = useCatalogCount();
+  const countLabel = catalog.localized(lang);
+  const subline = a.subline.replace("{count}", countLabel);
 
   const whatsappNumber = settings?.whatsapp_number || "96176171003";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
@@ -123,7 +127,7 @@ export function Hero({ settings }: HeroProps) {
           <p
             className="bp-lead mt-6 max-w-xl opacity-0 animate-[fadeIn_0.8s_0.45s_ease-out_forwards]"
           >
-            {a.subline}
+            {subline}
           </p>
 
           {/* CTAs */}

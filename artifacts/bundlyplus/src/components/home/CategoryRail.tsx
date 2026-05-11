@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useI18n } from "@/lib/i18n";
 import { CATEGORY_ORDER, getCategoryTheme } from "@/lib/category-theme";
+import { useCatalogCount } from "@/lib/catalog-count";
 
 /**
  * Category rail — 10 Apple-style tiles that deep-link into the
@@ -19,6 +20,8 @@ export function CategoryRail() {
   const { t, lang } = useI18n();
   const isRTL = lang === "ar";
   const c = t.hero.categories;
+  const catalog = useCatalogCount();
+  const leadText = c.lead.replace("{count}", catalog.localized(lang));
 
   return (
     <section
@@ -34,7 +37,7 @@ export function CategoryRail() {
           >
             {c.title}
           </h2>
-          <p className="bp-lead mt-4">{c.lead}</p>
+          <p className="bp-lead mt-4">{leadText}</p>
         </div>
 
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">

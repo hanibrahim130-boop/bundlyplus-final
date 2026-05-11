@@ -10,6 +10,7 @@ import { getBrandGradient, getInitials } from "@/lib/brand-theme";
 import { getCategoryTheme } from "@/lib/category-theme";
 import { generateWhatsAppOrderLink } from "@/utils/whatsapp";
 import { productHref } from "@/lib/product-slug";
+import { useCatalogCount } from "@/lib/catalog-count";
 import type { Product } from "@/types";
 
 /**
@@ -170,7 +171,11 @@ function SelectionCard({ product, whatsappNumber }: SelectionCardProps) {
 export function Selection() {
   const { data: productsData = [], isLoading } = useProducts({ featured: true });
   const { siteSettings } = useSettings();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const catalog = useCatalogCount();
+  const countLabel = catalog.localized(lang);
+  const catalogLead = t.home.catalogLead.replace("{count}", countLabel);
+  const viewAllLabel = t.home.viewAllProductsCount.replace("{count}", countLabel);
 
   const whatsappNumber =
     (siteSettings as { whatsapp_number?: string }).whatsapp_number ||
@@ -196,10 +201,10 @@ export function Selection() {
             >
               {t.home.catalogTitle}
             </h2>
-            <p className="bp-lead mt-4">{t.home.catalogLead}</p>
+            <p className="bp-lead mt-4">{catalogLead}</p>
           </div>
           <Link href="/products" className="bp-link shrink-0">
-            <span>View all 149 products</span>
+            <span>{viewAllLabel}</span>
             <ArrowRight size={15} />
           </Link>
         </header>
