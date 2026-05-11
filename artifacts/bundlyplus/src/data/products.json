@@ -2679,5 +2679,689 @@
     "created_at": 1772930016265,
     "hot": false,
     "featured": true
+  },
+  {
+    "id": "mobile-legends-275-diamonds",
+    "name": "Mobile Legends 275 Diamonds",
+    "price": 4.99,
+    "description": "Top-up Mobile Legends: Bang Bang with 275 diamonds for skins and heroes.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "275 diamonds",
+      "Instant top-up",
+      "Works on all servers"
+    ],
+    "image_url": "",
+    "created_at": 1778538217320,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "ea-fc-1050-points",
+    "name": "EA FC 25 – 1050 FC Points",
+    "price": 9.99,
+    "description": "FC Points for Ultimate Team packs and draft entries in EA FC 25.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1050 FC Points",
+      "All platforms",
+      "Instant delivery"
+    ],
+    "image_url": "",
+    "created_at": 1778538217321,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "genshin-impact-980-crystals",
+    "name": "Genshin Impact 980 Genesis Crystals",
+    "price": 14.99,
+    "description": "Genesis Crystals for wishes, battle pass and character banners.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "980 Crystals",
+      "Works on global server",
+      "Instant code"
+    ],
+    "image_url": "",
+    "created_at": 1778538217322,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "discord-nitro",
+    "name": "Discord Nitro",
+    "price": 6.99,
+    "description": "HD streaming, custom emojis, bigger uploads and 2 server boosts.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "HD screen share",
+      "Custom emojis",
+      "2 server boosts"
+    ],
+    "image_url": "",
+    "created_at": 1778538217323,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "gamma-ai",
+    "name": "Gamma AI",
+    "price": 8.99,
+    "description": "AI presentation builder replacing PowerPoint for pitches and reports.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited AI decks",
+      "PDF export",
+      "Custom branding"
+    ],
+    "image_url": "",
+    "created_at": 1778538217324,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "lovable",
+    "name": "Lovable",
+    "price": 14.99,
+    "description": "AI app builder that ships full-stack apps from a prompt.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Full-stack generation",
+      "GitHub sync",
+      "Custom domain"
+    ],
+    "image_url": "",
+    "created_at": 1778538217325,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "espn-plus",
+    "name": "ESPN+",
+    "price": 6.99,
+    "description": "UFC, soccer, college sports and ESPN exclusive originals.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "UFC live",
+      "30+ sports",
+      "Exclusive docs"
+    ],
+    "image_url": "",
+    "created_at": 1778538217326,
+    "hot": false,
+    "featured": true
+  },
+  {
+    "id": "envato-elements",
+    "name": "Envato Elements",
+    "price": 12.99,
+    "description": "Unlimited stock photos, video, templates and graphics for creators.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Unlimited downloads",
+      "25M+ assets",
+      "Commercial license"
+    ],
+    "image_url": "",
+    "created_at": 1778538217327,
+    "hot": true,
+    "featured": true
+  },
+  {
+    "id": "cod-mobile-cp-points",
+    "name": "Call of Duty Mobile CP",
+    "price": 4.99,
+    "description": "CoD Mobile CP Points for battle pass, operators and bundles.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "420 CP Points",
+      "Instant delivery",
+      "Global server"
+    ],
+    "image_url": "",
+    "created_at": 1778538217328,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "valorant-points",
+    "name": "Valorant 1000 VP",
+    "price": 9.99,
+    "description": "Valorant Points for weapon skins, battle pass and Radianite.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1000 VP",
+      "Riot Account top-up",
+      "MENA server ready"
+    ],
+    "image_url": "",
+    "created_at": 1778538217329,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "fortnite-v-bucks",
+    "name": "Fortnite 1000 V-Bucks",
+    "price": 7.99,
+    "description": "V-Bucks for skins, emotes, Battle Pass and Crew items.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1000 V-Bucks",
+      "Epic Games code",
+      "All platforms"
+    ],
+    "image_url": "",
+    "created_at": 1778538217330,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "clash-of-clans-gems",
+    "name": "Clash of Clans 500 Gems",
+    "price": 4.99,
+    "description": "Gem top-up for Builder Hall upgrades, boost timers and Gold Pass.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "500 Gems",
+      "Supercell ID sync",
+      "Instant"
+    ],
+    "image_url": "",
+    "created_at": 1778538217331,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "clash-royale-gems",
+    "name": "Clash Royale 500 Gems",
+    "price": 4.99,
+    "description": "Gems for chests, Pass Royale and tournament entries.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "500 Gems",
+      "Supercell ID sync",
+      "Instant"
+    ],
+    "image_url": "",
+    "created_at": 1778538217332,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "apex-legends-coins",
+    "name": "Apex Legends 1000 Coins",
+    "price": 9.99,
+    "description": "Apex Coins for battle pass, legend unlocks and cosmetics.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1000 Coins",
+      "EA account linked",
+      "All platforms"
+    ],
+    "image_url": "",
+    "created_at": 1778538217333,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "minecraft-minecoins",
+    "name": "Minecraft 1720 Minecoins",
+    "price": 9.99,
+    "description": "Minecoins for marketplace skins, maps and texture packs.",
+    "category": "Gaming",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1720 Minecoins",
+      "Bedrock Edition",
+      "Cross-platform"
+    ],
+    "image_url": "",
+    "created_at": 1778538217334,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "leonardo-ai",
+    "name": "Leonardo AI",
+    "price": 9.99,
+    "description": "AI image generator with fine-tuned models for creators.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited tokens",
+      "Private models",
+      "Commercial use"
+    ],
+    "image_url": "",
+    "created_at": 1778538217335,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "kling-ai",
+    "name": "Kling AI",
+    "price": 11.99,
+    "description": "Cinematic AI video generator with 10-second clips at 1080p.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1080p video",
+      "10s clips",
+      "Priority queue"
+    ],
+    "image_url": "",
+    "created_at": 1778538217336,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "v0-dev",
+    "name": "v0 by Vercel",
+    "price": 15.99,
+    "description": "Generate production-ready React UI components from text prompts.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "React + Tailwind",
+      "Shadcn UI presets",
+      "Copy to clipboard"
+    ],
+    "image_url": "",
+    "created_at": 1778538217337,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "replit-core",
+    "name": "Replit Core",
+    "price": 14.99,
+    "description": "AI-powered browser IDE with always-on deployments and Ghostwriter.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Ghostwriter AI",
+      "Always-on repls",
+      "Custom domains"
+    ],
+    "image_url": "",
+    "created_at": 1778538217338,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "fireflies-ai",
+    "name": "Fireflies.ai Pro",
+    "price": 9.99,
+    "description": "Auto-join meetings, transcribe, summarise and search past calls.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited transcription",
+      "AI summaries",
+      "Zoom + Meet + Teams"
+    ],
+    "image_url": "",
+    "created_at": 1778538217339,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "manus-ai",
+    "name": "Manus AI",
+    "price": 18.99,
+    "description": "Autonomous AI agent that completes multi-step tasks end-to-end.",
+    "category": "AI Tools",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Autonomous agent",
+      "Long-horizon tasks",
+      "Browser + files"
+    ],
+    "image_url": "",
+    "created_at": 1778538217340,
+    "hot": true,
+    "featured": false
+  },
+  {
+    "id": "freepik-premium",
+    "name": "Freepik Premium",
+    "price": 7.99,
+    "description": "Unlimited vectors, photos, icons and templates with no attribution.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Unlimited downloads",
+      "No attribution",
+      "AI generators"
+    ],
+    "image_url": "",
+    "created_at": 1778538217341,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "spline",
+    "name": "Spline Super",
+    "price": 9.99,
+    "description": "3D design in the browser — export as image, video or interactive.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited projects",
+      "4K exports",
+      "Public API"
+    ],
+    "image_url": "",
+    "created_at": 1778538217342,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "adobe-express",
+    "name": "Adobe Express Premium",
+    "price": 5.99,
+    "description": "Quick graphic design with Firefly AI, templates and brand kits.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Firefly AI",
+      "Premium templates",
+      "Brand kit"
+    ],
+    "image_url": "",
+    "created_at": 1778538217343,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "storyblocks",
+    "name": "Storyblocks",
+    "price": 8.99,
+    "description": "Unlimited stock video, audio and templates for social and editing.",
+    "category": "Design & Creative",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "Unlimited video",
+      "Royalty-free audio",
+      "Premiere plug-in"
+    ],
+    "image_url": "",
+    "created_at": 1778538217344,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "raycast-pro",
+    "name": "Raycast Pro",
+    "price": 7.99,
+    "description": "Launcher + AI + snippets + window manager for Mac power users.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Raycast AI",
+      "Cloud sync",
+      "Custom themes"
+    ],
+    "image_url": "",
+    "created_at": 1778538217345,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "superhuman",
+    "name": "Superhuman",
+    "price": 24.99,
+    "description": "Fastest email ever — shortcuts, AI triage, snippets, read receipts.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "AI triage",
+      "Keyboard shortcuts",
+      "Undo send"
+    ],
+    "image_url": "",
+    "created_at": 1778538217346,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "arc-browser-premium",
+    "name": "Arc Browser Premium",
+    "price": 5.99,
+    "description": "The browser rebuilt around spaces, split view and AI browsing.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Cloud sync",
+      "AI search",
+      "Mobile Arc"
+    ],
+    "image_url": "",
+    "created_at": 1778538217347,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "codecademy-pro",
+    "name": "Codecademy Pro",
+    "price": 14.99,
+    "description": "Interactive coding courses with projects, paths and certifications.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited courses",
+      "Real-world projects",
+      "Certificates"
+    ],
+    "image_url": "",
+    "created_at": 1778538217348,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "datacamp",
+    "name": "DataCamp Premium",
+    "price": 12.99,
+    "description": "Data science + Python + SQL + R courses with hands-on projects.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "400+ courses",
+      "SQL + Python labs",
+      "Skill tracks"
+    ],
+    "image_url": "",
+    "created_at": 1778538217349,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "pluralsight-standard",
+    "name": "Pluralsight Standard",
+    "price": 14.99,
+    "description": "Tech skills platform with IT, cloud, security and software courses.",
+    "category": "Education",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "7000+ courses",
+      "Skill IQ",
+      "Learning paths"
+    ],
+    "image_url": "",
+    "created_at": 1778538217350,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "amazon-music-hd",
+    "name": "Amazon Music HD",
+    "price": 4.99,
+    "description": "Lossless and Ultra HD music with Dolby Atmos and Sony 360.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "HD + Ultra HD",
+      "Dolby Atmos",
+      "100M tracks"
+    ],
+    "image_url": "",
+    "created_at": 1778538217351,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "qobuz-studio",
+    "name": "Qobuz Studio",
+    "price": 8.99,
+    "description": "Audiophile streaming with 24-bit Hi-Res FLAC and editorial depth.",
+    "category": "Music",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "24-bit Hi-Res",
+      "Offline FLAC",
+      "Editorial reviews"
+    ],
+    "image_url": "",
+    "created_at": 1778538217352,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "discovery-plus",
+    "name": "Discovery+",
+    "price": 3.99,
+    "description": "Reality TV, food, home and true-crime from Discovery networks.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "55K+ episodes",
+      "No ads plan",
+      "4 devices"
+    ],
+    "image_url": "",
+    "created_at": 1778538217353,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "sling-tv",
+    "name": "Sling TV Orange",
+    "price": 7.99,
+    "description": "Live TV streaming with ESPN, sports and Arabic channel add-ons.",
+    "category": "Streaming",
+    "duration": "1 Month",
+    "account_type": "Shared",
+    "features": [
+      "30+ channels",
+      "ESPN included",
+      "Arabic add-on"
+    ],
+    "image_url": "",
+    "created_at": 1778538217354,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "tunnelbear-vpn",
+    "name": "TunnelBear VPN",
+    "price": 3.99,
+    "description": "Simple VPN with unlimited data and 47 countries to tunnel through.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "Unlimited data",
+      "47 countries",
+      "Block trackers"
+    ],
+    "image_url": "",
+    "created_at": 1778538217355,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "protonmail-plus",
+    "name": "ProtonMail Plus",
+    "price": 3.99,
+    "description": "End-to-end encrypted email, 15GB storage and custom domains.",
+    "category": "VPN & Privacy",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "End-to-end encryption",
+      "15GB storage",
+      "Custom domain"
+    ],
+    "image_url": "",
+    "created_at": 1778538217356,
+    "hot": false,
+    "featured": false
+  },
+  {
+    "id": "obsidian-sync",
+    "name": "Obsidian Sync",
+    "price": 3.99,
+    "description": "E2E encrypted note sync for the markdown second-brain app.",
+    "category": "Productivity",
+    "duration": "1 Month",
+    "account_type": "Private",
+    "features": [
+      "1GB sync",
+      "12 months version history",
+      "E2E encrypted"
+    ],
+    "image_url": "",
+    "created_at": 1778538217357,
+    "hot": false,
+    "featured": false
   }
 ]

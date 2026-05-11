@@ -123,6 +123,54 @@ const slugOverrides: Record<string, string> = {
   'Descript': 'descript',
   'Midjourney': 'midjourney',
   'Synthesia': 'synthesia',
+
+  // ── 2026 additions (Tier 1–3 launch batch) ──────────────────
+  // Gaming top-ups
+  'Mobile Legends 275 Diamonds': 'mobile-legends',
+  'EA FC 25 – 1050 FC Points': 'ea-fc',
+  'Genshin Impact 980 Genesis Crystals': 'genshin-impact',
+  'Call of Duty Mobile CP': 'call-of-duty-mobile',
+  'Valorant 1000 VP': 'valorant',
+  'Fortnite 1000 V-Bucks': 'fortnite',
+  'Clash of Clans 500 Gems': 'clash-of-clans',
+  'Clash Royale 500 Gems': 'clash-royale',
+  'Apex Legends 1000 Coins': 'apex-legends',
+  'Minecraft 1720 Minecoins': 'minecraft',
+  // AI & developer tools
+  'Gamma AI': 'gamma-ai',
+  'Lovable': 'lovable',
+  'Leonardo AI': 'leonardo-ai',
+  'Kling AI': 'kling-ai',
+  'v0 by Vercel': 'v0-dev',
+  'Replit Core': 'replit',
+  'Fireflies.ai Pro': 'fireflies-ai',
+  'Manus AI': 'manus-ai',
+  // Design & creative
+  'Envato Elements': 'envato-elements',
+  'Freepik Premium': 'freepik',
+  'Spline Super': 'spline',
+  'Adobe Express Premium': 'adobe-express',
+  'Storyblocks': 'storyblocks',
+  // Streaming
+  'ESPN+': 'espn-plus',
+  'Discovery+': 'discovery-plus',
+  'Sling TV Orange': 'sling-tv',
+  // Productivity
+  'Discord Nitro': 'discord',
+  'Raycast Pro': 'raycast',
+  'Superhuman': 'superhuman',
+  'Arc Browser Premium': 'arc-browser',
+  'Obsidian Sync': 'obsidian',
+  // Education
+  'Codecademy Pro': 'codecademy',
+  'DataCamp Premium': 'datacamp',
+  'Pluralsight Standard': 'pluralsight',
+  // Music
+  'Amazon Music HD': 'amazon-music',
+  'Qobuz Studio': 'qobuz',
+  // VPN & Privacy
+  'TunnelBear VPN': 'tunnelbear',
+  'ProtonMail Plus': 'protonmail',
 };
 
 const autoSlug = (name: string): string =>
