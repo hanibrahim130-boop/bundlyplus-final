@@ -26,7 +26,6 @@
 
 - `components/ui/alert.tsx`, `field.tsx`, `spinner.tsx` — `aria-live` missing on Radix-derived primitives. Vendored source; patching upstream or wrapping with an `aria-live="polite"` region at the call site is preferred over editing the primitives.
 - `components/ui/breadcrumb.tsx` — `link-bad-text` finding (placeholder "here"-style link).
-- `components/IntroSplash.tsx` — `aria-live` missing on the splash text.
 
 Tracking issue: open when/if we adopt the `senior-frontend` skill to sweep UI primitives.
 

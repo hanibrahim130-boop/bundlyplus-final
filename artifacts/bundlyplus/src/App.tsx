@@ -21,7 +21,6 @@ import {
   resetAnalyticsUser,
 } from "@/lib/analytics";
 import { initSentry, setSentryUser, SentryErrorBoundary } from "@/lib/sentry";
-import { IntroSplash } from "@/components/IntroSplash";
 import { SocialProofToasts } from "@/components/layout/SocialProofToasts";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { useWebMCP } from "@/hooks/use-webmcp";
@@ -222,7 +221,6 @@ function App() {
             <CurrencyProvider>
               <QueryClientProvider client={queryClient}>
                 <TooltipProvider>
-                  <IntroSplash />
                   <WouterRouter base={basePath}>
                     <ClerkAppShell />
                   </WouterRouter>
