@@ -1,79 +1,152 @@
-import React from 'react';
-import { Quote, MapPin } from 'lucide-react';
-import { Section } from '@/components/shared/Section';
-import { SectionHeader } from '@/components/shared/SectionHeader';
-import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/motion/ScrollReveal';
-import { useI18n } from '@/lib/i18n';
+import { Star } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
-const testimonialsData = [
+/**
+ * Testimonials — WhatsApp-style review cards with Lebanese names,
+ * star ratings, and the product they bought. Signals trust to new
+ * visitors who haven't ordered yet.
+ */
+
+interface Review {
+  name: string;
+  location: string;
+  product: string;
+  text: string;
+  stars: number;
+}
+
+const REVIEWS_EN: Review[] = [
   {
-    quote: {
-      en: 'I was paying $40/month for Netflix, Spotify and Anghami. With BundlyPlus I pay less than $7. The WhatsApp delivery was instant - no joke.',
-      ar: 'كنت أدفع 40$ شهريا لنتفليكس وسبوتيفاي وأنغامي. مع BundlyPlus صرت أدفع أقل من 7$. التسليم على واتساب كان فوريا - بدون مبالغة.',
-    },
-    name: { en: 'Rami Haddad', ar: 'رامي حداد' },
-    role: { en: 'Software Engineer · Beirut', ar: 'مهندس برمجيات · بيروت' },
-    color: 'from-pink-400 to-orange-500',
-    initials: 'RH',
+    name: "Karim H.",
+    location: "Beirut",
+    product: "Netflix Premium",
+    text: "Got my Netflix account in 5 minutes on WhatsApp. Way cheaper than paying with my card directly. Already renewed twice.",
+    stars: 5,
   },
   {
-    quote: {
-      en: 'Paid via Whish in seconds. Got my ChatGPT Plus + Canva Pro accounts before I finished my coffee. This is exactly what Lebanon needed.',
-      ar: 'دفعت عبر Whish خلال ثوان. وصلني حساب ChatGPT Plus وCanva Pro قبل أن أنهي قهوتي. هذا بالضبط ما كان يحتاجه لبنان.',
-    },
-    name: { en: 'Layla Mansour', ar: 'ليلى منصور' },
-    role: { en: 'Graphic Designer · Tripoli', ar: 'مصممة جرافيك · طرابلس' },
-    color: 'from-purple-400 to-pink-500',
-    initials: 'LM',
+    name: "Nour A.",
+    location: "Tripoli",
+    product: "ChatGPT Plus",
+    text: "I couldn't pay for ChatGPT Plus from Lebanon. BundlyPlus solved it instantly — paid in LBP via Whish and got access same day.",
+    stars: 5,
   },
   {
-    quote: {
-      en: 'As a startup in Beirut, the Ultimate bundle gave my team Adobe, Notion AI, and Figma for the price of one Netflix. Game changer.',
-      ar: 'كشركة ناشئة في بيروت، أعطت باقة Ultimate فريقي Adobe وNotion AI وFigma بسعر اشتراك نتفليكس واحد. فرق كبير.',
-    },
-    name: { en: 'Karim El-Khoury', ar: 'كريم الخوري' },
-    role: { en: 'Founder · Saida', ar: 'مؤسس · صيدا' },
-    color: 'from-emerald-400 to-cyan-500',
-    initials: 'KE',
+    name: "Elie M.",
+    location: "Jounieh",
+    product: "Spotify Premium",
+    text: "Spotify for $2.49/month? I was skeptical but it's been working perfectly for 4 months now. Support replies fast too.",
+    stars: 5,
+  },
+  {
+    name: "Rima S.",
+    location: "Saida",
+    product: "Adobe Creative Cloud",
+    text: "Saved over $40/month compared to the official price. The account works on all my devices. Highly recommend for designers.",
+    stars: 4,
   },
 ];
 
+const REVIEWS_AR: Review[] = [
+  {
+    name: "كريم ح.",
+    location: "بيروت",
+    product: "Netflix Premium",
+    text: "وصلني حساب Netflix بـ5 دقائق عالواتساب. أرخص بكتير من الدفع بالكارد. جددت مرتين.",
+    stars: 5,
+  },
+  {
+    name: "نور أ.",
+    location: "طرابلس",
+    product: "ChatGPT Plus",
+    text: "ما كنت قادر ادفع لـ ChatGPT Plus من لبنان. BundlyPlus حلّولي المشكلة — دفعت بالليرة عبر Whish واستلمت نفس اليوم.",
+    stars: 5,
+  },
+  {
+    name: "إيلي م.",
+    location: "جونيه",
+    product: "Spotify Premium",
+    text: "Spotify بـ$2.49 بالشهر؟ كنت شاكك بس صار إلي 4 أشهر وشغّال تمام. والدعم بيردّو بسرعة.",
+    stars: 5,
+  },
+  {
+    name: "ريما س.",
+    location: "صيدا",
+    product: "Adobe Creative Cloud",
+    text: "وفّرت أكتر من $40 بالشهر مقارنة بالسعر الرسمي. الحساب شغّال على كل أجهزتي. بنصح فيه لكل مصمم.",
+    stars: 4,
+  },
+];
+
+function StarRating({ count }: { count: number }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          size={13}
+          fill={i < count ? "#FBBF24" : "transparent"}
+          stroke={i < count ? "#FBBF24" : "var(--bp-ink-faint)"}
+          strokeWidth={1.5}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ReviewCard({ review }: { review: Review }) {
+  return (
+    <article className="bp-card p-5 sm:p-6 flex flex-col h-full">
+      <StarRating count={review.stars} />
+      <p
+        className="mt-3 text-[14px] leading-relaxed flex-grow"
+        style={{ color: "var(--bp-ink)" }}
+      >
+        "{review.text}"
+      </p>
+      <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--bp-border)" }}>
+        <div
+          className="text-[13px] font-semibold"
+          style={{ color: "var(--bp-ink)" }}
+        >
+          {review.name}
+        </div>
+        <div
+          className="text-[11px] font-medium"
+          style={{ color: "var(--bp-ink-faint)" }}
+        >
+          {review.location} · {review.product}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function Testimonials() {
   const { t, lang } = useI18n();
+  const reviews = lang === "ar" ? REVIEWS_AR : REVIEWS_EN;
 
   return (
-    <Section className="overflow-hidden">
-      <ScrollReveal className="text-center mb-16">
-        <SectionHeader subtitle={t.testimonials.subtitle} title={t.testimonials.title} />
-      </ScrollReveal>
+    <section
+      className="relative w-full"
+      style={{ background: "var(--bp-bg-soft)" }}
+    >
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 py-20 sm:py-28">
+        <header className="mb-10 sm:mb-14 max-w-2xl">
+          <div className="bp-overline mb-3">{t.testimonials.subtitle}</div>
+          <h2
+            className="bp-display"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+          >
+            {t.testimonials.title}
+          </h2>
+        </header>
 
-      <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.12}>
-        {testimonialsData.map((item, i) => (
-          <StaggerItem key={i} animation="scaleIn">
-            <div className="glass-card rounded-3xl p-8 flex flex-col relative h-full group">
-              <Quote className="absolute top-6 right-6 w-10 h-10 text-slate-200 dark:text-slate-700 rotate-180 group-hover:text-pink-200 dark:group-hover:text-pink-900 transition-colors duration-300" />
-              <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-8 flex-grow relative z-10 font-medium" dir="auto">
-                "{item.quote[lang]}"
-              </p>
-              <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-full bg-gradient-to-tr ${item.color} flex-shrink-0 shadow-inner border-2 border-white dark:border-slate-700 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center text-white font-bold text-sm`}>
-                  {item.initials}
-                </div>
-                <div className="min-w-0">
-                  <h4 className="text-slate-800 dark:text-slate-100 font-bold flex items-center gap-1.5">
-                    {item.name[lang]}
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Lebanon</span>
-                  </h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs flex items-center gap-1 mt-0.5">
-                    <MapPin className="w-3 h-3" />
-                    {item.role[lang]}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
-    </Section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {reviews.map((review) => (
+            <ReviewCard key={review.name} review={review} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

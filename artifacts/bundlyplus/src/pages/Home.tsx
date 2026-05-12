@@ -1,9 +1,11 @@
 import { lazy, Suspense } from "react";
 import { Hero } from "@/components/home/Hero";
 import { BrandMarquee } from "@/components/home/BrandMarquee";
+import { SocialProofStrip } from "@/components/home/SocialProofStrip";
 import { Selection } from "@/components/home/Selection";
 import { CategoryRail } from "@/components/home/CategoryRail";
 import { AppleTrust } from "@/components/home/AppleTrust";
+import { Testimonials } from "@/components/home/Testimonials";
 import { useSettings } from "@/lib/settings";
 import { Seo } from "@/components/seo/Seo";
 
@@ -44,9 +46,11 @@ export default function Home() {
       />
       <Hero settings={siteSettings} />
       <BrandMarquee />
+      <SocialProofStrip />
       <Selection />
       <CategoryRail />
       <AppleTrust />
+      <Testimonials />
       <Suspense fallback={<SectionFallback />}>
         <FAQ />
       </Suspense>

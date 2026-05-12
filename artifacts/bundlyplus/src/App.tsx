@@ -36,6 +36,7 @@ initSentry();
 import { Navbar } from "@/components/layout/Navbar";
 import { Background } from "@/components/layout/Background";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { DiscountPopup } from "@/components/layout/DiscountPopup";
 import {
@@ -201,6 +202,7 @@ function ClerkAppShell() {
               </main>
 
               <Footer />
+              <WhatsAppFab />
               <SocialProofToasts />
               <DiscountPopup />
               <CommandPalette />
