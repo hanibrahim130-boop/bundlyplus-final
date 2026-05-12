@@ -170,6 +170,7 @@ function SelectionCard({ product, whatsappNumber }: SelectionCardProps) {
 
 export function Selection() {
   const { data: productsData = [], isLoading } = useProducts({ featured: true });
+  const { data: allProducts = [] } = useProducts();
   const { siteSettings } = useSettings();
   const { t, lang } = useI18n();
   const catalog = useCatalogCount();
@@ -181,10 +182,41 @@ export function Selection() {
     (siteSettings as { whatsapp_number?: string }).whatsapp_number ||
     "96176171003";
 
-  const items = useMemo(
-    () => (productsData as Product[]).slice(0, 6),
-    [productsData],
-  );
+  // Show the trendiest products: hot first, then featured, sorted by
+  // popularity signals. This ensures the homepage shelf shows what
+  // people actually want — not alphabetical filler.
+  // Brand-boost: well-known names get priority so the shelf feels
+  // immediately recognizable to first-time visitors.
+  const items = useMemo(() => {
+    const pool = (allProducts as Product[]).length > 0
+      ? (allProducts as Product[])
+      : (productsData as Product[]);
+
+    const brandBoost = new Set([
+      "Netflix Premium",
+      "ChatGPT Plus",
+      "Spotify Premium",
+      "Adobe Creative Cloud",
+      "Discord Nitro",
+      "YouTube Premium",
+    ]);
+
+    return [...pool]
+      .filter((p) => !p.out_of_stock && (p.hot || p.featured))
+      .sort((a, b) => {
+        // Brand-boosted items always first
+        const aBoost = brandBoost.has(a.name) ? 3 : 0;
+        const bBoost = brandBoost.has(b.name) ? 3 : 0;
+        if (aBoost !== bBoost) return bBoost - aBoost;
+        // Then hot > featured
+        const aHot = a.hot ? 2 : a.featured ? 1 : 0;
+        const bHot = b.hot ? 2 : b.featured ? 1 : 0;
+        if (aHot !== bHot) return bHot - aHot;
+        // Then by price descending (higher-value items feel more premium)
+        return b.price - a.price;
+      })
+      .slice(0, 6);
+  }, [allProducts, productsData]);
 
   return (
     <section
