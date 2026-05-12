@@ -124,20 +124,20 @@ function renderProductGrid(products) {
 
 function renderStyles() {
   return `<style>
-    .seo-prerender{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#0f172a;background:#fff;min-height:100vh;padding:4rem 1.25rem}.seo-prerender section{max-width:1180px;margin:0 auto 4rem}.seo-hero{text-align:center;padding-top:3rem}.seo-eyebrow{color:#ec4899;font-weight:800;text-transform:uppercase;letter-spacing:.16em;font-size:.8rem}.seo-hero h1{font-size:clamp(2.4rem,7vw,5.5rem);line-height:.95;margin:1rem auto;max-width:980px}.seo-hero p{font-size:1.15rem;line-height:1.7;color:#475569;max-width:760px;margin:0 auto}.seo-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2rem}.seo-actions a{border-radius:999px;padding:.9rem 1.35rem;font-weight:800;text-decoration:none}.seo-primary{background:#0f172a;color:#fff}.seo-secondary{border:1px solid #e2e8f0;color:#0f172a}.seo-section-title{font-size:2.25rem;line-height:1.1;margin-bottom:.75rem}.seo-section-lead{color:#64748b;font-size:1rem;line-height:1.7;margin-bottom:1.5rem}.seo-product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.seo-product-card{border:1px solid #e2e8f0;border-radius:1.25rem;padding:1.25rem;background:#fff;box-shadow:0 10px 30px rgba(15,23,42,.06)}.seo-product-card h3{font-size:1.1rem;margin:.35rem 0}.seo-product-card p{color:#475569;line-height:1.55}.seo-product-card ul{padding-left:1.1rem;color:#64748b}.seo-product-card strong{display:block;margin-top:1rem;font-size:1.25rem;color:#db2777}.seo-product-category{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:#ec4899}.seo-pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.seo-price-card{border-radius:1.25rem;padding:1.5rem;background:#f8fafc;border:1px solid #e2e8f0}.seo-price-card strong{font-size:1.8rem;color:#db2777}@media (prefers-color-scheme:dark){.seo-prerender{background:#020617;color:#f8fafc}.seo-hero p,.seo-section-lead,.seo-product-card p,.seo-product-card ul{color:#cbd5e1}.seo-product-card,.seo-price-card{background:#0f172a;border-color:#1e293b}.seo-secondary{color:#f8fafc;border-color:#334155}}
+    .seo-prerender{font-family:'Inter Tight',Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;color:#1D1D1F;background:#FBFBFD;min-height:100vh;padding:4rem 1.25rem}.seo-prerender section{max-width:1024px;margin:0 auto 4rem}.seo-hero{text-align:center;padding-top:3rem}.seo-eyebrow{color:#6E6E73;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.75rem}.seo-hero h1{font-size:clamp(2.4rem,7vw,5.5rem);line-height:1.02;letter-spacing:-.04em;font-weight:700;margin:1rem auto;max-width:980px}.seo-hero p{font-size:1.0625rem;line-height:1.5;color:#6E6E73;max-width:640px;margin:0 auto}.seo-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:2rem}.seo-actions a{border-radius:999px;padding:.75rem 1.5rem;font-weight:600;font-size:.9375rem;text-decoration:none;letter-spacing:-.01em}.seo-primary{background:#EC4899;color:#fff;box-shadow:0 6px 20px -6px rgba(236,72,153,.55)}.seo-secondary{border:1px solid rgba(0,0,0,.12);color:#1D1D1F}.seo-section-title{font-size:1.875rem;line-height:1.1;font-weight:700;letter-spacing:-.025em;margin-bottom:.5rem}.seo-section-lead{color:#6E6E73;font-size:.9375rem;line-height:1.5;margin-bottom:1.5rem}.seo-product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.seo-product-card{border:1px solid rgba(0,0,0,.08);border-radius:.875rem;padding:1.25rem;background:#fff;transition:transform .2s,box-shadow .2s}.seo-product-card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.08)}.seo-product-card h3{font-size:1rem;font-weight:600;letter-spacing:-.01em;margin:.35rem 0}.seo-product-card p{color:#6E6E73;font-size:.875rem;line-height:1.5}.seo-product-card ul{padding-left:1.1rem;color:#86868B;font-size:.8125rem}.seo-product-card strong{display:block;margin-top:.75rem;font-size:1.125rem;font-weight:600;color:#EC4899}.seo-product-category{font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:#6E6E73}.seo-pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.seo-price-card{border-radius:.875rem;padding:1.5rem;background:#F5F5F7;border:1px solid rgba(0,0,0,.08)}.seo-price-card strong{font-size:1.5rem;font-weight:700;color:#EC4899}@media(prefers-color-scheme:dark){.seo-prerender{background:#000;color:#F5F5F7}.seo-hero p,.seo-section-lead,.seo-product-card p,.seo-product-card ul{color:#A1A1A6}.seo-product-card,.seo-price-card{background:#1D1D1F;border-color:rgba(255,255,255,.1)}.seo-secondary{color:#F5F5F7;border-color:rgba(255,255,255,.14)}.seo-eyebrow{color:#A1A1A6}}
   </style>`;
 }
 
 function renderShell(eyebrow, title, description, content = "") {
-  return `<div id="seo-prerender" class="seo-prerender">
+  return `<div id="seo-prerender" class="seo-prerender" aria-hidden="true">
   ${renderStyles()}
   <section class="seo-hero">
     <p class="seo-eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p>${escapeHtml(description)}</p>
     <div class="seo-actions">
-      <a class="seo-primary" href="/products">Browse products</a>
-      <a class="seo-secondary" href="/contact">Order on WhatsApp</a>
+      <a class="seo-primary" href="/products">Browse all subscriptions</a>
+      <a class="seo-secondary" href="/contact">Chat on WhatsApp</a>
     </div>
   </section>
   ${content}
@@ -146,21 +146,21 @@ function renderShell(eyebrow, title, description, content = "") {
 
 function renderHomepage(products) {
   return renderShell(
-    "BundlyPlus Lebanon & MENA",
-    "Premium digital subscriptions at unbeatable prices",
-    "Get Netflix, Spotify, ChatGPT Plus, Adobe Creative Cloud, YouTube Premium and more with fast WhatsApp delivery, local payment support, and trusted customer service.",
+    "PREMIUM DIGITAL SUBSCRIPTIONS · LEBANON & MENA",
+    "Everything you stream. For a fraction of the price.",
+    "Netflix, ChatGPT, Adobe, Spotify, IPTV and 180+ more — delivered to your phone in minutes, paid in LBP, USDT or card.",
     `
   <section>
-    <h2 class="seo-section-title">Top digital subscriptions</h2>
-    <p class="seo-section-lead">Popular accounts and tools available through BundlyPlus before JavaScript loads.</p>
+    <h2 class="seo-section-title">Featured subscriptions</h2>
+    <p class="seo-section-lead">Popular accounts and tools available through BundlyPlus.</p>
     <div class="seo-product-grid">${renderProductGrid(products)}</div>
   </section>
   <section>
-    <h2 class="seo-section-title">Simple pricing and local checkout</h2>
+    <h2 class="seo-section-title">Simple pricing, local checkout</h2>
     <div class="seo-pricing">
       <div class="seo-price-card"><h3>Streaming</h3><strong>from $3.49/mo</strong><p>Netflix, Disney+, Prime Video, Apple TV+ and more.</p></div>
-      <div class="seo-price-card"><h3>Music</h3><strong>from $1.99/mo</strong><p>Spotify, Anghami, Apple Music, Deezer and premium audio tools.</p></div>
-      <div class="seo-price-card"><h3>AI & Creative</h3><strong>from $4.99/mo</strong><p>ChatGPT Plus, Canva Pro, Adobe Creative Cloud and design platforms.</p></div>
+      <div class="seo-price-card"><h3>Music</h3><strong>from $1.99/mo</strong><p>Spotify, Anghami, Apple Music, Deezer and premium audio.</p></div>
+      <div class="seo-price-card"><h3>AI & Creative</h3><strong>from $4.99/mo</strong><p>ChatGPT Plus, Canva Pro, Adobe CC and design platforms.</p></div>
     </div>
   </section>`,
   );
