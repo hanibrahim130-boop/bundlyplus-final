@@ -20,7 +20,7 @@
   {
     "id": "adobe-cc",
     "name": "Adobe Creative Cloud",
-    "price": 10.99,
+    "price": 9.99,
     "description": "All 20+ Adobe apps — Photoshop, Illustrator, Premiere, After Effects.",
     "category": "Design & Creative",
     "duration": "1 Month",
@@ -434,7 +434,7 @@
   {
     "id": "chatgpt-plus",
     "name": "ChatGPT Plus",
-    "price": 8.99,
+    "price": 6.99,
     "description": "OpenAI's GPT-5.4, image gen, voice mode and advanced reasoning.",
     "category": "AI Tools",
     "duration": "1 Month",
@@ -703,7 +703,7 @@
   {
     "id": "disney-plus",
     "name": "Disney+",
-    "price": 4.99,
+    "price": 4.49,
     "description": "Disney, Pixar, Marvel, Star Wars and National Geographic in 4K.",
     "category": "Streaming",
     "duration": "1 Month",
@@ -2719,7 +2719,7 @@
   {
     "id": "genshin-impact-980-crystals",
     "name": "Genshin Impact 980 Genesis Crystals",
-    "price": 11.99,
+    "price": 14.99,
     "description": "Genesis Crystals for wishes, battle pass and character banners.",
     "category": "Gaming",
     "duration": "1 Month",
