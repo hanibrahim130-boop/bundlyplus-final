@@ -80,6 +80,53 @@ const POSTS: Record<string, { title: string; description: string; body: React.Re
     ),
   },
 
+  "adobe-creative-cloud-discount-deals": {
+    title: "Adobe Creative Cloud Discount: Save Big on All 20+ Apps (2026)",
+    description: "Get Adobe Creative Cloud for $10.99/month — all 20+ apps including Photoshop, Premiere Pro, Illustrator, and After Effects.",
+    body: (
+      <>
+        <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
+          Adobe Creative Cloud normally costs $54.99/month. Through BundlyPlus, get the entire suite for just <strong>$10.99/month</strong> — saving over 80%.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">All 20+ Apps Included</h2>
+        <div className="grid grid-cols-2 gap-2 text-sm text-slate-600 dark:text-slate-300 mb-6">
+          <ul className="space-y-1 list-disc pl-4">
+            <li>Photoshop</li>
+            <li>Illustrator</li>
+            <li>Premiere Pro</li>
+            <li>After Effects</li>
+            <li>InDesign</li>
+          </ul>
+          <ul className="space-y-1 list-disc pl-4">
+            <li>Lightroom</li>
+            <li>Adobe XD</li>
+            <li>Audition</li>
+            <li>Dreamweaver</li>
+            <li>+ 11 more</li>
+          </ul>
+        </div>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">Why BundlyPlus?</h2>
+        <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
+          <li><strong>Save 80%</strong> — $10.99 vs $54.99</li>
+          <li><strong>Private account</strong> — fully yours</li>
+          <li><strong>100GB cloud storage</strong></li>
+          <li><strong>Instant WhatsApp delivery</strong></li>
+        </ul>
+
+        <div className="mt-8 flex gap-4">
+          <a href="/products/adobe-creative-cloud" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold">
+            Get Adobe CC
+          </a>
+          <a href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold">
+            Chat on WhatsApp
+          </a>
+        </div>
+      </>
+    ),
+  },
+
   "how-to-get-spotify-premium-cheap": {
     title: "How to Get Spotify Premium Cheap: Best Deals Worldwide (2026)",
     description: "Get Spotify Premium for $2.99/month instead of $10.99. Instant delivery, ad-free music, offline downloads, worldwide access.",

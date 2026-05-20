@@ -25,6 +25,13 @@ const POSTS = [
     category: "Music",
     date: "2026-05-20",
   },
+  {
+    slug: "adobe-creative-cloud-discount-deals",
+    title: "Adobe Creative Cloud Discount: Save Big on All 20+ Apps (2026)",
+    description: "Get Adobe Creative Cloud for $10.99/month — all 20+ apps including Photoshop, Premiere Pro, Illustrator, and After Effects.",
+    category: "Design & Creative",
+    date: "2026-05-20",
+  },
 ];
 
 export default function Blog() {
