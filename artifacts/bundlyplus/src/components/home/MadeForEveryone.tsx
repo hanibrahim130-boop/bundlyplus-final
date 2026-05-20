@@ -20,7 +20,7 @@ const FEATURED_AI_TOOLS = [
 
 const AI_NAME_PATTERN = /ai|chatgpt|gemini|copilot|midjourney|perplexity|cursor|notion|canva|grammarly|jasper|copy|writesonic|synthesia|runway|descript/i;
 
-export function MadeForMENA() {
+export function MadeForEveryone() {
   const { isRTL, t } = useI18n();
   const all = productsData as unknown as Product[];
   const curatedAiTools = FEATURED_AI_TOOLS

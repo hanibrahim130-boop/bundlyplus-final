@@ -38,10 +38,10 @@ export default function Home() {
           name: "BundlyPlus",
           url: "https://bundlyplus.com",
           description:
-            "Premium digital subscriptions marketplace for Lebanon and MENA",
+            "Premium digital subscriptions marketplace available worldwide",
           priceRange: "$$",
-          currenciesAccepted: "USD, LBP",
-          paymentAccepted: "Cash, Whish, OMT, USDT",
+          currenciesAccepted: "USD",
+          paymentAccepted: "Card, Whish Money, OMT, Bank Transfer, MoneyGram",
         }}
       />
       <Hero settings={siteSettings} />

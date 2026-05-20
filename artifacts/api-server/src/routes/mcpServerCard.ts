@@ -11,7 +11,7 @@ router.get("/.well-known/mcp/server-card.json", (_req, res) => {
       name: "BundlyPlus API",
       version: "1.0.0",
       description:
-        "Digital subscriptions marketplace API — browse products, manage orders, and access account data for the BundlyPlus platform serving Lebanon & MENA.",
+        "Digital subscriptions marketplace API — browse products, manage orders, and access account data for the BundlyPlus platform serving customers worldwide.",
       homepage: "https://bundlyplus.com",
       documentation: "https://bundlyplus.com/api",
     },

@@ -86,7 +86,7 @@ export const translations = {
         overline: 'WHY BUNDLYPLUS',
         title: 'Premium access, without the premium bill.',
         lead:
-          'We source subscriptions at retail and hand them off to you at a fraction of the price — fast, private, and paid the way Lebanon actually pays.',
+          'We source subscriptions at retail and hand them off to you at a fraction of the price — fast, private, and globally accessible.',
         items: [
           {
             title: 'Delivered in minutes',
@@ -94,7 +94,7 @@ export const translations = {
           },
           {
             title: 'Pay the local way',
-            desc: 'LBP via Whish or OMT. USDT on TRC20 or BEP20. No card roadblocks, no international fees.',
+            desc: 'Card, Whish Money, OMT, Bank Transfer, or MoneyGram. Fast, global, no fees.',
           },
           {
             title: '25-day guarantee',
@@ -319,7 +319,7 @@ export const translations = {
         },
         {
           title: 'Pay after confirmation',
-          description: 'Use Whish, OMT, or USDT only after we reply with the payment go-ahead.',
+          description: 'Use Card, Whish Money, OMT, Bank Transfer, or MoneyGram after we reply with the payment go-ahead.',
         },
         {
           title: 'Receive account details',
@@ -390,8 +390,8 @@ export const translations = {
           a: "You're covered by our 25-day guarantee. If the account stops working, message us on WhatsApp with your order ref — we'll replace it or refund you.",
         },
         {
-          q: 'Can I pay in LBP?',
-          a: 'Yes. We accept Whish and OMT in Lebanese Pounds, plus USDT on TRC20 or BEP20. Payment instructions arrive after we confirm your order.',
+          q: 'What payment methods do you accept?',
+          a: 'We accept Card, Whish Money, OMT, Bank Transfer, and MoneyGram. Payment instructions arrive after we confirm your order.'',
         },
         {
           q: 'Is this shared or private?',

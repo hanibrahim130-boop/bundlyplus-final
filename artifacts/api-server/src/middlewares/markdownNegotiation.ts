@@ -9,12 +9,12 @@ function getMarkdown(path: string): string | null {
   const pages: Record<string, { title: string; desc: string; links: [string, string][] }> = {
     "/": {
       title: "BundlyPlus — Premium Digital Subscriptions at Unbeatable Prices",
-      desc: `**Save up to 80%** on 50+ premium digital subscriptions. Instant WhatsApp delivery across Lebanon & MENA.
+      desc: `**Save up to 80%** on 50+ premium digital subscriptions. Instant WhatsApp delivery worldwide.
 
 - Netflix, Spotify, ChatGPT Plus, Adobe CC, YouTube Premium
 - AI tools: Midjourney, GitHub Copilot, Perplexity, Cursor IDE
 - Private & shared accounts available
-- Local payment: Whish Money, OMT, USDT
+- Local payment: Card, Whish Money, OMT, Bank Transfer, MoneyGram
 - 250+ active customers`,
       links: [
         ["Browse Products", "/products"],

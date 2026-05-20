@@ -1,9 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import { ANALYTICS_EVENTS, trackEvent } from './analytics';
 
-export type Currency = 'USD' | 'LBP';
-
-const LBP_PER_USD = 89500;
+export type Currency = 'USD';
 
 interface CurrencyContextValue {
   currency: Currency;
@@ -19,41 +17,12 @@ const CurrencyContext = createContext<CurrencyContextValue>({
   symbol: '$',
 });
 
-function formatLBP(usd: number): string {
-  const lbp = Math.round(usd * LBP_PER_USD);
-  if (lbp >= 1_000_000) {
-    const m = lbp / 1_000_000;
-    return `${m.toFixed(m >= 10 ? 1 : 2)}M L.L.`;
-  }
-  return `${Math.round(lbp / 1000)}K L.L.`;
-}
-
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
-  const [currency, setCurrency] = useState<Currency>(() => {
-    const saved = localStorage.getItem('bundlyplus-currency') as Currency | null;
-    return saved === 'LBP' || saved === 'USD' ? saved : 'USD';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('bundlyplus-currency', currency);
-  }, [currency]);
-
-  const toggleCurrency = () =>
-    setCurrency(prev => {
-      const next = prev === 'USD' ? 'LBP' : 'USD';
-      trackEvent(ANALYTICS_EVENTS.CURRENCY_TOGGLED, { from: prev, to: next });
-      return next;
-    });
-
-  const format = (usd: number): string => {
-    if (currency === 'LBP') return formatLBP(usd);
-    return `$${usd.toFixed(2)}`;
-  };
-
-  const symbol = currency === 'USD' ? '$' : 'L.L.';
+  const format = (usd: number): string => `$${usd.toFixed(2)}`;
+  const symbol = '$';
 
   return (
-    <CurrencyContext.Provider value={{ currency, toggleCurrency, format, symbol }}>
+    <CurrencyContext.Provider value={{ currency: 'USD', toggleCurrency: () => {}, format, symbol }}>
       {children}
     </CurrencyContext.Provider>
   );

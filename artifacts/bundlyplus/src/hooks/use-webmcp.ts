@@ -163,7 +163,7 @@ export function useWebMCP() {
           {
             name: "get_pricing",
             description:
-              "Get pricing information for digital subscriptions. All prices in USD with optional LBP equivalent.",
+              "Get pricing information for digital subscriptions. All prices in USD.",
             inputSchema: {
               type: "object",
               properties: {
@@ -185,7 +185,7 @@ export function useWebMCP() {
           {
             name: "get_payment_methods",
             description:
-              "Learn about available payment methods: Whish Money, OMT, and USDT cryptocurrency.",
+              "Learn about available payment methods: Card, Whish Money, OMT, Bank Transfer, and MoneyGram.",
             inputSchema: {
               type: "object",
               properties: {},
