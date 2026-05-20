@@ -1,5 +1,4 @@
 import React, { createContext, useContext } from 'react';
-import { ANALYTICS_EVENTS, trackEvent } from './analytics';
 
 export type Currency = 'USD';
 
