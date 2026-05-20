@@ -1,4 +1,5 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { ANALYTICS_EVENTS, trackEvent } from './analytics';
 
 export type Currency = 'USD';
 
@@ -17,11 +18,24 @@ const CurrencyContext = createContext<CurrencyContextValue>({
 });
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
+  const [currency] = useState<Currency>(() => {
+    const saved = localStorage.getItem('bundlyplus-currency');
+    return saved === 'USD' ? saved : 'USD';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('bundlyplus-currency', currency);
+  }, [currency]);
+
+  const toggleCurrency = () => {
+    trackEvent(ANALYTICS_EVENTS.CURRENCY_TOGGLED, { from: 'USD', to: 'USD' });
+  };
+
   const format = (usd: number): string => `$${usd.toFixed(2)}`;
   const symbol = '$';
 
   return (
-    <CurrencyContext.Provider value={{ currency: 'USD', toggleCurrency: () => {}, format, symbol }}>
+    <CurrencyContext.Provider value={{ currency, toggleCurrency, format, symbol }}>
       {children}
     </CurrencyContext.Provider>
   );
