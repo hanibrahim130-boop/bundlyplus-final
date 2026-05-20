@@ -405,6 +405,32 @@ try {
   // vercel.json might be at a different path; skip silently
 }
 
+// Generate sitemap.xml with all indexed routes
+function escapeXml(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+const today = new Date().toISOString().split("T")[0];
+let sitemapUrls = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+sitemapUrls += `  <url><loc>https://bundlyplus.com/</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+sitemapUrls += `  <url><loc>https://bundlyplus.com/products</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+
+for (const product of publicProducts) {
+  const slug = productSlug(product.name);
+  if (slug === "") continue;
+  sitemapUrls += `  <url><loc>https://bundlyplus.com/products/${escapeXml(slug)}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>\n`;
+}
+
+for (const [routePath] of staticRoutes) {
+  sitemapUrls += `  <url><loc>https://bundlyplus.com${escapeXml(routePath)}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>\n`;
+}
+
+sitemapUrls += `</urlset>`;
+
+await writeFile(path.join(distRoot, "sitemap.xml"), sitemapUrls);
+console.log(`[prerender-homepage] generated sitemap.xml with ${2 + publicProducts.length + staticRoutes.length} URLs`);
+
 console.log(
   `[prerender-homepage] prerendered homepage, products catalog, ${staticRoutes.length} static routes, ${privateRoutes.length} noindex routes, and ${seenSlugs.size} product detail pages`,
 );
