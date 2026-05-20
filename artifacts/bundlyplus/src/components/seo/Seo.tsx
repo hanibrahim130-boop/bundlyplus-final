@@ -25,7 +25,7 @@ export function Seo({
   const fullTitle = title ? `${title} | ${SITE}` : `${SITE} — Premium Digital Subscriptions at Unbeatable Prices`;
   const metaDesc =
     description ||
-    'Get Netflix, Spotify, ChatGPT, Adobe & 50+ premium subscriptions at up to 80% off. Instant WhatsApp delivery across Lebanon & MENA.';
+    'Get Netflix, Spotify, ChatGPT, Adobe & 50+ premium subscriptions at up to 80% off. Instant WhatsApp delivery worldwide.';
   const canonicalUrl = canonical ? `${BASE_URL}${canonical}` : BASE_URL;
 
   const schemas = jsonLd

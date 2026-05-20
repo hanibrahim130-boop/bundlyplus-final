@@ -198,7 +198,7 @@ export function Footer() {
               +961 76 171 003
             </a>
             <span>·</span>
-            <span>Beirut, Lebanon</span>
+            <span>Global Delivery</span>
           </div>
         </div>
 

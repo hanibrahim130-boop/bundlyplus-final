@@ -58,6 +58,21 @@ const BobIcon = (
   </div>
 );
 
+const CardIcon = (
+  <div className="w-10 h-10 rounded-xl bg-[#6366f1] flex items-center justify-center mb-2 shadow-sm text-white">
+    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
+      <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  </div>
+);
+
+const MoneyGramIcon = (
+  <div className="w-10 h-10 rounded-xl bg-[#ff6600] flex items-center justify-center mb-2 shadow-sm text-white font-bold text-[10px] tracking-tight">
+    <span className="text-center leading-tight">MG</span>
+  </div>
+);
+
 const UsdIcon = (
   <div className="w-10 h-10 rounded-xl bg-[#00d632] flex items-center justify-center mb-2 shadow-sm text-white">
     <DollarSign className="w-6 h-6" strokeWidth={3.5} />
@@ -73,20 +88,17 @@ const UsdtIcon = (
 );
 
 export const PAYMENT_METHODS_EN: PaymentMethod[] = [
-  { name: 'Whish Money', sub: 'Instant transfer', color: 'from-rose-500 to-red-600', icon: WhishIcon, phone: '+961 76 171 003', qr: '/images/IMG_3601.JPG.jpeg' },
-  { name: 'OMT', sub: 'Cash pickup', color: 'from-yellow-400 to-amber-500', icon: OmtIcon, phone: '+961 76 171 003' },
-  { name: 'BoB Finance', sub: 'Bank transfer', color: 'from-yellow-300 to-yellow-500', icon: BobIcon },
-  { name: 'USD Cash', sub: 'Beirut delivery', color: 'from-emerald-400 to-green-500', icon: UsdIcon },
-  { name: 'USDT / Crypto', sub: 'TRC20 / BEP20', color: 'from-teal-400 to-emerald-500', icon: UsdtIcon, wallets: [
-    { label: 'USDT BEP20', address: '0x43cf4bded47c1309df53131a358db503a73de560' },
-    { label: 'USDT TRON', address: 'TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD' },
-  ] },
+  { name: 'USD / CARD', sub: 'Visa / Mastercard', color: 'from-indigo-500 to-purple-600', icon: CardIcon },
+  { name: 'Whish Money', sub: 'Instant transfer', color: 'from-rose-500 to-red-600', icon: WhishIcon },
+  { name: 'OMT', sub: 'Cash pickup', color: 'from-yellow-400 to-amber-500', icon: OmtIcon },
+  { name: 'Bank Transfer', sub: 'Wire transfer', color: 'from-yellow-300 to-yellow-500', icon: BobIcon },
+  { name: 'MoneyGram', sub: 'Global money transfer', color: 'from-orange-500 to-red-500', icon: MoneyGramIcon },
 ];
 
 export const PAYMENT_METHODS_AR: PaymentMethod[] = [
-  { ...PAYMENT_METHODS_EN[0], name: 'ويش موني', sub: 'تحويل فوري' },
-  { ...PAYMENT_METHODS_EN[1], name: 'OMT', sub: 'استلام نقدي' },
-  { ...PAYMENT_METHODS_EN[2], name: 'BoB Finance', sub: 'تحويل بنكي' },
-  { ...PAYMENT_METHODS_EN[3], name: 'دولار كاش', sub: 'توصيل بيروت' },
-  { ...PAYMENT_METHODS_EN[4], name: 'USDT / كريبتو', sub: 'TRC20 / BEP20' },
+  { ...PAYMENT_METHODS_EN[0], name: 'USD / بطاقة', sub: 'Visa / Mastercard' },
+  { ...PAYMENT_METHODS_EN[1], name: 'ويش موني', sub: 'تحويل فوري' },
+  { ...PAYMENT_METHODS_EN[2], name: 'OMT', sub: 'استلام نقدي' },
+  { ...PAYMENT_METHODS_EN[3], name: 'تحويل بنكي', sub: 'حوالة بنكية' },
+  { ...PAYMENT_METHODS_EN[4], name: 'MoneyGram', sub: 'تحويل عالمي' },
 ];

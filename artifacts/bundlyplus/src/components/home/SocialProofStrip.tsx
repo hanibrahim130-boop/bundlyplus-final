@@ -13,13 +13,13 @@ export function SocialProofStrip() {
 
   const stats = lang === "ar"
     ? [
-        { icon: Users, value: "+500", label: "زبون بلبنان" },
+        { icon: Users, value: "+500", label: "زبون حول العالم" },
         { icon: Star, value: "4.9★", label: "تقييم واتساب" },
         { icon: ShieldCheck, value: "25", label: "يوم ضمان" },
         { icon: MapPin, value: catalog.localized(lang), label: "منتج رقمي" },
       ]
     : [
-        { icon: Users, value: "500+", label: "customers in Lebanon" },
+        { icon: Users, value: "500+", label: "customers worldwide" },
         { icon: Star, value: "4.9★", label: "WhatsApp rating" },
         { icon: ShieldCheck, value: "25-day", label: "money-back guarantee" },
         { icon: MapPin, value: catalog.display, label: "digital products" },

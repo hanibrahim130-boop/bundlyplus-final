@@ -13,7 +13,7 @@ export const translations = {
       switchLang: 'العربية',
     },
     hero: {
-      badge: 'Popular in MENA',
+      badge: 'Global coverage',
       live: 'digital services available',
       line1: 'Your favorite subscriptions.',
       line2: 'Made to',
@@ -37,9 +37,9 @@ export const translations = {
       ],
       // ---- new MENA-focused copy (used by the rewritten hero) ----
       mainHeadline:
-        'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Cheapest Prices in Lebanon & MENA 🔥',
+        'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Best Prices Worldwide 🔥',
       mainSubtitle:
-        'Instant WhatsApp Delivery • Pay in LBP • USDT • 25-Day Guarantee • Trusted by 500+ Customers',
+        'Instant WhatsApp Delivery • Card • OMT • Bank Transfer • 25-Day Guarantee • Trusted by 500+ Customers',
       primaryCta: 'Browse Subscriptions Now',
       secondaryCta: 'Chat with Us on WhatsApp',
       trustBadges: {
@@ -50,7 +50,7 @@ export const translations = {
       },
       // ---- editorial / luxury copy (v4 hero rebuild — kept for reference, not rendered) ----
       editorial: {
-        kicker: 'LEBANON — MENA · SELECTION Nº 04',
+        kicker: 'WORLDWIDE · TOP SELECTION',
         headline: {
           line1: 'The quiet way',
           line2: 'to own the',
@@ -67,17 +67,17 @@ export const translations = {
       },
       // ---- Apple-style rebuild (v5) — used by the current Hero ----
       apple: {
-        overline: 'PREMIUM DIGITAL SUBSCRIPTIONS · LEBANON & MENA',
+        overline: 'PREMIUM DIGITAL SUBSCRIPTIONS · WORLDWIDE',
         headline: 'Everything you stream.',
         headlineAccent: 'For a fraction of the price.',
         subline:
-          'Netflix, ChatGPT, Adobe, Spotify, IPTV and {count} more — delivered to your phone in minutes, paid in LBP, USDT or card.',
+          'Netflix, ChatGPT, Adobe, Spotify, IPTV and {count} more — delivered to your phone in minutes. Pay via Card, Whish, OMT, Bank Transfer or MoneyGram.',
         primaryCta: 'Browse all subscriptions',
         secondaryCta: 'Chat on WhatsApp',
         trustPills: [
           'Instant WhatsApp delivery',
           '25-day money-back',
-          'Trusted by 500+ in Lebanon',
+          'Trusted by 500+ customers',
         ],
       },
       // ---- Apple rebuild: homepage subsections ----

@@ -9,10 +9,10 @@ export function LocalTrust() {
   const isAr = lang === 'ar';
   const methods = isAr ? PAYMENT_METHODS_AR : PAYMENT_METHODS_EN;
 
-  const heading = isAr ? 'من لبنان ' : 'Made from Lebanon ';
+  const heading = isAr ? 'من لبنان ' : 'Trusted Worldwide ';
   const subheading = isAr
     ? 'ادفع بطريقتك المفضلة محلياً. توصيل فوري عبر واتساب لجميع المحافظات اللبنانية والشرق الأوسط.'
-    : 'Pay your way, locally. Instant WhatsApp delivery across all Lebanese governorates & MENA.';
+    : 'Pay your way. Instant WhatsApp delivery, globally.';
 
   const stats = isAr
     ? [
@@ -22,13 +22,13 @@ export function LocalTrust() {
         { icon: <Truck className="w-4 h-4" />, label: 'كل المحافظات' },
       ]
     : [
-        { icon: <MapPin className="w-4 h-4" />, label: 'Beirut · Lebanon' },
+        { icon: <MapPin className="w-4 h-4" />, label: 'Global Delivery' },
         { icon: <Clock className="w-4 h-4" />, label: '5-min delivery' },
         { icon: <ShieldCheck className="w-4 h-4" />, label: 'Money-back guarantee' },
-        { icon: <Truck className="w-4 h-4" />, label: 'All governorates' },
+        { icon: <Truck className="w-4 h-4" />, label: 'Worldwide delivery' },
       ];
 
-  const payHere = isAr ? 'الدفع المحلي' : 'Local payment methods';
+  const payHere = isAr ? 'الدفع' : 'Payment methods';
 
   return (
     <section className="relative w-full px-4 sm:px-6 py-12 sm:py-16">
@@ -42,7 +42,7 @@ export function LocalTrust() {
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 dark:bg-white/5 border border-slate-200/60 dark:border-white/10 text-xs font-semibold text-slate-700 dark:text-slate-200 mb-4">
                   <span className="text-base leading-none">🇱🇧</span>
-                  <span>{isAr ? 'صنع لكم في لبنان' : 'Built for Lebanon'}</span>
+                  <span>{isAr ? 'صنع لكم في لبنان' : 'Built for Everyone'}</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-800 dark:text-slate-100 leading-tight">
                   {heading}<span className="text-gradient">{isAr ? 'للعالم' : 'for the world.'}</span>
@@ -167,35 +167,6 @@ function PaymentDetails({ isAr }: { isAr: boolean }) {
         </p>
       </div>
 
-      {/* USDT Wallets */}
-      <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-5 sm:col-span-2 lg:col-span-1">
-        <div className="flex items-center gap-2 mb-3">
-          <Wallet size={16} className="text-emerald-500" />
-          <span className="text-sm font-bold text-slate-800 dark:text-slate-100">
-            USDT {isAr ? 'عناوين المحفظة' : 'Wallet Addresses'}
-          </span>
-        </div>
-        <div className="space-y-3">
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">BEP20</div>
-            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2.5">
-              <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 break-all leading-relaxed flex-1" dir="ltr">
-                0x43cf4bded47c1309df53131a358db503a73de560
-              </span>
-              <CopyButton text="0x43cf4bded47c1309df53131a358db503a73de560" />
-            </div>
-          </div>
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">TRON (TRC20)</div>
-            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2.5">
-              <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 break-all leading-relaxed flex-1" dir="ltr">
-                TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD
-              </span>
-              <CopyButton text="TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD" />
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

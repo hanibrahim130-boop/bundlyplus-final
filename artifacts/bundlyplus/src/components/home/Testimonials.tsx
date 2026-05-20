@@ -27,7 +27,7 @@ const REVIEWS_EN: Review[] = [
     name: "Nour A.",
     location: "Tripoli",
     product: "ChatGPT Plus",
-    text: "I couldn't pay for ChatGPT Plus from Lebanon. BundlyPlus solved it instantly — paid in LBP via Whish and got access same day.",
+    text: "Couldn't find access to ChatGPT Plus in my region. BundlyPlus solved it instantly — paid via Whish and got access same day.",
     stars: 5,
   },
   {

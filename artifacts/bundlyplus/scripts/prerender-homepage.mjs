@@ -158,9 +158,9 @@ function renderShell(eyebrow, title, description, content = "") {
 
 function renderHomepage(products) {
   return renderShell(
-    "PREMIUM DIGITAL SUBSCRIPTIONS · LEBANON & MENA",
+    "PREMIUM DIGITAL SUBSCRIPTIONS · WORLDWIDE",
     "Everything you stream. For a fraction of the price.",
-    "Netflix, ChatGPT, Adobe, Spotify, IPTV and 180+ more — delivered to your phone in minutes, paid in LBP, USDT or card.",
+    "Netflix, ChatGPT, Adobe, Spotify, IPTV and 180+ more — delivered to your phone in minutes. Pay via Card, Whish Money, OMT, Bank Transfer or MoneyGram.",
     `
   <section>
     <h2 class="seo-section-title">Featured subscriptions</h2>
