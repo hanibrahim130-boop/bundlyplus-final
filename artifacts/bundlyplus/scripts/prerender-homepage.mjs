@@ -84,6 +84,17 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function productSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/\+/g, " plus ")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function formatPrice(value) {
   return `$${Number(value || 0).toFixed(2)}`;
 }
@@ -108,10 +119,11 @@ function renderProduct(product) {
   const features = Array.isArray(product.features)
     ? product.features.slice(0, 3)
     : [];
+  const slug = productSlug(product.name);
   return `
           <article class="seo-product-card">
             <p class="seo-product-category">${escapeHtml(product.category)}</p>
-            <h3>${escapeHtml(product.name)}</h3>
+            <h3><a href="/products/${escapeHtml(slug)}" style="text-decoration:none;color:inherit">${escapeHtml(product.name)}</a></h3>
             <p>${escapeHtml(product.description)}</p>
             <ul>${features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join("")}</ul>
             <strong>${formatPrice(product.price)} / ${escapeHtml(product.duration || "month")}</strong>
@@ -180,6 +192,49 @@ function renderProductsPage(products) {
   );
 }
 
+function renderProductDetailPage(product) {
+  const features = Array.isArray(product.features) ? product.features : [];
+  const slug = productSlug(product.name);
+  const cat = escapeHtml(product.category || "");
+  const name = escapeHtml(product.name);
+  const desc = escapeHtml(product.description || "");
+  const price = formatPrice(product.price);
+  const duration = escapeHtml(product.duration || "month");
+
+  const featureList = features.length > 0
+    ? features.map(f => `<li>${escapeHtml(f)}</li>`).join("")
+    : "";
+
+  return renderShell(
+    `${cat} · BundlyPlus`,
+    `${name} — Premium Subscription`,
+    `${desc} Only ${price}/${duration} on BundlyPlus. Instant delivery via WhatsApp.`,  
+    `
+  <section>
+    <div class="seo-product-detail">
+      <h2 class="seo-section-title">${name} — ${price} / ${duration}</h2>
+      <p class="seo-section-lead">${desc}</p>
+      ${featureList ? `<h3>Features</h3><ul>${featureList}</ul>` : ""}
+      <p style="margin-top:1.25rem">
+        <strong>Category:</strong> ${cat} &middot;
+        <strong>Account type:</strong> ${escapeHtml(product.account_type || "Shared")}
+      </p>
+      <div class="seo-actions">
+        <a class="seo-primary" href="/products/${escapeHtml(slug)}">View on BundlyPlus</a>
+        <a class="seo-secondary" href="/contact">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2 class="seo-section-title">More subscriptions</h2>
+    <p class="seo-section-lead">Browse our full catalog of digital subscriptions.</p>
+    <div class="seo-actions">
+      <a class="seo-primary" href="/products">Browse all subscriptions</a>
+    </div>
+  </section>`,
+  );
+}
+
 function createProductItemList(products) {
   return {
     "@context": "https://schema.org",
@@ -189,8 +244,25 @@ function createProductItemList(products) {
       "@type": "ListItem",
       position: index + 1,
       name: product.name,
-      url: "https://bundlyplus.com/products",
+      url: `https://bundlyplus.com/products/${escapeHtml(productSlug(product.name))}`,
     })),
+  };
+}
+
+function createProductJsonLd(product) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    url: `https://bundlyplus.com/products/${escapeHtml(productSlug(product.name))}`,
+    category: product.category,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
   };
 }
 
@@ -290,6 +362,49 @@ for (const [routePath, title, description] of privateRoutes) {
   );
 }
 
+// Prerender individual product detail pages
+const seenSlugs = new Set();
+for (const product of publicProducts) {
+  const slug = productSlug(product.name);
+  if (seenSlugs.has(slug)) continue; // skip collisions
+  seenSlugs.add(slug);
+  
+  const routePath = `/products/${slug}`;
+  await writeRoute(
+    routePath,
+    createPage(baseHtml, {
+      title: `${escapeHtml(product.name)} | BundlyPlus`,
+      description: `${escapeHtml(product.description)} Only ${formatPrice(product.price)}/${escapeHtml(product.duration || "month")} on BundlyPlus. Instant delivery via WhatsApp.`,
+      canonical: `https://bundlyplus.com${routePath}`,
+      robots: "index, follow",
+      jsonLd: createProductJsonLd(product),
+      body: renderProductDetailPage(product),
+    }),
+  );
+}
+
+// Also add a vercel.json rewrite for product detail routes
+const vercelJsonPath = path.resolve(appRoot, "..", "..", "vercel.json");
+try {
+  const vercelRaw = await readFile(vercelJsonPath, "utf8");
+  const vercelConfig = JSON.parse(vercelRaw);
+  const productRewrite = { "source": "/products/:slug", "destination": "/products/:slug/index.html" };
+  const exists = vercelConfig.rewrites.some(r => r.source === "/products/:slug");
+  if (!exists && seenSlugs.size > 0) {
+    // Insert right before the catch-all
+    const catchAllIdx = vercelConfig.rewrites.findIndex(r => r.source.startsWith("/(("));
+    if (catchAllIdx >= 0) {
+      vercelConfig.rewrites.splice(catchAllIdx, 0, productRewrite);
+    } else {
+      vercelConfig.rewrites.push(productRewrite);
+    }
+    await writeFile(vercelJsonPath, JSON.stringify(vercelConfig, null, 2));
+    console.log(`[prerender-homepage] added /products/:slug rewrite to vercel.json`);
+  }
+} catch {
+  // vercel.json might be at a different path; skip silently
+}
+
 console.log(
-  `[prerender-homepage] prerendered homepage, products catalog, ${staticRoutes.length} static routes, and ${privateRoutes.length} noindex routes`,
+  `[prerender-homepage] prerendered homepage, products catalog, ${staticRoutes.length} static routes, ${privateRoutes.length} noindex routes, and ${seenSlugs.size} product detail pages`,
 );
