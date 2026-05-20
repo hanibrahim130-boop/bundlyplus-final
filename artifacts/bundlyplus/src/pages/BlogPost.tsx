@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRoute } from "wouter";
+import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { Seo } from "@/components/seo/Seo";
 
@@ -71,6 +71,45 @@ const POSTS: Record<string, { title: string; description: string; body: React.Re
         <div className="mt-8 flex gap-4">
           <a href="/products/netflix-premium" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold">
             Browse Netflix Plans
+          </a>
+          <a href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold">
+            Chat on WhatsApp
+          </a>
+        </div>
+      </>
+    ),
+  },
+
+  "how-to-get-spotify-premium-cheap": {
+    title: "How to Get Spotify Premium Cheap: Best Deals Worldwide (2026)",
+    description: "Get Spotify Premium for $2.99/month instead of $10.99. Instant delivery, ad-free music, offline downloads, worldwide access.",
+    body: (
+      <>
+        <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
+          Spotify Premium normally costs $10.99/month. Through BundlyPlus, get it for just <strong>$2.99/month</strong> — over 70% off, delivered instantly via WhatsApp.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">Why BundlyPlus for Spotify?</h2>
+        <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
+          <li><strong>Save 73%</strong> — pay $2.99 instead of $10.99</li>
+          <li><strong>Ad-free music</strong> — no interruptions</li>
+          <li><strong>Offline downloads</strong> — listen anywhere</li>
+          <li><strong>Works worldwide</strong></li>
+          <li><strong>Instant WhatsApp delivery</strong></li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">What's Included</h2>
+        <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
+          <li>Ad-free listening</li>
+          <li>Offline downloads (up to 10,000 songs)</li>
+          <li>On-demand playback</li>
+          <li>High-quality audio (320kbps)</li>
+          <li>Family plan also available</li>
+        </ul>
+
+        <div className="mt-8 flex gap-4">
+          <a href="/products/spotify-premium" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold">
+            Get Spotify Premium
           </a>
           <a href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold">
             Chat on WhatsApp

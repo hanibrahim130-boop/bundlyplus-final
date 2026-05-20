@@ -18,6 +18,13 @@ const POSTS = [
     category: "Streaming",
     date: "2026-05-20",
   },
+  {
+    slug: "how-to-get-spotify-premium-cheap",
+    title: "How to Get Spotify Premium Cheap: Best Deals Worldwide (2026)",
+    description: "Get Spotify Premium for $2.99/month instead of $10.99. Instant delivery, ad-free music, offline downloads, worldwide access.",
+    category: "Music",
+    date: "2026-05-20",
+  },
 ];
 
 export default function Blog() {
