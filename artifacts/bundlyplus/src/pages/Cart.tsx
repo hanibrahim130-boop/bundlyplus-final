@@ -12,7 +12,6 @@ import {
   Copy,
   Check,
   QrCode,
-  Wallet,
   Loader2,
 } from "lucide-react";
 import { useUser } from "@clerk/react";
@@ -490,58 +489,7 @@ function CheckoutPaymentDetails({
         </div>
       </div>
 
-      {/* USDT Wallets */}
-      <div className="rounded-2xl border border-slate-200/60 dark:border-slate-700/40 bg-white dark:bg-slate-900 p-4">
-        <div className="flex items-start gap-3 mb-3">
-          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
-            <Wallet size={16} />
-          </div>
-          <div>
-            <div className="text-sm font-bold text-slate-700 dark:text-slate-200">
-              {t.cart.usdtWalletAddresses}
-            </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              {t.cart.usdtNetworkHelp}
-            </div>
-          </div>
-        </div>
-        <div className="space-y-2.5">
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-              BEP20
-            </div>
-            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2">
-              <span
-                className="text-[11px] font-mono text-slate-600 dark:text-slate-300 break-all flex-1"
-                dir="ltr"
-              >
-                0x43cf4bded47c1309df53131a358db503a73de560
-              </span>
-              <CopyBtn
-                text="0x43cf4bded47c1309df53131a358db503a73de560"
-                label={t.cart.usdtBep20Label}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-              TRON (TRC20)
-            </div>
-            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2">
-              <span
-                className="text-[11px] font-mono text-slate-600 dark:text-slate-300 break-all flex-1"
-                dir="ltr"
-              >
-                TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD
-              </span>
-              <CopyBtn
-                text="TBV1YtEANSAhsRZmU8MZwo8GnXPEbBd4oD"
-                label={t.cart.usdtTrc20Label}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }

@@ -62,7 +62,7 @@ const SECTIONS_EN: Section[] = [
     heading: '5. How to Request a Refund',
     paragraphs: [
       'Message us on WhatsApp from the same number you used to check out and include your order reference (BundlyPlus sends one in the confirmation message). Tell us briefly what went wrong and attach a screenshot if helpful.',
-      'Most decisions land within 24–48 hours. Approved refunds are sent back through the same payment method whenever possible (Whish Money, OMT, USDT). If that is not possible we offer equivalent store credit.',
+      'Most decisions land within 24–48 hours. Approved refunds are sent back through the same payment method whenever possible (Card, Whish Money, OMT, Bank Transfer, MoneyGram). If that is not possible we offer equivalent store credit.',
     ],
   },
   {

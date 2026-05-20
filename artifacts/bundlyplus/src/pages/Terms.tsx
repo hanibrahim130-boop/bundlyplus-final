@@ -48,7 +48,7 @@ const SECTIONS_EN: Section[] = [
   {
     heading: '5. Pricing & Payments',
     paragraphs: [
-      'Prices are shown in USD on the catalog and may be displayed in your preferred currency for convenience. Final amounts are confirmed on WhatsApp before payment. Accepted methods include Whish Money, OMT, and USDT (BEP20 / TRC20).',
+      'Prices are shown in USD on the catalog. Final amounts are confirmed on WhatsApp before payment. Accepted methods include Card, Whish Money, OMT, Bank Transfer, and MoneyGram.',
       'Promotions and discount codes are honored only while active and only on eligible products.',
     ],
   },

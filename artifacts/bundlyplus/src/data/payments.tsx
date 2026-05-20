@@ -79,13 +79,7 @@ const UsdIcon = (
   </div>
 );
 
-const UsdtIcon = (
-  <div className="w-10 h-10 rounded-xl bg-[#26a17b] flex items-center justify-center mb-2 shadow-sm text-white">
-    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-      <path d="M13.435 12.063c3.08-.22 5.285-1.127 5.285-2.203 0-1.107-2.317-2.046-5.556-2.23v-2.34h3.693v-3.23H7.07v3.23h3.693v2.336c-3.178.192-5.438 1.116-5.438 2.204 0 1.082 2.221 1.996 5.32 2.215v6.945h2.79v-6.927zm-2.67-4.148c2.915 0 5.279.794 5.279 1.77 0 .978-2.364 1.772-5.28 1.772-2.914 0-5.278-.794-5.278-1.772 0-.976 2.364-1.77 5.279-1.77z" />
-    </svg>
-  </div>
-);
+
 
 export const PAYMENT_METHODS_EN: PaymentMethod[] = [
   { name: 'USD / CARD', sub: 'Visa / Mastercard', color: 'from-indigo-500 to-purple-600', icon: CardIcon },
