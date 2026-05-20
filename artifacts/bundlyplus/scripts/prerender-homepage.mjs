@@ -73,6 +73,11 @@ const staticRoutes = [
     "Refund policy",
     "Read BundlyPlus refund, replacement, and support policies for digital subscription orders.",
   ],
+  [
+    "/blog",
+    "Blog",
+    "Tips, guides, and deals for digital subscriptions — Netflix, ChatGPT Plus, Spotify, and more.",
+  ],
 ];
 
 function escapeHtml(value) {
@@ -362,6 +367,25 @@ for (const [routePath, title, description] of privateRoutes) {
   );
 }
 
+// Prerender blog pages
+const BLOG_POSTS = [
+  ["how-to-get-netflix-premium-cheap-worldwide", "How to Get Netflix Premium Cheap Worldwide (2026 Guide)", "Save up to 80% on Netflix Premium. Compare prices, payment methods, and instant delivery options available worldwide."],
+  ["chatgpt-plus-subscription-best-deals", "ChatGPT Plus Subscription: Best Deals & Worldwide Access (2026)", "Get ChatGPT Plus for $6.99/month instead of $20. Instant delivery, worldwide access, multiple payment methods."],
+];
+
+for (const [slug, title, desc] of BLOG_POSTS) {
+  await writeRoute(
+    `/blog/${slug}`,
+    createPage(baseHtml, {
+      title: `${escapeHtml(title)} | BundlyPlus Blog`,
+      description: escapeHtml(desc),
+      canonical: `https://bundlyplus.com/blog/${escapeHtml(slug)}`,
+      robots: "index, follow",
+      body: renderShell("BundlyPlus Blog", title, desc),
+    }),
+  );
+}
+
 // Prerender individual product detail pages
 const seenSlugs = new Set();
 for (const product of publicProducts) {
@@ -426,11 +450,17 @@ for (const [routePath] of staticRoutes) {
   sitemapUrls += `  <url><loc>https://bundlyplus.com${escapeXml(routePath)}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>\n`;
 }
 
+for (const [slug] of BLOG_POSTS) {
+  sitemapUrls += `  <url><loc>https://bundlyplus.com/blog/${escapeXml(slug)}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>\n`;
+}
+
+const staticCount = 2 + publicProducts.length + staticRoutes.length + BLOG_POSTS.length;
 sitemapUrls += `</urlset>`;
 
 await writeFile(path.join(distRoot, "sitemap.xml"), sitemapUrls);
-console.log(`[prerender-homepage] generated sitemap.xml with ${2 + publicProducts.length + staticRoutes.length} URLs`);
+console.log(`[prerender-homepage] generated sitemap.xml with ${staticCount} URLs`);
 
+const totalStatic = 1 + staticRoutes.length + privateRoutes.length + BLOG_POSTS.length;
 console.log(
-  `[prerender-homepage] prerendered homepage, products catalog, ${staticRoutes.length} static routes, ${privateRoutes.length} noindex routes, and ${seenSlugs.size} product detail pages`,
+  `[prerender-homepage] prerendered homepage, products catalog, ${staticRoutes.length} static routes, ${privateRoutes.length} noindex routes, ${BLOG_POSTS.length} blog pages, and ${seenSlugs.size} product detail pages`,
 );

@@ -63,6 +63,8 @@ const Privacy = lazy(() => import("@/pages/Privacy"));
 const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const BlogPost = lazy(() => import("@/pages/BlogPost"));
 
 function PageLoader() {
   return (
@@ -124,6 +126,8 @@ function Router() {
           <Route path="/privacy" component={Privacy} />
           <Route path="/refund-policy" component={RefundPolicy} />
           <Route path="/contact" component={Contact} />
+          <Route path="/blog/:slug" component={BlogPost} />
+          <Route path="/blog" component={Blog} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>
