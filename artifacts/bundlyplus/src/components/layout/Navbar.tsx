@@ -6,7 +6,6 @@ import { useWishlist } from '@/hooks/use-wishlist';
 import { useSettings } from '@/lib/settings';
 import { useTheme } from '@/lib/theme';
 import { useI18n } from '@/lib/i18n';
-import { useCurrency } from '@/lib/currency';
 import { UserMenu } from '@/components/layout/UserMenu';
 
 /**
@@ -27,7 +26,6 @@ export function Navbar() {
   const { siteSettings } = useSettings();
   const { toggleTheme, isDark } = useTheme();
   const { t, toggleLang, lang } = useI18n();
-  const { currency, toggleCurrency } = useCurrency();
   const { count: wishlistCount } = useWishlist();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -125,34 +123,6 @@ export function Navbar() {
 
           {/* Utilities */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Currency */}
-            <button
-              type="button"
-              onClick={toggleCurrency}
-              aria-label={
-                currency === 'USD'
-                  ? 'Switch to Lebanese Pound'
-                  : 'Switch to US Dollar'
-              }
-              className="hidden sm:inline-flex h-8 items-center px-2.5 rounded-full text-[11px] font-medium tracking-tight transition-colors duration-200 hover:bg-black/5 dark:hover:bg-white/10"
-              style={{ color: 'var(--bp-ink-soft)' }}
-            >
-              <span
-                style={{
-                  color: currency === 'USD' ? 'var(--bp-ink)' : 'var(--bp-ink-faint)',
-                }}
-              >
-                USD
-              </span>
-              <span className="mx-1 opacity-40">/</span>
-              <span
-                style={{
-                  color: currency === 'LBP' ? 'var(--bp-ink)' : 'var(--bp-ink-faint)',
-                }}
-              >
-                LBP
-              </span>
-            </button>
 
             {/* Language */}
             <button
