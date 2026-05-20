@@ -387,7 +387,7 @@ export const translations = {
         },
         {
           q: 'What payment methods do you accept?',
-          a: 'We accept Card, Whish Money, OMT, Bank Transfer, and MoneyGram. Payment instructions arrive after we confirm your order.'',
+          a: 'We accept Card, Whish Money, OMT, Bank Transfer, and MoneyGram. Payment instructions arrive after we confirm your order.',
         },
         {
           q: 'Is this shared or private?',
