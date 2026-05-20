@@ -22,7 +22,7 @@ export interface UserDoc {
   fullName?: string;
   phone?: string;
   preferredLang?: "en" | "ar";
-  preferredCurrency?: "USD" | "LBP";
+  preferredCurrency?: "USD";
   wishlist?: string[];
   cart?: CartItem[];
   createdAt?: number;

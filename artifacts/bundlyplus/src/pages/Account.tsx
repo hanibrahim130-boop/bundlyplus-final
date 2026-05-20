@@ -18,9 +18,7 @@ export default function AccountPage() {
   const [profile, setProfile] = useState<UserDoc | null>(null);
   const [phone, setPhone] = useState("");
   const [preferredLang, setPreferredLang] = useState<"en" | "ar">(lang);
-  const [preferredCurrency, setPreferredCurrency] = useState<"USD" | "LBP">(
-    "USD",
-  );
+  const [preferredCurrency] = useState<"USD">("USD");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -153,16 +151,9 @@ export default function AccountPage() {
                       size={14}
                       className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
                     />
-                    <select
-                      value={preferredCurrency}
-                      onChange={(e) =>
-                        setPreferredCurrency(e.target.value as "USD" | "LBP")
-                      }
-                      className={inputClsWithIcon}
-                    >
-                      <option value="USD">USD</option>
-                      <option value="LBP">L.L.</option>
-                    </select>
+                    <div className="px-4 py-2.5 rounded-xl" style={{background:"var(--bp-bg)",border:"1px solid var(--bp-border)"}}>
+                      <span className="text-sm font-semibold">USD</span>
+                    </div>
                   </div>
                 </Field>
               </div>
