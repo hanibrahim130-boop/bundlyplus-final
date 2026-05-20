@@ -243,7 +243,7 @@ const publicProducts = getPublicProducts(products);
 const featuredProducts = getFeaturedProducts(products);
 
 const homeHtml = createPage(baseHtml, {
-  title: "BundlyPlus � Premium Digital Subscriptions at Unbeatable Prices",
+  title: "BundlyPlus — Premium Digital Subscriptions at Unbeatable Prices",
   description:
     "Get Netflix, Spotify, ChatGPT Plus, Adobe CC and more at unbeatable prices. Instant delivery via WhatsApp.",
   canonical: "https://bundlyplus.com/",
