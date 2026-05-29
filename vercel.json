@@ -1,31 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/products", "destination": "/products/index.html" },
-    { "source": "/products/:slug", "destination": "/products/:slug/index.html" },
-    { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" },
-    { "source": "/coming-soon", "destination": "/coming-soon/index.html" },
-    { "source": "/contact", "destination": "/contact/index.html" },
-    { "source": "/terms", "destination": "/terms/index.html" },
-    { "source": "/privacy", "destination": "/privacy/index.html" },
-    { "source": "/refund-policy", "destination": "/refund-policy/index.html" },
-    { "source": "/cart", "destination": "/cart/index.html" },
-    { "source": "/wishlist", "destination": "/wishlist/index.html" },
-    { "source": "/sign-in", "destination": "/sign-in/index.html" },
-    { "source": "/sign-in/(.*)", "destination": "/sign-in/index.html" },
-    { "source": "/sign-up", "destination": "/sign-up/index.html" },
-    { "source": "/sign-up/(.*)", "destination": "/sign-up/index.html" },
-    { "source": "/account", "destination": "/account/index.html" },
     {
-      "source": "/account/subscriptions",
-      "destination": "/account/subscriptions/index.html"
-    },
-    {
-      "source": "/account/orders",
-      "destination": "/account/orders/index.html"
-    },
-    { "source": "/admin", "destination": "/admin/index.html" },
-    { "source": "/((?!api/|robots\\.txt$|sitemap\\.xml$).*)", "destination": "/index.html" }
+      "source": "/((?!api/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
