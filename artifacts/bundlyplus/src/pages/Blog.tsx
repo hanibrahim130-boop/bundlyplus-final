@@ -5,6 +5,13 @@ import { useI18n } from "@/lib/i18n";
 
 const POSTS = [
   {
+    slug: "how-to-pay-for-subscriptions-in-lebanon",
+    title: "How to Pay for Netflix, Spotify & ChatGPT in Lebanon (2026): Whish, OMT & More",
+    description: "Every way to pay for premium subscriptions from Lebanon — Whish Money, OMT, bank transfer, card, and MoneyGram — with instant WhatsApp delivery.",
+    category: "Guides",
+    date: "2026-08-01",
+  },
+  {
     slug: "chatgpt-plus-subscription-best-deals",
     title: "ChatGPT Plus Subscription: Best Deals & Worldwide Access (2026)",
     description: "Get ChatGPT Plus for $6.99/month instead of $20. Instant delivery, worldwide access, multiple payment methods.",
