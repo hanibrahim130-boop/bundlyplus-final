@@ -4,6 +4,65 @@ import { ArrowLeft } from "lucide-react";
 import { Seo } from "@/components/seo/Seo";
 
 const POSTS: Record<string, { title: string; description: string; date: string; body: React.ReactNode }> = {
+  "how-to-pay-for-subscriptions-in-lebanon": {
+    title: "How to Pay for Netflix, Spotify & ChatGPT in Lebanon (2026): Whish, OMT & More",
+    description: "Every way to pay for premium subscriptions from Lebanon — Whish Money, OMT, bank transfer, card, and MoneyGram — with instant WhatsApp delivery.",
+    date: "2026-08-01",
+    body: (
+      <>
+        <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
+          Paying for Netflix, Spotify, or ChatGPT Plus from Lebanon is harder than it should be — international cards get declined, and dollar payments are complicated. BundlyPlus solves this: pay locally with <strong>Whish Money, OMT, bank transfer, card, or MoneyGram</strong>, and get your subscription delivered on WhatsApp in minutes.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">All Payment Methods We Accept</h2>
+        <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
+          <li><strong>Whish Money</strong> — the fastest option in Lebanon; send from any Whish agent or the app</li>
+          <li><strong>OMT</strong> — pay cash at any OMT branch across Lebanon</li>
+          <li><strong>Bank transfer</strong> — local transfer, no international card needed</li>
+          <li><strong>Credit / debit card</strong> — for cards that support online payments</li>
+          <li><strong>MoneyGram</strong> — ideal if you're paying from abroad for family in Lebanon</li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">How It Works (3 Steps)</h2>
+        <ol className="space-y-2 list-decimal pl-5 text-slate-600 dark:text-slate-300">
+          <li>Pick your subscription and tap "Get on WhatsApp"</li>
+          <li>Choose your payment method — we'll send you the details</li>
+          <li>Receive your account login on WhatsApp, usually within 5 minutes</li>
+        </ol>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">What Can You Get?</h2>
+        <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
+          <li><a href="/products/netflix-premium" className="text-pink-500 hover:underline">Netflix Premium</a> — from $4.99/month instead of $15+</li>
+          <li><a href="/products/spotify-premium" className="text-pink-500 hover:underline">Spotify Premium</a> — from $2.99/month instead of $10.99</li>
+          <li><a href="/products/chatgpt-plus" className="text-pink-500 hover:underline">ChatGPT Plus</a> — from $6.99/month instead of $20</li>
+          <li><a href="/products/adobe-creative-cloud" className="text-pink-500 hover:underline">Adobe Creative Cloud</a> — from $10.99/month instead of $54.99</li>
+          <li>And 50+ more — see <a href="/products" className="text-pink-500 hover:underline">all products</a></li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">Why People in Lebanon Trust BundlyPlus</h2>
+        <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
+          <li><strong>No international card needed</strong> — every method works locally</li>
+          <li><strong>Instant WhatsApp delivery</strong> — no waiting, no emails</li>
+          <li><strong>25-day money-back guarantee</strong></li>
+          <li><strong>Support in Arabic and English</strong></li>
+        </ul>
+
+        <p className="mt-6 text-slate-600 dark:text-slate-300">
+          Want the full guide on a specific service? Read <Link href="/blog/how-to-get-netflix-premium-cheap-worldwide" className="text-pink-500 hover:underline">how to get Netflix Premium cheap</Link> or <Link href="/blog/chatgpt-plus-subscription-best-deals" className="text-pink-500 hover:underline">the best ChatGPT Plus deals</Link>.
+        </p>
+
+        <div className="mt-8 flex gap-4">
+          <a href="/products" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold">
+            Browse All Subscriptions
+          </a>
+          <a href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold">
+            Chat on WhatsApp
+          </a>
+        </div>
+      </>
+    ),
+  },
+
   "chatgpt-plus-subscription-best-deals": {
     title: "ChatGPT Plus Subscription: Best Deals & Worldwide Access (2026)",
     description: "Get ChatGPT Plus for $6.99/month instead of $20. Instant delivery, worldwide access, multiple payment methods.",
