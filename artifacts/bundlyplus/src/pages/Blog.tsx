@@ -5,6 +5,13 @@ import { useI18n } from "@/lib/i18n";
 
 const POSTS = [
   {
+    slug: "netflix-lebanon-price",
+    title: "Netflix Premium in Lebanon: Price & How to Subscribe (2026)",
+    description: "Netflix Premium in Lebanon from $4.99/month — pay with Whish, OMT, or bank transfer. No international card needed. Instant WhatsApp delivery.",
+    category: "Streaming",
+    date: "2026-08-01",
+  },
+  {
     slug: "how-to-pay-for-subscriptions-in-lebanon",
     title: "How to Pay for Netflix, Spotify & ChatGPT in Lebanon (2026): Whish, OMT & More",
     description: "Every way to pay for premium subscriptions from Lebanon — Whish Money, OMT, bank transfer, card, and MoneyGram — with instant WhatsApp delivery.",
