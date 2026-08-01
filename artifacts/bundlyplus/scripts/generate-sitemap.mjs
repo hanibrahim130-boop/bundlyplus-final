@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Generates public/sitemap.xml from static routes + blog posts parsed from src/pages/Blog.tsx.
+// Generates public/sitemap.xml from static routes + product pages parsed from
+// src/data/products.json + blog posts parsed from src/pages/Blog.tsx.
 // Runs automatically before every build (see package.json "build"), or manually via `npm run sitemap`.
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -20,6 +21,40 @@ const STATIC_ROUTES = [
   { path: "/terms", changefreq: "yearly", priority: "0.3" },
   { path: "/refund-policy", changefreq: "yearly", priority: "0.3" },
 ];
+
+// Mirror of src/lib/product-slug.ts — keep the two in sync.
+function productSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/\+/g, " plus ")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function productRoutes() {
+  const raw = readFileSync(resolve(ROOT, "src/data/products.json"), "utf8");
+  const products = JSON.parse(raw);
+  const seen = new Set();
+  const routes = [];
+  for (const p of products) {
+    if (!p || typeof p.name !== "string" || !p.name.trim()) continue;
+    const slug = productSlug(p.name);
+    if (!slug || seen.has(slug)) continue;
+    seen.add(slug);
+    routes.push({
+      path: "/products/" + slug,
+      changefreq: "weekly",
+      priority: "0.7",
+    });
+  }
+  if (routes.length === 0) {
+    console.warn("[sitemap] Warning: no products found in products.json.");
+  }
+  return routes;
+}
 
 function blogRoutes() {
   const src = readFileSync(resolve(ROOT, "src/pages/Blog.tsx"), "utf8");
@@ -55,7 +90,7 @@ function urlEntry(route) {
   ].join("\n");
 }
 
-const routes = [...STATIC_ROUTES, ...blogRoutes()];
+const routes = [...STATIC_ROUTES, ...productRoutes(), ...blogRoutes()];
 const xml =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n' +
