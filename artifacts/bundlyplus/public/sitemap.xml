@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://bundlyplus.com/</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/" />
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://bundlyplus.com/products</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/products" />
@@ -20,8 +20,62 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/products" />
   </url>
   <url>
+    <loc>https://bundlyplus.com/blog</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/blog" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bundlyplus.com/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/blog" />
+  </url>
+  <url>
+    <loc>https://bundlyplus.com/blog/chatgpt-plus-subscription-best-deals</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/blog/chatgpt-plus-subscription-best-deals" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bundlyplus.com/blog/chatgpt-plus-subscription-best-deals" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/blog/chatgpt-plus-subscription-best-deals" />
+  </url>
+  <url>
+    <loc>https://bundlyplus.com/blog/how-to-get-netflix-premium-cheap-worldwide</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/blog/how-to-get-netflix-premium-cheap-worldwide" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bundlyplus.com/blog/how-to-get-netflix-premium-cheap-worldwide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/blog/how-to-get-netflix-premium-cheap-worldwide" />
+  </url>
+  <url>
+    <loc>https://bundlyplus.com/blog/how-to-get-spotify-premium-cheap</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/blog/how-to-get-spotify-premium-cheap" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bundlyplus.com/blog/how-to-get-spotify-premium-cheap" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/blog/how-to-get-spotify-premium-cheap" />
+  </url>
+  <url>
+    <loc>https://bundlyplus.com/blog/adobe-creative-cloud-discount-deals</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/blog/adobe-creative-cloud-discount-deals" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bundlyplus.com/blog/adobe-creative-cloud-discount-deals" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/blog/adobe-creative-cloud-discount-deals" />
+  </url>
+  <url>
+    <loc>https://bundlyplus.com/coming-soon</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/coming-soon" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bundlyplus.com/coming-soon" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bundlyplus.com/coming-soon" />
+  </url>
+  <url>
     <loc>https://bundlyplus.com/contact</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/contact" />
@@ -30,7 +84,7 @@
   </url>
   <url>
     <loc>https://bundlyplus.com/privacy</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/privacy" />
@@ -39,7 +93,7 @@
   </url>
   <url>
     <loc>https://bundlyplus.com/terms</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/terms" />
@@ -48,7 +102,7 @@
   </url>
   <url>
     <loc>https://bundlyplus.com/refund-policy</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bundlyplus.com/refund-policy" />
