@@ -1,12 +1,13 @@
 import React from "react";
-import { Link } from "wouter";
+import { Link, useRoute } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { Seo } from "@/components/seo/Seo";
 
-const POSTS: Record<string, { title: string; description: string; body: React.ReactNode }> = {
+const POSTS: Record<string, { title: string; description: string; date: string; body: React.ReactNode }> = {
   "chatgpt-plus-subscription-best-deals": {
     title: "ChatGPT Plus Subscription: Best Deals & Worldwide Access (2026)",
     description: "Get ChatGPT Plus for $6.99/month instead of $20. Instant delivery, worldwide access, multiple payment methods.",
+    date: "2026-05-20",
     body: (
       <>
         <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
@@ -46,6 +47,7 @@ const POSTS: Record<string, { title: string; description: string; body: React.Re
   "how-to-get-netflix-premium-cheap-worldwide": {
     title: "How to Get Netflix Premium Cheap Worldwide (2026 Guide)",
     description: "Save up to 80% on Netflix Premium. Compare prices, payment methods, and instant delivery options available worldwide.",
+    date: "2026-05-20",
     body: (
       <>
         <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
@@ -83,6 +85,7 @@ const POSTS: Record<string, { title: string; description: string; body: React.Re
   "adobe-creative-cloud-discount-deals": {
     title: "Adobe Creative Cloud Discount: Save Big on All 20+ Apps (2026)",
     description: "Get Adobe Creative Cloud for $10.99/month — all 20+ apps including Photoshop, Premiere Pro, Illustrator, and After Effects.",
+    date: "2026-05-20",
     body: (
       <>
         <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
@@ -130,6 +133,7 @@ const POSTS: Record<string, { title: string; description: string; body: React.Re
   "how-to-get-spotify-premium-cheap": {
     title: "How to Get Spotify Premium Cheap: Best Deals Worldwide (2026)",
     description: "Get Spotify Premium for $2.99/month instead of $10.99. Instant delivery, ad-free music, offline downloads, worldwide access.",
+    date: "2026-05-20",
     body: (
       <>
         <p className="lead text-lg text-slate-600 dark:text-slate-300 mb-6">
@@ -174,6 +178,7 @@ export default function BlogPost() {
   if (!slug || !POSTS[slug]) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
+        <Seo title="Post not found" noIndex canonical="/blog" />
         <h1 className="text-2xl font-bold mb-4">Post not found</h1>
         <a href="/blog" className="text-pink-500 hover:underline">← Back to blog</a>
       </div>
@@ -181,10 +186,36 @@ export default function BlogPost() {
   }
 
   const post = POSTS[slug];
+  const postUrl = "https://bundlyplus.com/blog/" + slug;
 
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-      <Seo title={post.title} description={post.description} canonical={`/blog/${slug}`} />
+      <Seo
+        title={post.title}
+        description={post.description}
+        canonical={`/blog/${slug}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.description,
+          url: postUrl,
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": postUrl,
+          },
+          datePublished: post.date,
+          inLanguage: "en",
+          publisher: {
+            "@type": "Organization",
+            name: "BundlyPlus",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://bundlyplus.com/logo-icon.png",
+            },
+          },
+        }}
+      />
 
       <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-pink-500 mb-6 transition-colors">
         <ArrowLeft size={14} />
