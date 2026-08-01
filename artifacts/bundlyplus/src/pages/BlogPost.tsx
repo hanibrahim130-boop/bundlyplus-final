@@ -58,4 +58,30 @@ const POSTS: Record<string, { title: string; description: string; date: string; 
         <ul className="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-300">
           <li><strong>Instant WhatsApp delivery</strong> — get your account in minutes</li>
           <li><strong>Global access</strong> — works worldwide</li>
-          <li><strong>Multiple payment options}
+          <li><strong>Multiple payment options</strong> — Card, Whish Money, OMT, Bank Transfer, MoneyGram</li>
+          <li><strong>25-day money-back guarantee</strong></li>
+        </ul>
+
+        <h2 className="text-2xl font-bold mt-10 mb-4">How It Works</h2>
+        <ol className="space-y-2 list-decimal pl-5 text-slate-600 dark:text-slate-300">
+          <li>Browse our Netflix Premium listing</li>
+          <li>Click "Get on WhatsApp" to message us</li>
+          <li>Choose your payment method</li>
+          <li>Receive your login details within 5 minutes</li>
+        </ol>
+
+        <div className="mt-8 flex gap-4">
+          <a href="/products/netflix-premium" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold">
+            Browse Netflix Plans
+          </a>
+          <a href="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold">
+            Chat on WhatsApp
+          </a>
+        </div>
+      </>
+    ),
+  },
+
+  "adobe-creative-cloud-discount-deals": {
+    title: "Adobe Creative Cloud Discount: Save Big on All 20+ Apps (2026)",
+    description: "Get Adobe Creative Cloud for $10.99/month —}
