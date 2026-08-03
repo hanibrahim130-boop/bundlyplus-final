@@ -18,6 +18,9 @@ export default function AccountPage() {
   const [profile, setProfile] = useState<UserDoc | null>(null);
   const [phone, setPhone] = useState("");
   const [preferredLang, setPreferredLang] = useState<"en" | "ar">(lang);
+  // USD is the only supported currency, so this state is intentionally
+  // read-only: the form below renders a fixed "USD" chip with no control to
+  // change it. Do not add a setter without also making the field editable.
   const [preferredCurrency] = useState<"USD">("USD");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -35,7 +38,6 @@ export default function AccountPage() {
         setProfile(doc);
         setPhone(doc.phone || "");
         setPreferredLang(doc.preferredLang || lang);
-        setPreferredCurrency(doc.preferredCurrency || "USD");
       } catch (e) {
         toast({
           title: t.account.loadError,

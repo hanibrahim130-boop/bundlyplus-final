@@ -18,6 +18,7 @@ import { getBrandGradient, getInitials } from "@/lib/brand-theme";
 import { getCategoryTheme } from "@/lib/category-theme";
 import { generateWhatsAppOrderLink } from "@/utils/whatsapp";
 import { findProductBySlug, productSlug } from "@/lib/product-slug";
+import { buildProductJsonLd, SITE_URL } from "@/lib/product-schema";
 import { getTiers, type DurationKey, type PricingTier } from "@/lib/pricing-tiers";
 import { Seo } from "@/components/seo/Seo";
 import type { Product } from "@/types";
@@ -184,6 +185,8 @@ export default function ProductDetail() {
     duration,
   );
 
+  const canonicalPath = `/products/${productSlug(product.name)}`;
+
   const durationMap: Record<DurationKey, string> = {
     "1m": t.pricing.duration.oneMonth,
     "3m": t.pricing.duration.threeMonths,
@@ -202,22 +205,15 @@ export default function ProductDetail() {
           product.description ||
           `${product.name} subscription with instant WhatsApp delivery in Lebanon.`
         }
-        canonical={`/products/${productSlug(product.name)}`}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
+        canonical={canonicalPath}
+        jsonLd={buildProductJsonLd({
           name: product.name,
           description: product.description,
           category: product.category,
-          offers: {
-            "@type": "Offer",
-            price: product.price,
-            priceCurrency: "USD",
-            availability: product.out_of_stock
-              ? "https://schema.org/OutOfStock"
-              : "https://schema.org/InStock",
-          },
-        }}
+          price: product.price,
+          url: `${SITE_URL}${canonicalPath}`,
+          inStock: !product.out_of_stock,
+        })}
       />
 
       {/* Back link */}

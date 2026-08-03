@@ -8,6 +8,7 @@ import { AppleTrust } from "@/components/home/AppleTrust";
 import { Testimonials } from "@/components/home/Testimonials";
 import { useSettings } from "@/lib/settings";
 import { Seo } from "@/components/seo/Seo";
+import { SERVED_COUNTRIES, SITE_URL } from "@/lib/product-schema";
 
 const FAQ = lazy(() =>
   import("@/components/home/FAQ").then((m) => ({ default: m.FAQ })),
@@ -36,12 +37,16 @@ export default function Home() {
           "@context": "https://schema.org",
           "@type": "Store",
           name: "BundlyPlus",
-          url: "https://bundlyplus.com",
+          url: SITE_URL,
           description:
-            "Premium digital subscriptions marketplace available worldwide",
+            "Premium digital subscriptions marketplace serving Lebanon and the Middle East",
           priceRange: "$$",
           currenciesAccepted: "USD",
           paymentAccepted: "Card, Whish Money, OMT, Bank Transfer, MoneyGram",
+          areaServed: SERVED_COUNTRIES.map((country) => ({
+            "@type": "Country",
+            identifier: country,
+          })),
         }}
       />
       <Hero settings={siteSettings} />
