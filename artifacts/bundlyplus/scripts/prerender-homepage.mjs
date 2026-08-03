@@ -164,7 +164,7 @@ function renderShell(eyebrow, title, description, content = "") {
 
 function renderHomepage(products) {
   return renderShell(
-    "PREMIUM DIGITAL SUBSCRIPTIONS · WORLDWIDE",
+    "PREMIUM DIGITAL SUBSCRIPTIONS · LEBANON & THE MIDDLE EAST",
     "Everything you stream. For a fraction of the price.",
     "Netflix, ChatGPT, Adobe, Spotify, IPTV and 180+ more — delivered to your phone in minutes. Pay via Card, Whish Money, OMT, Bank Transfer or MoneyGram.",
     `
@@ -250,7 +250,7 @@ function createProductItemList(products) {
       "@type": "ListItem",
       position: index + 1,
       name: product.name,
-      url: `https://bundlyplus.com/products/${escapeHtml(productSlug(product.name))}`,
+      url: `{{https://bundlyplus.com/products/${escapeHtml(productSlug(product.name}}))}`,
     })),
   };
 }
@@ -261,7 +261,7 @@ function createProductJsonLd(product) {
     description: product.description,
     category: product.category,
     price: product.price,
-    url: `https://bundlyplus.com/products/${escapeHtml(productSlug(product.name))}`,
+    url: `{{https://bundlyplus.com/products/${escapeHtml(productSlug(product.name}}))}`,
     brand: product.brand,
     inStock: !product.out_of_stock,
   });
@@ -343,7 +343,7 @@ for (const [routePath, title, description] of staticRoutes) {
     createPage(baseHtml, {
       title: `${title} | BundlyPlus`,
       description,
-      canonical: `https://bundlyplus.com${routePath}`,
+      canonical: `{{https://bundlyplus.com${routePath}}}`,
       robots: "index, follow",
       body: renderShell("BundlyPlus", title, description),
     }),
@@ -356,7 +356,7 @@ for (const [routePath, title, description] of privateRoutes) {
     createPage(baseHtml, {
       title: `${title} | BundlyPlus`,
       description,
-      canonical: `https://bundlyplus.com${routePath}`,
+      canonical: `{{https://bundlyplus.com${routePath}}}`,
       robots: "noindex, nofollow",
       body: renderShell("Private BundlyPlus page", title, description),
     }),
@@ -377,7 +377,7 @@ for (const [slug, title, desc] of BLOG_POSTS) {
     createPage(baseHtml, {
       title: `${escapeHtml(title)} | BundlyPlus Blog`,
       description: escapeHtml(desc),
-      canonical: `https://bundlyplus.com/blog/${escapeHtml(slug)}`,
+      canonical: `{{https://bundlyplus.com/blog/${escapeHtml(slug}})}`,
       robots: "index, follow",
       body: renderShell("BundlyPlus Blog", title, desc),
     }),
@@ -397,7 +397,7 @@ for (const product of publicProducts) {
     createPage(baseHtml, {
       title: `${escapeHtml(product.name)} | BundlyPlus`,
       description: `${escapeHtml(product.description)} Only ${formatPrice(product.price)}/${escapeHtml(product.duration || "month")} on BundlyPlus. Instant delivery via WhatsApp.`,
-      canonical: `https://bundlyplus.com${routePath}`,
+      canonical: `{{https://bundlyplus.com${routePath}}}`,
       robots: "index, follow",
       jsonLd: createProductJsonLd(product),
       body: renderProductDetailPage(product),
@@ -435,21 +435,21 @@ function escapeXml(s) {
 const today = new Date().toISOString().split("T")[0];
 let sitemapUrls = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-sitemapUrls += `  <url><loc>https://bundlyplus.com/</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
-sitemapUrls += `  <url><loc>https://bundlyplus.com/products</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+sitemapUrls += `  <url><loc>{{https://bundlyplus.com/</loc><lastmod>${today}}}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+sitemapUrls += `  <url><loc>{{https://bundlyplus.com/products</loc><lastmod>${today}}}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
 
 for (const product of publicProducts) {
   const slug = productSlug(product.name);
   if (slug === "") continue;
-  sitemapUrls += `  <url><loc>https://bundlyplus.com/products/${escapeXml(slug)}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>\n`;
+  sitemapUrls += `  <url><loc>{{https://bundlyplus.com/products/${escapeXml(slug}})}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>\n`;
 }
 
 for (const [routePath] of staticRoutes) {
-  sitemapUrls += `  <url><loc>https://bundlyplus.com${escapeXml(routePath)}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>\n`;
+  sitemapUrls += `  <url><loc>{{https://bundlyplus.com${escapeXml(routePath}})}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>\n`;
 }
 
 for (const [slug] of BLOG_POSTS) {
-  sitemapUrls += `  <url><loc>https://bundlyplus.com/blog/${escapeXml(slug)}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>\n`;
+  sitemapUrls += `  <url><loc>{{https://bundlyplus.com/blog/${escapeXml(slug}})}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>\n`;
 }
 
 const staticCount = 2 + publicProducts.length + staticRoutes.length + BLOG_POSTS.length;
