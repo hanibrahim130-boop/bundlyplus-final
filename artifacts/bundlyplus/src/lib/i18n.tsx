@@ -13,7 +13,7 @@ export const translations = {
       switchLang: 'العربية',
     },
     hero: {
-      badge: 'Global coverage',
+      badge: 'Trusted across the Middle East',
       live: 'digital services available',
       line1: 'Your favorite subscriptions.',
       line2: 'Made to',
@@ -37,7 +37,7 @@ export const translations = {
       ],
       // ---- new MENA-focused copy (used by the rewritten hero) ----
       mainHeadline:
-        'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Best Prices Worldwide 🔥',
+        'Netflix + ChatGPT + Adobe + IPTV Premium Subscriptions at the Best Prices in Lebanon & the Middle East 🔥',
       mainSubtitle:
         'Instant WhatsApp Delivery • Card • OMT • Bank Transfer • 25-Day Guarantee • Trusted by 500+ Customers',
       primaryCta: 'Browse Subscriptions Now',
@@ -50,7 +50,7 @@ export const translations = {
       },
       // ---- editorial / luxury copy (v4 hero rebuild — kept for reference, not rendered) ----
       editorial: {
-        kicker: 'WORLDWIDE · TOP SELECTION',
+        kicker: 'LEBANON — MENA · TOP SELECTION',
         headline: {
           line1: 'The quiet way',
           line2: 'to own the',
@@ -67,7 +67,7 @@ export const translations = {
       },
       // ---- Apple-style rebuild (v5) — used by the current Hero ----
       apple: {
-        overline: 'PREMIUM DIGITAL SUBSCRIPTIONS · WORLDWIDE',
+        overline: 'PREMIUM DIGITAL SUBSCRIPTIONS · LEBANON & THE MIDDLE EAST',
         headline: 'Everything you stream.',
         headlineAccent: 'For a fraction of the price.',
         subline:
@@ -86,7 +86,7 @@ export const translations = {
         overline: 'WHY BUNDLYPLUS',
         title: 'Premium access, without the premium bill.',
         lead:
-          'We source subscriptions at retail and hand them off to you at a fraction of the price — fast, private, and globally accessible.',
+          'We source subscriptions at retail and hand them off to you at a fraction of the price — fast, private, and paid the local way.',
         items: [
           {
             title: 'Delivered in minutes',
@@ -94,7 +94,7 @@ export const translations = {
           },
           {
             title: 'Pay the local way',
-            desc: 'Card, Whish Money, OMT, Bank Transfer, or MoneyGram. Fast, global, no fees.',
+            desc: 'Card, Whish Money, OMT, Bank Transfer, or MoneyGram. Fast, local, no extra fees.',
           },
           {
             title: '25-day guarantee',
