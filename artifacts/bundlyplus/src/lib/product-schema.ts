@@ -10,6 +10,10 @@
  *   - Invalid object type for field 'brand'
  *   - Missing field 'validFrom' (in 'offers')
  *   - Missing field 'hasMerchantReturnPolicy' (in 'offers')
+ *
+ * IMPORTANT: `MERCHANT_RETURN_DAYS` must always match the window published on
+ * /refund-policy (both the English and Arabic copy). Google compares the
+ * structured data against the visible policy.
  */
 
 export const SITE_URL = "https://bundlyplus.com";
@@ -31,6 +35,9 @@ export const SERVED_COUNTRIES = [
  * emitted markup does not change on every build.
  */
 export const OFFER_VALID_FROM = "2026-01-01";
+
+/** Must match section 6 of /refund-policy in every language. */
+export const MERCHANT_RETURN_DAYS = 7;
 
 export interface ProductSchemaInput {
   name: string;
@@ -79,6 +86,11 @@ export function buildShippingDetails() {
   };
 }
 
+/**
+ * Note: `returnMethod` is intentionally omitted. It is an optional field and
+ * nothing physical is ever returned for a digital subscription, so declaring
+ * ReturnByMail (or similar) would be inaccurate.
+ */
 export function buildMerchantReturnPolicy() {
   return {
     "@type": "MerchantReturnPolicy",
@@ -86,8 +98,7 @@ export function buildMerchantReturnPolicy() {
     returnPolicyCountry: "LB",
     returnPolicyCategory:
       "https://schema.org/MerchantReturnFiniteReturnWindow",
-    merchantReturnDays: 7,
-    returnMethod: "https://schema.org/ReturnByMail",
+    merchantReturnDays: MERCHANT_RETURN_DAYS,
     returnFees: "https://schema.org/FreeReturn",
     merchantReturnLink: SITE_URL + "/refund-policy",
   };

@@ -5,8 +5,8 @@ import { useI18n } from '@/lib/i18n';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { Seo } from '@/components/seo/Seo';
 
-const LAST_UPDATED_EN = 'May 7, 2026';
-const LAST_UPDATED_AR = '7 مايو 2026';
+const LAST_UPDATED_EN = 'August 3, 2026';
+const LAST_UPDATED_AR = '٣ آب ٢٠٢٦';
 
 interface Section {
   heading: string;
@@ -68,7 +68,7 @@ const SECTIONS_EN: Section[] = [
   {
     heading: '6. Time Frame',
     paragraphs: [
-      'Refund requests must be opened within 25 days of delivery. After that we will still help with replacements and support but cash refunds are case-by-case.',
+      'Refund requests must be opened within 7 days of delivery. After that we will still help with replacements and support but cash refunds are case-by-case.',
     ],
   },
 ];
