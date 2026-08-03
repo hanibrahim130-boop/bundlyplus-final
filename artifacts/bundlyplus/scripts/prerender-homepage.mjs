@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildProductJsonLd } from "./product-schema.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(__dirname, "..");
@@ -177,7 +178,7 @@ function renderHomepage(products) {
     <div class="seo-pricing">
       <div class="seo-price-card"><h3>Streaming</h3><strong>from $3.49/mo</strong><p>Netflix, Disney+, Prime Video, Apple TV+ and more.</p></div>
       <div class="seo-price-card"><h3>Music</h3><strong>from $1.99/mo</strong><p>Spotify, Anghami, Apple Music, Deezer and premium audio.</p></div>
-      <div class="seo-price-card"><h3>AI & Creative</h3><strong>from $4.99/mo</strong><p>ChatGPT Plus, Canva Pro, Adobe CC and design platforms.</p></div>
+      <div class="seo-price-card"><h3>AI &amp; Creative</h3><strong>from $4.99/mo</strong><p>ChatGPT Plus, Canva Pro, Adobe CC and design platforms.</p></div>
     </div>
   </section>`,
   );
@@ -213,7 +214,7 @@ function renderProductDetailPage(product) {
   return renderShell(
     `${cat} · BundlyPlus`,
     `${name} — Premium Subscription`,
-    `${desc} Only ${price}/${duration} on BundlyPlus. Instant delivery via WhatsApp.`,  
+    `${desc} Only ${price}/${duration} on BundlyPlus. Instant delivery via WhatsApp.`,
     `
   <section>
     <div class="seo-product-detail">
@@ -255,20 +256,15 @@ function createProductItemList(products) {
 }
 
 function createProductJsonLd(product) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Product",
+  return buildProductJsonLd({
     name: product.name,
     description: product.description,
-    url: `https://bundlyplus.com/products/${escapeHtml(productSlug(product.name))}`,
     category: product.category,
-    offers: {
-      "@type": "Offer",
-      price: product.price,
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-    },
-  };
+    price: product.price,
+    url: `https://bundlyplus.com/products/${escapeHtml(productSlug(product.name))}`,
+    brand: product.brand,
+    inStock: !product.out_of_stock,
+  });
 }
 
 function setHead(html, { title, description, canonical, robots, jsonLd }) {
@@ -394,7 +390,7 @@ for (const product of publicProducts) {
   const slug = productSlug(product.name);
   if (seenSlugs.has(slug)) continue; // skip collisions
   seenSlugs.add(slug);
-  
+
   const routePath = `/products/${slug}`;
   await writeRoute(
     routePath,
