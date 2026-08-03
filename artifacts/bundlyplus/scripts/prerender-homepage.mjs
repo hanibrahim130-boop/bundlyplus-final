@@ -1,13 +1,18 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildProductJsonLd } from "./product-schema.mjs";
+import { SITE_URL, buildProductJsonLd } from "./product-schema.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(__dirname, "..");
 const distRoot = path.join(appRoot, "dist", "public");
 const htmlPath = path.join(distRoot, "index.html");
 const productsPath = path.join(appRoot, "src", "data", "products.json");
+
+// Every canonical tag and sitemap entry below is built from SITE_URL.
+// Do not hardcode the origin again — keep one source of truth so the
+// prerendered HTML can never disagree with the runtime <Seo> component.
+const siteUrl = (routePath = "") => `${SITE_URL}${routePath}`;
 
 const privateRoutes = [
   [
@@ -241,6 +246,10 @@ function renderProductDetailPage(product) {
   );
 }
 
+function productUrl(product) {
+  return siteUrl(`/products/${escapeHtml(productSlug(product.name))}`);
+}
+
 function createProductItemList(products) {
   return {
     "@context": "https://schema.org",
@@ -250,7 +259,7 @@ function createProductItemList(products) {
       "@type": "ListItem",
       position: index + 1,
       name: product.name,
-      url: `{{https://bundlyplus.com/products/${escapeHtml(productSlug(product.name}}))}`,
+      url: productUrl(product),
     })),
   };
 }
@@ -261,7 +270,7 @@ function createProductJsonLd(product) {
     description: product.description,
     category: product.category,
     price: product.price,
-    url: `{{https://bundlyplus.com/products/${escapeHtml(productSlug(product.name}}))}`,
+    url: productUrl(product),
     brand: product.brand,
     inStock: !product.out_of_stock,
   });
@@ -319,7 +328,7 @@ const homeHtml = createPage(baseHtml, {
   title: "BundlyPlus — Premium Digital Subscriptions at Unbeatable Prices",
   description:
     "Get Netflix, Spotify, ChatGPT Plus, Adobe CC and more at unbeatable prices. Instant delivery via WhatsApp.",
-  canonical: "https://bundlyplus.com/",
+  canonical: siteUrl("/"),
   robots: "index, follow",
   body: renderHomepage(featuredProducts),
 });
@@ -328,7 +337,7 @@ const productsHtml = createPage(baseHtml, {
   title: "Digital Subscription Catalog | BundlyPlus",
   description:
     "Browse Netflix, Spotify, ChatGPT Plus, Adobe, YouTube Premium and 100+ digital subscriptions before JavaScript loads.",
-  canonical: "https://bundlyplus.com/products",
+  canonical: siteUrl("/products"),
   robots: "index, follow",
   jsonLd: createProductItemList(publicProducts),
   body: renderProductsPage(publicProducts),
@@ -343,7 +352,7 @@ for (const [routePath, title, description] of staticRoutes) {
     createPage(baseHtml, {
       title: `${title} | BundlyPlus`,
       description,
-      canonical: `{{https://bundlyplus.com${routePath}}}`,
+      canonical: siteUrl(routePath),
       robots: "index, follow",
       body: renderShell("BundlyPlus", title, description),
     }),
@@ -356,7 +365,7 @@ for (const [routePath, title, description] of privateRoutes) {
     createPage(baseHtml, {
       title: `${title} | BundlyPlus`,
       description,
-      canonical: `{{https://bundlyplus.com${routePath}}}`,
+      canonical: siteUrl(routePath),
       robots: "noindex, nofollow",
       body: renderShell("Private BundlyPlus page", title, description),
     }),
@@ -377,7 +386,7 @@ for (const [slug, title, desc] of BLOG_POSTS) {
     createPage(baseHtml, {
       title: `${escapeHtml(title)} | BundlyPlus Blog`,
       description: escapeHtml(desc),
-      canonical: `{{https://bundlyplus.com/blog/${escapeHtml(slug}})}`,
+      canonical: siteUrl(`/blog/${escapeHtml(slug)}`),
       robots: "index, follow",
       body: renderShell("BundlyPlus Blog", title, desc),
     }),
@@ -397,7 +406,7 @@ for (const product of publicProducts) {
     createPage(baseHtml, {
       title: `${escapeHtml(product.name)} | BundlyPlus`,
       description: `${escapeHtml(product.description)} Only ${formatPrice(product.price)}/${escapeHtml(product.duration || "month")} on BundlyPlus. Instant delivery via WhatsApp.`,
-      canonical: `{{https://bundlyplus.com${routePath}}}`,
+      canonical: siteUrl(routePath),
       robots: "index, follow",
       jsonLd: createProductJsonLd(product),
       body: renderProductDetailPage(product),
@@ -433,23 +442,29 @@ function escapeXml(s) {
 }
 
 const today = new Date().toISOString().split("T")[0];
+
+function sitemapEntry(routePath, changefreq, priority) {
+  const loc = escapeXml(siteUrl(routePath));
+  return `  <url><loc>${loc}</loc><lastmod>${today}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>\n`;
+}
+
 let sitemapUrls = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-sitemapUrls += `  <url><loc>{{https://bundlyplus.com/</loc><lastmod>${today}}}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
-sitemapUrls += `  <url><loc>{{https://bundlyplus.com/products</loc><lastmod>${today}}}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+sitemapUrls += sitemapEntry("/", "daily", "1.0");
+sitemapUrls += sitemapEntry("/products", "daily", "0.9");
 
 for (const product of publicProducts) {
   const slug = productSlug(product.name);
   if (slug === "") continue;
-  sitemapUrls += `  <url><loc>{{https://bundlyplus.com/products/${escapeXml(slug}})}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>\n`;
+  sitemapUrls += sitemapEntry(`/products/${slug}`, "weekly", "0.7");
 }
 
 for (const [routePath] of staticRoutes) {
-  sitemapUrls += `  <url><loc>{{https://bundlyplus.com${escapeXml(routePath}})}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>\n`;
+  sitemapUrls += sitemapEntry(routePath, "monthly", "0.4");
 }
 
 for (const [slug] of BLOG_POSTS) {
-  sitemapUrls += `  <url><loc>{{https://bundlyplus.com/blog/${escapeXml(slug}})}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>\n`;
+  sitemapUrls += sitemapEntry(`/blog/${slug}`, "weekly", "0.6");
 }
 
 const staticCount = 2 + publicProducts.length + staticRoutes.length + BLOG_POSTS.length;
