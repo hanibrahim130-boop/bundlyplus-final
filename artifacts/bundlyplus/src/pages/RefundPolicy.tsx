@@ -5,6 +5,9 @@ import { useI18n } from '@/lib/i18n';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { Seo } from '@/components/seo/Seo';
 
+// NOTE: the 25-day window below is also encoded as MERCHANT_RETURN_DAYS in
+// src/lib/product-schema.ts and advertised in src/lib/i18n.tsx and
+// src/components/home/SocialProofStrip.tsx. Change all of them together.
 const LAST_UPDATED_EN = 'August 3, 2026';
 const LAST_UPDATED_AR = '٣ آب ٢٠٢٦';
 
@@ -68,7 +71,7 @@ const SECTIONS_EN: Section[] = [
   {
     heading: '6. Time Frame',
     paragraphs: [
-      'Refund requests must be opened within 7 days of delivery. After that we will still help with replacements and support but cash refunds are case-by-case.',
+      'Refund requests must be opened within 25 days of delivery — this is the 25-day money-back guarantee advertised across the site. After that we will still help with replacements and support but cash refunds are case-by-case.',
     ],
   },
 ];
@@ -127,7 +130,7 @@ const SECTIONS_AR: Section[] = [
   {
     heading: '٦. الإطار الزمني',
     paragraphs: [
-      'يجب فتح طلب الاسترداد خلال ٧ أيام من التسليم. بعد ذلك نواصل مساعدتك في الاستبدال والدعم، لكن استرداد المبلغ النقدي يُدرس حالة بحالة.',
+      'يجب فتح طلب الاسترداد خلال ٢٥ يوماً من التسليم — وهذا هو ضمان الـ٢٥ يوماً المعلن في الموقع. بعد ذلك نواصل مساعدتك في الاستبدال والدعم، لكن استرداد المبلغ النقدي يُدرس حالة بحالة.',
     ],
   },
 ];
