@@ -6,6 +6,10 @@ import { useCatalogCount } from "@/lib/catalog-count";
  * Social proof strip — thin bar of trust signals between the hero
  * marquee and the Selection shelf. Four stats in a row, each with
  * an icon + number + label. Builds instant credibility.
+ *
+ * NOTE: the 25-day guarantee below must stay in sync with
+ * MERCHANT_RETURN_DAYS in src/lib/product-schema.ts and with section 6 of
+ * src/pages/RefundPolicy.tsx.
  */
 export function SocialProofStrip() {
   const { lang } = useI18n();
@@ -13,13 +17,13 @@ export function SocialProofStrip() {
 
   const stats = lang === "ar"
     ? [
-        { icon: Users, value: "+500", label: "زبون حول العالم" },
+        { icon: Users, value: "+500", label: "زبون بلبنان والمنطقة" },
         { icon: Star, value: "4.9★", label: "تقييم واتساب" },
         { icon: ShieldCheck, value: "25", label: "يوم ضمان" },
         { icon: MapPin, value: catalog.localized(lang), label: "منتج رقمي" },
       ]
     : [
-        { icon: Users, value: "500+", label: "customers worldwide" },
+        { icon: Users, value: "500+", label: "customers across MENA" },
         { icon: Star, value: "4.9★", label: "WhatsApp rating" },
         { icon: ShieldCheck, value: "25-day", label: "money-back guarantee" },
         { icon: MapPin, value: catalog.display, label: "digital products" },
