@@ -10,10 +10,6 @@
  *   - Invalid object type for field 'brand'
  *   - Missing field 'validFrom' (in 'offers')
  *   - Missing field 'hasMerchantReturnPolicy' (in 'offers')
- *
- * IMPORTANT: `MERCHANT_RETURN_DAYS` must always match the window published on
- * /refund-policy (both the English and Arabic copy). Google compares the
- * structured data against the visible policy.
  */
 
 export const SITE_URL = "https://bundlyplus.com";
@@ -36,8 +32,12 @@ export const SERVED_COUNTRIES = [
  */
 export const OFFER_VALID_FROM = "2026-01-01";
 
-/** Must match section 6 of /refund-policy in every language. */
-export const MERCHANT_RETURN_DAYS = 7;
+/**
+ * The money-back window BundlyPlus advertises. Must match
+ * `MERCHANT_RETURN_DAYS` in src/lib/product-schema.ts and every place the
+ * guarantee is shown to customers. See that file for the full list.
+ */
+export const MERCHANT_RETURN_DAYS = 25;
 
 export function buildBrand(name) {
   return {
